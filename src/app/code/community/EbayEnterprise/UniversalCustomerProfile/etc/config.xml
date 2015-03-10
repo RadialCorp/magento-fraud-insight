@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2014 eBay Enterprise, Inc.
+
+  NOTICE OF LICENSE
+
+  This source file is subject to the eBay Enterprise
+  Magento Extensions End User License Agreement
+  that is bundled with this package in the file LICENSE.md.
+  It is also available through the world-wide-web at this URL:
+  http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
+
+  @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+  @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
+
+-->
+<config>
+	<modules>
+		<EbayEnterprise_UniversalCustomerProfile>
+			<version>1.0.0</version>
+		</EbayEnterprise_UniversalCustomerProfile>
+	</modules>
+	<global>
+		<models>
+			<universalcustomerprofile>
+				<class>EbayEnterprise_UniversalCustomerProfile_Model</class>
+			</universalcustomerprofile>
+		</models>
+		<helpers>
+			<universalcustomerprofile>
+				<class>EbayEnterprise_UniversalCustomerProfile_Helper</class>
+			</universalcustomerprofile>
+		</helpers>
+		<resources>
+			<universalcustomerprofile_setup>
+				<setup>
+					<module>EbayEnterprise_UniversalCustomerProfile</module>
+					<class>Mage_Core_Model_Resource_Setup</class>
+				</setup>
+			</universalcustomerprofile_setup>
+		</resources>
+	</global>
+	<crontab>
+		<jobs>
+			<universalcustomerprofile_process_risk_fraud>
+				<schedule><cron_expr>0 */3 * * *</cron_expr></schedule>
+				<run>
+					<model>universalcustomerprofile/observer::detectFraudulentOrders</model>
+				</run>
+			</universalcustomerprofile_process_risk_fraud>
+		</jobs>
+	</crontab>
+	<default>
+		<universal_customer_profile>
+			<general>
+				<store_id/>
+			</general>
+			<api>
+				<hostname/>
+				<key/>
+				<timeout />
+			</api>
+		</universal_customer_profile>
+	</default>
+	<phpunit>
+		<suite>
+			<modules>
+				<EbayEnterprise_UniversalCustomerProfile/>
+			</modules>
+		</suite>
+	</phpunit>
+</config>

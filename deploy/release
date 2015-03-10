@@ -1,0 +1,29 @@
+#!/bin/bash
+
+##
+# Deploy a new release.
+#
+# Execute Magento build script
+# Upload new build to github
+#
+
+# SCRIPTNAME should always be the filename of the script.
+declare -r SCRIPTNAME=release
+
+##
+# Deploy
+main() {
+	if [[ -z "$1" ]]; then
+		echo "usage: release <build-tag>" >&2
+		exit 1;
+	fi
+
+	# Create a new Magento connect package using MagentoTarToConnect based on the current state
+	magento-tar-to-connect deploy/extension-config.php
+	# Create build on the remote repo
+	deploy/releaseToGithub "$1" "build/ebay_enterprise_universal_customer_profile.tar.gz" "$BUILD_REPO" "$GITHUB_KEY"
+}
+
+
+. deploy/utils
+
