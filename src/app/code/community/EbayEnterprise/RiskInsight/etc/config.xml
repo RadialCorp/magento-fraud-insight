@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright (c) 2014 eBay Enterprise, Inc.
+
+  NOTICE OF LICENSE
+
+  This source file is subject to the eBay Enterprise
+  Magento Extensions End User License Agreement
+  that is bundled with this package in the file LICENSE.md.
+  It is also available through the world-wide-web at this URL:
+  http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
+
+  @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+  @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
+
+-->
+<config>
+	<modules>
+		<EbayEnterprise_RiskInsight>
+			<version>1.0.0</version>
+		</EbayEnterprise_RiskInsight>
+	</modules>
+	<global>
+		<models>
+			<ebayenterprise_riskinsight>
+				<class>EbayEnterprise_RiskInsight_Model</class>
+				<resourceModel>ebayenterprise_riskinsight_resource</resourceModel>
+			</ebayenterprise_riskinsight>
+			<ebayenterprise_riskinsight_resource>
+				<class>EbayEnterprise_RiskInsight_Model_Resource</class>
+				<entities>
+					<risk_insight>
+						<table>ebayenterprise_risk_insight</table>
+					</risk_insight>
+				</entities>
+			</ebayenterprise_riskinsight_resource>
+		</models>
+		<helpers>
+			<ebayenterprise_riskinsight>
+				<class>EbayEnterprise_RiskInsight_Helper</class>
+			</ebayenterprise_riskinsight>
+		</helpers>
+		<resources>
+			<ebayenterprise_riskinsight_setup>
+				<setup>
+					<module>EbayEnterprise_RiskInsight</module>
+				</setup>
+			</ebayenterprise_riskinsight_setup>
+		</resources>
+		<events>
+			<checkout_submit_all_after>
+				<observers>
+					<handle_order_risk_fraud>
+						<class>ebayenterprise_riskinsight/observer</class>
+						<method>handleOrderRiskFraud</method>
+						<type>singleton</type>
+					</handle_order_risk_fraud>
+				</observers>
+			</checkout_submit_all_after>
+		</events>
+	</global>
+	<crontab>
+		<jobs>
+			<ebayenterprise_riskinsight_process_risk_fraud>
+				<schedule><cron_expr>0 */3 * * *</cron_expr></schedule>
+				<run>
+					<model>ebayenterprise_riskinsight/observer::detectFraudulentOrders</model>
+				</run>
+			</ebayenterprise_riskinsight_process_risk_fraud>
+		</jobs>
+	</crontab>
+	<default>
+		<ebayenterprise_riskinsight>
+			<risk_insight>
+				<enabled>0</enabled>
+				<store_id/>
+				<hostname/>
+				<key/>
+				<timeout>3000</timeout>
+				<debug>0</debug>
+				<order_source/>
+				<high_action>Hold for Review</high_action>
+				<medium_action>Hold for Review</medium_action>
+				<low_action>Process</low_action>
+				<unknown_action>Hold for Review</unknown_action>
+				<language_code>en_US</language_code>
+			</risk_insight>
+		</ebayenterprise_riskinsight>
+	</default>
+	<phpunit>
+		<suite>
+			<modules>
+				<EbayEnterprise_RiskInsight/>
+			</modules>
+		</suite>
+	</phpunit>
+</config>

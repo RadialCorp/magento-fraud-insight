@@ -1,0 +1,13 @@
+<RiskInsightRequest xmlns="http://schema.gsicommerce.com/risk/insight/1.0/">
+	<PrimaryLangId>en</PrimaryLangId>
+	<Order>
+		<OrderId>1008900500945</OrderId>
+		<OrderDate>2015-03-12T18:01:12+00:00</OrderDate>
+		<StoreId>1234</StoreId>
+		<FormOfPayments>
+			<FormOfPayment>
+				<Email>someone@someplace.com</Email>
+			</FormOfPayment>
+		</FormOfPayments>
+	</Order>
+</RiskInsightRequest>

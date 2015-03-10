@@ -1,0 +1,100 @@
+<RiskInsightRequest xmlns="http://schema.gsicommerce.com/risk/insight/1.0/">
+	<PrimaryLangId>en</PrimaryLangId>
+	<Order>
+		<OrderId>1008900500945</OrderId>
+		<OrderSource>WEBSTORE</OrderSource>
+		<OrderDate>2015-03-12T18:01:12+00:00</OrderDate>
+		<StoreId>1234</StoreId>
+		<ShippingList>
+			<Shipment ShipmentId="7783">
+				<PersonName>
+					<LastName>Stansfield</LastName>
+					<MiddleName>M</MiddleName>
+					<FirstName>Lisa</FirstName>
+				</PersonName>
+				<Email>ttester@test-center.com</Email>
+				<Telephone>
+					<CountryCode>+1</CountryCode>
+					<AreaCode>555</AreaCode>
+					<Number>5555555</Number>
+					<Extension>123</Extension>
+				</Telephone>
+				<Address>
+					<Line1>630 Allendale Rd</Line1>
+					<Line2>B</Line2>
+					<Line3>C</Line3>
+					<Line4>D</Line4>
+					<City>King of Prussia</City>
+					<PostalCode>19406</PostalCode>
+					<MainDivisionCode>PA</MainDivisionCode>
+					<CountryCode>US</CountryCode>
+				</Address>
+				<ShippingMethod>Standard_Ground</ShippingMethod>
+			</Shipment>
+		</ShippingList>
+		<LineItems>
+			<LineItem LineItemId="1234" ShipmentId="4321">
+				<ProductId>SKU-8893</ProductId>
+				<Description>Dell Laptop</Description>
+				<UnitCost>789</UnitCost>
+				<UnitCurrencyCode>$</UnitCurrencyCode>
+				<Quantity>1</Quantity>
+				<Category>Electronics / Computer</Category>
+				<PromoCode>15% Off</PromoCode>
+			</LineItem>
+		</LineItems>
+		<FormOfPayments>
+			<FormOfPayment>
+				<PaymentCard>
+					<CardHolderName>Testy Tester</CardHolderName>
+					<PaymentAccountUniqueId isToken="1">938378128939389444</PaymentAccountUniqueId>
+					<PaymentAccountBin>334322</PaymentAccountBin>
+					<ExpireDate>2020-05</ExpireDate>
+					<CardType>VC</CardType>
+				</PaymentCard>
+				<PersonName>
+					<LastName>Stansfield</LastName>
+					<MiddleName>M</MiddleName>
+					<FirstName>Lisa</FirstName>
+				</PersonName>
+				<Email>someone@someplace.com</Email>
+				<Telephone>
+					<CountryCode>+1</CountryCode>
+					<AreaCode>555</AreaCode>
+					<Number>5555555</Number>
+					<Extension>123</Extension>
+				</Telephone>
+				<Address>
+					<Line1>630 Allendale Rd</Line1>
+					<Line2>B</Line2>
+					<Line3>C</Line3>
+					<Line4>D</Line4>
+					<City>King of Prussia</City>
+					<PostalCode>19406</PostalCode>
+					<MainDivisionCode>PA</MainDivisionCode>
+					<CountryCode>US</CountryCode>
+				</Address>
+				<PaymentTransactionDate>2015-03-12T18:01:12+00:00</PaymentTransactionDate>
+				<CurrencyCode>$</CurrencyCode>
+				<Amount>800.00</Amount>
+				<TotalAuthAttemptCount>1</TotalAuthAttemptCount>
+				<TransactionResponses>
+					<TransactionResponse ResponseType="cvv2">M</TransactionResponse>
+				</TransactionResponses>
+			</FormOfPayment>
+		</FormOfPayments>
+		<TotalCost>
+			<CostTotals>
+				<CurrencyCode>$</CurrencyCode>
+				<AmountBeforeTax>789.00</AmountBeforeTax>
+				<AmountAfterTax>800.00</AmountAfterTax>
+			</CostTotals>
+		</TotalCost>
+		<DeviceInfo>
+			<DeviceIP>127.0.0.1</DeviceIP>
+			<HttpHeaders>
+				<HttpHeader name="user-agent">Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1;)</HttpHeader>
+			</HttpHeaders>
+		</DeviceInfo>
+	</Order>
+</RiskInsightRequest>

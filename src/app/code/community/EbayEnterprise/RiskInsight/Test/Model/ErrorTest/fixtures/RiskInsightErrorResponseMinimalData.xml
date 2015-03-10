@@ -1,0 +1,4 @@
+<RiskInsightErrorResponse xmlns="http://schema.gsicommerce.com/risk/insight/1.0/">
+	<ErrorCode>ERROR02</ErrorCode>
+	<ErrorDescription>UCP Service is temporarily out of service.</ErrorDescription>
+</RiskInsightErrorResponse>

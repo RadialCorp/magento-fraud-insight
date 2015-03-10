@@ -32,12 +32,12 @@
 	</testsuite>
 	<groups>
 		<include>
-			<group>EbayEnterprise_UniversalCustomerProfile</group>
+			<group>EbayEnterprise_RiskInsight</group>
 		</include>
 	</groups>
 	<filter>
 		<whitelist>
-			<directory suffix=".php">app/code/community/EbayEnterprise/UniversalCustomerProfile</directory>
+			<directory suffix=".php">app/code/community/EbayEnterprise/RiskInsight</directory>
 			<exclude>
 				<directory suffix=".php">app/code/community/EbayEnterprise/*/Test</directory>
 			</exclude>
