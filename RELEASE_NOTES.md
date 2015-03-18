@@ -1,1 +1,1 @@
-- Implement Magento Universal Customer Profile Extension
+- Implement Magento Risk Insight Extension

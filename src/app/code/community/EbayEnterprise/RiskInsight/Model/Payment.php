@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
@@ -19,25 +19,25 @@ class EbayEnterprise_RiskInsight_Model_Payment
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_IPayment
 {
-	/** @var EbayEnterprise_RiskInsight_Model_Payment_ICard */
+	/** @var EbayEnterprise_RiskInsight_Model_Payment_ICard $_paymentCard */
 	protected $_paymentCard;
-	/** @var EbayEnterprise_RiskInsight_Model_Person_IName */
+	/** @var EbayEnterprise_RiskInsight_Model_Person_IName $_personName */
 	protected $_personName;
-	/** @var string */
+	/** @var string $_email */
 	protected $_email;
-	/** @var EbayEnterprise_RiskInsight_Model_ITelephone */
+	/** @var EbayEnterprise_RiskInsight_Model_ITelephone $_telephone */
 	protected $_telephone;
-	/** @var EbayEnterprise_RiskInsight_Model_IAddress */
+	/** @var EbayEnterprise_RiskInsight_Model_IAddress $_address */
 	protected $_address;
-	/** @var DateTime */
+	/** @var DateTime $_paymentTransactionDate */
 	protected $_paymentTransactionDate;
-	/** @var string */
+	/** @var string $_currencyCode */
 	protected $_currencyCode;
-	/** @var float */
+	/** @var float $_amount */
 	protected $_amount;
-	/** @var int */
+	/** @var int $_totalAuthAttemptCount */
 	protected $_totalAuthAttemptCount;
-	/** @var EbayEnterprise_RiskInsight_Model_Transaction_IResponses */
+	/** @var EbayEnterprise_RiskInsight_Model_Transaction_IResponses $_transactionResponses */
 	protected $_transactionResponses;
 
 	public function __construct()

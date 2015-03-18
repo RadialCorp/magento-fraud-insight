@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
@@ -24,25 +24,30 @@ interface EbayEnterprise_RiskInsight_Model_Person_IName extends EbayEnterprise_R
 	 * @return string
 	 */
 	public function getLastName();
+
 	/**
 	 * @param  string $lastName
 	 * @return self
 	 */
 	public function setLastName($lastName);
+
 	/**
 	 * xsd restrictions: <= 10 characters
 	 * @return string
 	 */
 	public function getMiddleName();
+
 	/**
 	 * @param  string $middleName
 	 * @return self
 	 */
 	public function setMiddleName($middleName);
+
 	/**
 	 * @return string
 	 */
 	public function getFirstName();
+
 	/**
 	 * @param  string $firstName
 	 * @return self

@@ -1,0 +1,7 @@
+<RiskInsightResponse xmlns="http://schema.gsicommerce.com/risk/insight/1.0/">
+	<PrimaryLangId>en</PrimaryLangId>
+	<OrderId>10000000001</OrderId>
+	<StoreId>STS-00114</StoreId>
+	<ResponseReasonCode>LOW</ResponseReasonCode>
+	<ResponseReasonCodeDescription>Low risk customer</ResponseReasonCodeDescription>
+</RiskInsightResponse>

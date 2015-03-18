@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,28 +10,33 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
 
+/**
+ * @codeCoverageIgnore
+ */
 class EbayEnterprise_RiskInsight_Model_Config
 	implements EbayEnterprise_RiskInsight_Model_IConfig
 {
-	/** @var string */
+	/** @var string $_apiKey */
 	protected $_apiKey;
-	/** @var string */
+	/** @var string $_host */
 	protected $_host;
-	/** @var string */
+	/** @var string $_storeId */
 	protected $_storeId;
-	/** @var string */
-	protected $_action = 'post';
-	/** @var string */
+	/** @var string $_action */
+	protected $_action = '_post';
+	/** @var string $_contentType */
 	protected $_contentType = 'text/xml';
-	/** @var EbayEnterprise_RiskInsight_Model_IPayload */
+	/** @var EbayEnterprise_RiskInsight_Model_IPayload $_request */
 	protected $_request;
-	/** @var EbayEnterprise_RiskInsight_Model_IPayload */
+	/** @var EbayEnterprise_RiskInsight_Model_IPayload $_response */
 	protected $_response;
+	/** @var EbayEnterprise_RiskInsight_Model_IPayload $_error */
+	protected $_error;
 
 	/**
 	 * @param array $initParams Must have this key:
@@ -40,6 +45,7 @@ class EbayEnterprise_RiskInsight_Model_Config
 	 *                          - 'store_id' => string
 	 *                          - 'request' => EbayEnterprise_RiskInsight_Model_IPayload
 	 *                          - 'response' => EbayEnterprise_RiskInsight_Model_IPayload
+	 *                          - 'error' => EbayEnterprise_RiskInsight_Model_IPayload
 	 */
 	public function __construct(array $initParams=array())
 	{
@@ -48,21 +54,27 @@ class EbayEnterprise_RiskInsight_Model_Config
 			$this->_host,
 			$this->_storeId,
 			$this->_request,
-			$this->_response
+			$this->_response,
+			$this->_error
 		) = $this->_checkTypes(
 			$this->_nullCoalesce($initParams, 'api_key', null),
 			$this->_nullCoalesce($initParams, 'host', null),
 			$this->_nullCoalesce($initParams, 'store_id', null),
 			$this->_nullCoalesce($initParams, 'request', Mage::getModel('ebayenterprise_riskinsight/request')),
-			$this->_nullCoalesce($initParams, 'response', Mage::getModel('ebayenterprise_riskinsight/response'))
+			$this->_nullCoalesce($initParams, 'response', Mage::getModel('ebayenterprise_riskinsight/response')),
+			$this->_nullCoalesce($initParams, 'error', Mage::getModel('ebayenterprise_riskinsight/error'))
 		);
 	}
 
 	/**
 	 * Type hinting for self::__construct $initParams
-	 * @param string $apiKey
-	 * @param string $host
-	 * @param string $storeId
+	 *
+	 * @param  string $apiKey
+	 * @param  string $host
+	 * @param  string $storeId
+	 * @param  EbayEnterprise_RiskInsight_Model_IPayload $request
+	 * @param  EbayEnterprise_RiskInsight_Model_IPayload $response
+	 * @param  EbayEnterprise_RiskInsight_Model_IPayload $error
 	 * @return array
 	 */
 	protected function _checkTypes(
@@ -70,12 +82,15 @@ class EbayEnterprise_RiskInsight_Model_Config
 		$host,
 		$storeId,
 		EbayEnterprise_RiskInsight_Model_IPayload $request,
-		EbayEnterprise_RiskInsight_Model_IPayload $response
+		EbayEnterprise_RiskInsight_Model_IPayload $response,
+		EbayEnterprise_RiskInsight_Model_IPayload $error
 	) {
-		return array($apiKey, $host, $storeId, $request, $response);
+		return array($apiKey, $host, $storeId, $request, $response, $error);
 	}
+
 	/**
 	 * Return the value at field in array if it exists. Otherwise, use the default value.
+	 *
 	 * @param  array $arr
 	 * @param  string | int $field Valid array key
 	 * @param  mixed $default
@@ -98,12 +113,12 @@ class EbayEnterprise_RiskInsight_Model_Config
 
 	public function getHttpMethod()
 	{
-		return $this->action;
+		return $this->_action;
 	}
 
 	public function getContentType()
 	{
-		return $this->contentType;
+		return $this->_contentType;
 	}
 
 	public function getRequest()
@@ -125,6 +140,17 @@ class EbayEnterprise_RiskInsight_Model_Config
 	public function setResponse(EbayEnterprise_RiskInsight_Model_IPayload $response)
 	{
 		$this->_response = $response;
+		return $this;
+	}
+
+	public function getError()
+	{
+		return $this->_error;
+	}
+
+	public function setError(EbayEnterprise_RiskInsight_Model_IPayload $error)
+	{
+		$this->_error = $error;
 		return $this;
 	}
 }

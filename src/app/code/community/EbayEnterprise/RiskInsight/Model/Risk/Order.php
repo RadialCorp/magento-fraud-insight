@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,12 +10,13 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
 
 class EbayEnterprise_RiskInsight_Model_Risk_Order
+	implements EbayEnterprise_RiskInsight_Model_Risk_IOrder
 {
 	/** @var EbayEnterprise_RiskInsight_Helper_Data $_helper */
 	protected $_helper;
@@ -35,20 +36,24 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 			$this->_nullCoalesce($initParams, 'config', Mage::helper('ebayenterprise_riskinsight/config'))
 		);
 	}
+
 	/**
 	 * Type hinting for self::__construct $initParams
+	 *
 	 * @param  EbayEnterprise_RiskInsight_Helper_Data $helper
 	 * @param  EbayEnterprise_RiskInsight_Helper_Config $config
 	 * @return array
 	 */
 	protected function _checkTypes(
 		EbayEnterprise_RiskInsight_Helper_Data $helper,
-		EbayEnterprise_RiskInsight_Helper_Config $config,
+		EbayEnterprise_RiskInsight_Helper_Config $config
 	) {
 		return array($helper, $config);
 	}
+
 	/**
 	 * Return the value at field in array if it exists. Otherwise, use the default value.
+	 *
 	 * @param  array $arr
 	 * @param  string | int $field Valid array key
 	 * @param  mixed $default
@@ -58,24 +63,30 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 	{
 		return isset($arr[$field]) ? $arr[$field] : $default;
 	}
+
 	/**
 	 * Get new empty request payload
+	 *
 	 * @return EbayEnterprise_RiskInsight_Model_IPayload
 	 */
 	protected function _getNewEmptyRequest()
 	{
 		return Mage::getModel('ebayenterprise_riskinsight/request');
 	}
+
 	/**
 	 * Get new empty response payload
+	 *
 	 * @return EbayEnterprise_RiskInsight_Model_IPayload
 	 */
 	protected function _getNewEmptyResponse()
 	{
 		return Mage::getModel('ebayenterprise_riskinsight/response');
 	}
+
 	/**
 	 * Get new API config object.
+	 *
 	 * @param  EbayEnterprise_RiskInsight_Model_IPayload $request
 	 * @param  EbayEnterprise_RiskInsight_Model_IPayload $response
 	 * @return EbayEnterprise_RiskInsight_Model_IConfig
@@ -93,38 +104,115 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 			'response' => $response,
 		));
 	}
+
 	/**
 	 * Get new API object.
+	 *
 	 * @return EbayEnterprise_RiskInsight_Model_IApi
 	 */
 	protected function _getApi(EbayEnterprise_RiskInsight_Model_IConfig $config)
 	{
 		return Mage::getModel('ebayenterprise_riskinsight/api', $config);
 	}
-	/**
-	 * Get a collection of risk insight, send UCP Service Request, base on the response
-	 * either change the order status to what is configured from the response code or
-	 * simply log message and do nothing.
-	 * @return self
-	 */
+
 	public function process()
 	{
-		$insightCollection = $this->_helper->getRiskInsightCollection();
-		$incrementIds = $this->_getOrderIncementIds($insightCollection);
-		$orderCollection = $this->_helper->getOrderCollectionByIncrementIds($incrementIds);
-		foreach ($collection as $insight) {
-			$order = $orderCollection->getItemByColumnValue('increment_id', $incrementIds);
+		$this->_processRiskOrderCollection($this->_helper->getRiskInsightCollection());
+		return $this;
+	}
+
+	public function processRiskOrder(
+		EbayEnterprise_RiskInsight_Model_Risk_Insight $insight,
+		Mage_Sales_Model_Order $order
+	)
+	{
+		$fufillRequest = $this->_buildRequestFromOrder($this->_getNewEmptyRequest(), $insight, $order);
+		$apiConfig = $this->_setupApiConfig($fufillRequest, $this->_getNewEmptyResponse());
+		$response = $this->_sendRequest($this->_getApi($apiConfig));
+		if ($response) {
+			$this->_processResponse($response, $insight, $order);
+		}
+	}
+
+	/**
+	 * @param  EbayEnterprise_RiskInsight_Model_Resource_Risk_Insight_Collection $insightCollection
+	 * @return self
+	 */
+	protected function _processRiskOrderCollection(EbayEnterprise_RiskInsight_Model_Resource_Risk_Insight_Collection $insightCollection)
+	{
+		$orderCollection = $this->_helper->getOrderCollectionByIncrementIds($this->_getOrderIncementIds($insightCollection));
+		foreach ($insightCollection as $insight) {
+			$order = $orderCollection->getItemByColumnValue('increment_id', $insight->getOrderIncrementId());
 			if ($order) {
-				$fufillRequest = $this->_buildRequestFromOrder($this->_getNewEmptyRequest(), $order);
-				$apiConfig = $this->_setupApiConfig($fufillRequest, $this->_getNewEmptyResponse());
-				$api = $this->_getApi($apiConfig);
+				$this->processRiskOrder($insight, $order);
 			}
 		}
 		return $this;
 	}
 
 	/**
+	 * @param  EbayEnterprise_RiskInsight_Model_IApi $api
+	 * @return EbayEnterprise_RiskInsight_Model_IPayload | null
+	 */
+	protected function _sendRequest(EbayEnterprise_RiskInsight_Model_IApi $api)
+	{
+		$response = null;
+		try {
+			$api->send();
+			$response = $api->getResponseBody();
+		} catch (Exception $e) {
+			$logMessage = sprintf('[%s] The following error has occurred while sending request: %s', __CLASS__, $e->getMessage());
+			Mage::log($logMessage, Zend_Log::WARN);
+			Mage::logException($e);
+		}
+		return $response;
+	}
+
+	/**
+	 * @param  EbayEnterprise_RiskInsight_Model_IPayload $response
+	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight $insight
+	 * @param  Mage_Sales_Model_Order $order
+	 * @return self
+	 */
+	protected function _processResponse(
+		EbayEnterprise_RiskInsight_Model_IPayload $response,
+		EbayEnterprise_RiskInsight_Model_Risk_Insight $insight,
+		Mage_Sales_Model_Order $order
+	)
+	{
+		return Mage::getModel('ebayenterprise_riskinsight/process_response', array(
+			'response' => $response,
+			'insight' => $insight,
+			'order' => $order,
+		))->process();
+
+		return $this;
+	}
+
+	/**
+	 * Build the passed in request object using the passed in order and insight object.
+	 *
+	 * @param  EbayEnterprise_RiskInsight_Model_IPayload $request
+	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight $insight
+	 * @param  Mage_Sales_Model_Order $order
+	 * @return EbayEnterprise_RiskInsight_Model_IPayload
+	 */
+	protected function _buildRequestFromOrder(
+		EbayEnterprise_RiskInsight_Model_IPayload $request,
+		EbayEnterprise_RiskInsight_Model_Risk_Insight $insight,
+		Mage_Sales_Model_Order $order
+	)
+	{
+		return Mage::getModel('ebayenterprise_riskinsight/build_request', array(
+			'request' => $request,
+			'insight' => $insight,
+			'order' => $order,
+		))->build();
+	}
+
+	/**
 	 * Get all order increment id from a passed in collection of risk insight instance.
+	 *
 	 * @param  EbayEnterprise_RiskInsight_Model_Resource_Risk_Insight_Collection $collections
 	 * @return array
 	 */

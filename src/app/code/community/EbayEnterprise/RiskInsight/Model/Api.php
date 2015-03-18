@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,22 +10,27 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
 
+/**
+ * @codeCoverageIgnore
+ */
 class EbayEnterprise_RiskInsight_Model_Api
 	implements EbayEnterprise_RiskInsight_Model_IApi
 {
-	/** @var EbayEnterprise_RiskInsight_Model_IConfig */
+	/** @var EbayEnterprise_RiskInsight_Model_IConfig $_config */
 	protected $_config;
-	/** @var EbayEnterprise_RiskInsight_Model_IPayload */
+	/** @var EbayEnterprise_RiskInsight_Model_IPayload $_requestPayload */
 	protected $_requestPayload;
-	/** @var  EbayEnterprise_RiskInsight_Model_IPayload */
+	/** @var  EbayEnterprise_RiskInsight_Model_IPayload $_replyPayload */
 	protected $_replyPayload;
-	/** @var  Requests_Response Response object from the last call to Requests */
+	/** @var  Requests_Response $_lastRequestsResponse - Response object from the last call to Requests */
 	protected $_lastRequestsResponse;
+	/** @var EbayEnterprise_RiskInsight_Helper_Config $_helperConfig */
+	protected $_helperConfig;
 
 	/**
 	 * Configure the api by supplying an object that informs
@@ -36,7 +41,8 @@ class EbayEnterprise_RiskInsight_Model_Api
 	public function __construct(EbayEnterprise_RiskInsight_Model_Config $config)
 	{
 		$this->_config = $config;
-		Requests::register_autoloader();
+		$this->_helperConfig = Mage::helper('ebayenterprise_riskinsight/config');
+		Requests_Requests::register_autoloader();
 	}
 
 	public function setRequestBody(EbayEnterprise_RiskInsight_Model_IPayload $payload)
@@ -67,10 +73,26 @@ class EbayEnterprise_RiskInsight_Model_Api
 			// when the request cannot even be attempted.
 			throw Mage::exception('EbayEnterprise_RiskInsight_Model_Exception_Network_Error', $e->getMessage());
 		}
+		$this->_deserializeResponse($this->_lastRequestsResponse->body);
+		return $this;
+	}
 
-		$responseData = $this->_lastRequestsResponse->body;
-		$this->getResponseBody()->deserialize($responseData);
-
+	/**
+	 * @param  string $responseData
+	 * @return self
+	 */
+	protected function _deserializeResponse($responseData)
+	{
+		try {
+			$this->getResponseBody()->deserialize($responseData);
+		} catch (EbayEnterprise_RiskInsight_Model_Exception_Invalid_Payload_Exception $e) {
+			$this->_setErrorResponseBody();
+			$this->getResponseBody()->deserialize($responseData);
+		}
+		if ($this->_helperConfig->isDebugMode()) {
+			$logMessage = sprintf('[%s] Response Body: %s', __CLASS__, $responseData);
+			Mage::log($logMessage, Zend_Log::DEBUG);
+		}
 		return $this;
 	}
 
@@ -105,6 +127,12 @@ class EbayEnterprise_RiskInsight_Model_Api
 		return $this->_replyPayload;
 	}
 
+	protected function _setErrorResponseBody()
+	{
+		$this->_replyPayload = $this->_config->getError();
+		return $this;
+	}
+
 	/**
 	 * @return boolean
 	 * @throws EbayEnterprise_RiskInsight_Model_Exception_Unsupported_Http_Action_Exception
@@ -130,10 +158,15 @@ class EbayEnterprise_RiskInsight_Model_Api
 	 */
 	protected function _post()
 	{
-		$this->_lastRequestsResponse = Requests::post(
+		$requestXml = $this->getRequestBody()->serialize();
+		if ($this->_helperConfig->isDebugMode()) {
+			$logMessage = sprintf('[%s] Request Body: %s', __CLASS__, $requestXml);
+			Mage::log($logMessage, Zend_Log::DEBUG);
+		}
+		$this->_lastRequestsResponse = Requests_Requests::post(
 			$this->_config->getEndpoint(),
 			$this->_buildHeader(),
-			$this->getRequestBody()->serialize()
+			$requestXml
 		);
 		return $this->_lastRequestsResponse->success;
 	}
@@ -152,7 +185,7 @@ class EbayEnterprise_RiskInsight_Model_Api
 	 */
 	protected function _get()
 	{
-		$this->_lastRequestsResponse = Requests::post(
+		$this->_lastRequestsResponse = Requests_Requests::post(
 			$this->_config->getEndpoint(),
 			$this->_buildHeader()
 		);

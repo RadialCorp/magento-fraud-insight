@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,12 +10,13 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
 
 class EbayEnterprise_RiskInsight_Model_Risk_Fraud
+	implements EbayEnterprise_RiskInsight_Model_Risk_IFraud
 {
 	/** @var Mage_Sales_Model_Order $_order */
 	protected $_order;
@@ -34,8 +35,10 @@ class EbayEnterprise_RiskInsight_Model_Risk_Fraud
 			$this->_nullCoalesce($initParams, 'helper', Mage::helper('ebayenterprise_riskinsight'))
 		);
 	}
+
 	/**
 	 * Type hinting for self::__construct $initParams
+	 *
 	 * @param  Mage_Sales_Model_Order $order
 	 * @param  EbayEnterprise_RiskInsight_Helper_Data $helper
 	 * @return array
@@ -46,8 +49,10 @@ class EbayEnterprise_RiskInsight_Model_Risk_Fraud
 	) {
 		return array($order, $helper);
 	}
+
 	/**
 	 * Return the value at field in array if it exists. Otherwise, use the default value.
+	 *
 	 * @param  array $arr
 	 * @param  string | int $field Valid array key
 	 * @param  mixed $default
@@ -57,8 +62,10 @@ class EbayEnterprise_RiskInsight_Model_Risk_Fraud
 	{
 		return isset($arr[$field]) ? $arr[$field] : $default;
 	}
+
 	/**
 	 * Get new risk instance loaded by passed in order increment id.
+	 *
 	 * @param  string $orderIncrementId
 	 * @return EbayEnterprise_RiskInsight_Model_Risk_Insight
 	 */
@@ -67,8 +74,10 @@ class EbayEnterprise_RiskInsight_Model_Risk_Fraud
 		return Mage::getModel('ebayenterprise_riskinsight/risk_insight')
 			->load($orderIncrementId, 'order_increment_id');
 	}
+
 	/**
 	 * Get all risk insight data.
+	 *
 	 * @param  string $orderIncrementId
 	 * @return array
 	 */
@@ -80,8 +89,10 @@ class EbayEnterprise_RiskInsight_Model_Risk_Fraud
 			'is_request_sent' => 0,
 		);
 	}
+
 	/**
 	 * Check if we have a valid order increment id
+	 *
 	 * @param  string $orderIncrementId
 	 * @return bool
 	 */
@@ -94,11 +105,7 @@ class EbayEnterprise_RiskInsight_Model_Risk_Fraud
 		}
 		return true;
 	}
-	/**
-	 * Adding newly created order to the risk fraud database table
-	 * including header information.
-	 * @return self
-	 */
+
 	public function process()
 	{
 		$orderIncrementId = trim($this->_order->getIncrementId());

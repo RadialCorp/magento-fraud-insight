@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2014 eBay Enterprise, Inc.
+  Copyright (c) 2015 eBay Enterprise, Inc.
 
   NOTICE OF LICENSE
 
@@ -10,7 +10,7 @@
   It is also available through the world-wide-web at this URL:
   http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
 
-  @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+  @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
   @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
 
 -->
@@ -21,6 +21,18 @@
 		</EbayEnterprise_RiskInsight>
 	</modules>
 	<global>
+		<fieldsets>
+			<sales_copy_quote_payment>
+				<created_at>
+					<to_order_payment>created_at</to_order_payment>
+				</created_at>
+			</sales_copy_quote_payment>
+			<sales_convert_quote_payment>
+				<created_at>
+					<to_order_payment>created_at</to_order_payment>
+				</created_at>
+			</sales_convert_quote_payment>
+		</fieldsets>
 		<models>
 			<ebayenterprise_riskinsight>
 				<class>EbayEnterprise_RiskInsight_Model</class>
@@ -40,6 +52,17 @@
 				<class>EbayEnterprise_RiskInsight_Helper</class>
 			</ebayenterprise_riskinsight>
 		</helpers>
+		<blocks>
+			<ebayenterprise_riskinsight>
+				<class>EbayEnterprise_RiskInsight_Block</class>
+			</ebayenterprise_riskinsight>
+			<adminhtml>
+				<rewrite>
+					<sales_order_view>EbayEnterprise_RiskInsight_Block_Adminhtml_Sales_Order_View</sales_order_view>
+					<sales_order_view_info>EbayEnterprise_RiskInsight_Block_Adminhtml_Sales_Order_View_Info</sales_order_view_info>
+				</rewrite>
+			</adminhtml>
+		</blocks>
 		<resources>
 			<ebayenterprise_riskinsight_setup>
 				<setup>
@@ -48,7 +71,7 @@
 			</ebayenterprise_riskinsight_setup>
 		</resources>
 		<events>
-			<checkout_submit_all_after>
+			<sales_model_service_quote_submit_after>
 				<observers>
 					<handle_order_risk_fraud>
 						<class>ebayenterprise_riskinsight/observer</class>
@@ -56,9 +79,38 @@
 						<type>singleton</type>
 					</handle_order_risk_fraud>
 				</observers>
-			</checkout_submit_all_after>
+			</sales_model_service_quote_submit_after>
 		</events>
 	</global>
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<EbayEnterprise_RiskInsight after="Mage_Adminhtml">EbayEnterprise_RiskInsight</EbayEnterprise_RiskInsight>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+	<adminhtml>
+		<translate>
+			<modules>
+				<EbayEnterprise_RiskInsight>
+					<files>
+						<default>EbayEnterprise_RiskInsight.csv</default>
+					</files>
+				</EbayEnterprise_RiskInsight>
+			</modules>
+		</translate>
+		<layout>
+			<updates>
+				<ebayenterprise_riskinsight>
+					<file>ebayenterprise_riskinsight.xml</file>
+				</ebayenterprise_riskinsight>
+			</updates>
+		</layout>
+	</adminhtml>
 	<crontab>
 		<jobs>
 			<ebayenterprise_riskinsight_process_risk_fraud>
@@ -83,7 +135,16 @@
 				<medium_action>Hold for Review</medium_action>
 				<low_action>Process</low_action>
 				<unknown_action>Hold for Review</unknown_action>
-				<language_code>en_US</language_code>
+				<language_code>en</language_code>
+				<card_type_map>
+					<AE>AM</AE>
+					<VI>VC</VI>
+					<MC>MC</MC>
+					<DI>DC</DI>
+					<cashondelivery>CASH</cashondelivery>
+					<paypal_express>PY</paypal_express>
+					<free>OTHER</free>
+				</card_type_map>
 			</risk_insight>
 		</ebayenterprise_riskinsight>
 	</default>

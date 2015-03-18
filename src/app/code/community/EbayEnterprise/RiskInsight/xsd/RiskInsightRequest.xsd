@@ -119,7 +119,14 @@
                     </xsd:documentation>
                 </xsd:annotation>
             </xsd:element>
-            <xsd:element type="ShippingMethodType" name="ShippingMethod"/>
+            <xsd:element type="xsd:string" name="ShippingMethod">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        Definition: The method of shipment for the order.
+                        Sample Data: Ground, Overnight, 2 Day, 3 Day
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
         </xsd:sequence>
 
         <xsd:attribute name="ShipmentId" type="nonEmptyString" use="required">
@@ -265,20 +272,9 @@
         </xsd:sequence>
     </xsd:complexType>
 
-    <xsd:simpleType name="ShippingMethodType">
-        <xsd:annotation>
-            <xsd:documentation xml:lang="en">
-                Definition: The method of shipment for the order.
-                Sample Data: Standard_Ground,1DAY,2DAY,EXPRESS
-            </xsd:documentation>
-        </xsd:annotation>
-        <xsd:restriction base="nonEmptyString">
-        </xsd:restriction>
-    </xsd:simpleType>
-
     <xsd:complexType name="LineItemsType">
         <xsd:sequence>
-            <xsd:element type="LineItemType" name="LineItem"  minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element type="LineItemType" name="LineItem" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
     </xsd:complexType>
 
@@ -515,7 +511,8 @@
                 <xsd:attribute name="isToken" type="xsd:boolean" use="required">
                     <xsd:annotation>
                         <xsd:documentation xml:lang="en">
-                            Definintion: Set it to true if a tokenized value is being sent. If a raw account/credit card number is being sent, set it to false.
+                            Definintion: Set it to true if a tokenized value is being sent. If a raw account/credit card
+                            number is being sent, set it to false.
                             Sample Data: true or false
                         </xsd:documentation>
                     </xsd:annotation>
@@ -605,11 +602,13 @@
     <xsd:complexType name="HttpHeaderType">
         <xsd:annotation>
             <xsd:documentation xml:lang="en">
-                Definition: Each HttpHeader element represents one HTTP header entry collected from the HTTP session for the customer's order.
+                Definition: Each HttpHeader element represents one HTTP header entry collected from the HTTP session for
+                the customer's order.
                 Implementation Notes: Header names should conform to HTTP 1.1 spec.
                 Sample data:
                 <HttpHeader name="user-agent">Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/7.0;
-                    SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C; .NET4.0E)
+                    SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; .NET4.0C;
+                    .NET4.0E)
                 </HttpHeader>
             </xsd:documentation>
         </xsd:annotation>
@@ -695,7 +694,8 @@
             <xsd:enumeration value="OTHER">
                 <xsd:annotation>
                     <xsd:documentation xml:lang="en">
-                        Definition: use this value if the order was placed by a different method other than the above methods.
+                        Definition: use this value if the order was placed by a different method other than the above
+                        methods.
                     </xsd:documentation>
                 </xsd:annotation>
             </xsd:enumeration>
@@ -907,6 +907,67 @@
                 <xsd:annotation>
                     <xsd:documentation xml:lang="en">
                         Definition: use this value if the response is unknown.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="shipMethodTypeEnums">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Ground">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        Definition: use this code if the shipping method used is ground.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Overnight">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        Definition: use this code if the shipping method used is overnight or 1 day delivery.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Same Day">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        Definition: use this code if the shipping method used is Same Day delivery.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="2 Day">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        Definition: use this code if the shipping method used is 2 Day delivery.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="3 Day">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        Definition: use this code if the shipping method used is 3 Day delivery.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="In Store Pickup">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        Definition: use this code if the customer is going to pick up the item in store.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Ship To Store">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        Definition: use this code if the item is going from warehouse to store.
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:enumeration>
+            <xsd:enumeration value="Unknown">
+                <xsd:annotation>
+                    <xsd:documentation xml:lang="en">
+                        Definition: use this code if the shipping method is none of the above enums provided.
                     </xsd:documentation>
                 </xsd:annotation>
             </xsd:enumeration>

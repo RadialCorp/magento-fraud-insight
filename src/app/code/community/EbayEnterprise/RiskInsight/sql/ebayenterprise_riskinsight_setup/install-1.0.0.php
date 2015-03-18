@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
@@ -51,4 +51,23 @@ $table = $conn
 	);
 
 $conn->createTable($table);
+
+// Add Risk Order Statuses and States
+$data = array(
+	array('status' => 'risk_review', 'label' => 'Risk Review', 'is_default' => 0, 'state' => Mage_Sales_Model_Order::STATE_HOLDED),
+	array('status' => 'risk_canceled', 'label' => 'Risk Canceled', 'is_default' => 0, 'state' => Mage_Sales_Model_Order::STATE_CANCELED),
+);
+$statusFields = array('status', 'label');
+$stateFields = array('status', 'state', 'is_default');
+$statusTbl = $installer->getTable('sales/order_status');
+$stateTbl = $installer->getTable('sales/order_status_state');
+
+foreach ($data as $datum) {
+	$statusValues = array($datum['status'], $datum['label']);
+	$conn->insertArray($statusTbl, $statusFields, array(array_combine($statusFields, $statusValues)));
+
+	$stateValues = array($datum['status'], $datum['state'], $datum['is_default']);
+	$conn->insertArray($stateTbl, $stateFields, array(array_combine($stateFields, $stateValues)));
+}
+
 $installer->endSetup();

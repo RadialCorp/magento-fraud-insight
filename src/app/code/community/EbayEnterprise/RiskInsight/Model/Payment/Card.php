@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
@@ -19,27 +19,25 @@ class EbayEnterprise_RiskInsight_Model_Payment_Card
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_Payment_ICard
 {
-	/** @var string */
+	/** @var string $_cardHolderName */
 	protected $_cardHolderName;
-	/** @var string */
+	/** @var string paymentAccountUniqueId */
 	protected $_paymentAccountUniqueId;
-	/** @var bool */
+	/** @var bool $_isToken */
 	protected $_isToken;
-	/** @var string */
+	/** @var string $_paymentAccountBin */
 	protected $_paymentAccountBin;
-	/** @var string */
+	/** @var string $_expireDate */
 	protected $_expireDate;
-	/** @var string */
+	/** @var string $_cardType */
 	protected $_cardType;
 
 	public function __construct()
 	{
-		$this->_extractionPaths = array(
-			'setPaymentAccountBin' => 'string(x:PaymentAccountBin)',
-		);
 		$this->_optionalExtractionPaths = array(
 			'setCardHolderName' => 'x:CardHolderName',
 			'setPaymentAccountUniqueId' => 'x:PaymentAccountUniqueId',
+			'setPaymentAccountBin' => 'x:PaymentAccountBin',
 			'setExpireDate' => 'x:ExpireDate',
 			'setCardType' => 'x:CardType',
 		);
@@ -116,7 +114,7 @@ class EbayEnterprise_RiskInsight_Model_Payment_Card
 
 	protected function _canSerialize()
 	{
-		return (trim($this->getPaymentAccountBin()) !== '');
+		return (trim($this->_serializeContents()) !== '');
 	}
 
 	protected function _getRootNodeName()
@@ -133,7 +131,7 @@ class EbayEnterprise_RiskInsight_Model_Payment_Card
 	{
 		return $this->_serializeOptionalValue('CardHolderName', $this->getCardHolderName())
 			. $this->_serializePaymentAccountUniqueId()
-			. $this->_serializeNode('PaymentAccountBin', $this->getPaymentAccountBin())
+			. $this->_serializeOptionalValue('PaymentAccountBin', $this->getPaymentAccountBin())
 			. $this->_serializeOptionalValue('ExpireDate', $this->getExpireDate())
 			. $this->_serializeOptionalValue('CardType', $this->getCardType());
 	}

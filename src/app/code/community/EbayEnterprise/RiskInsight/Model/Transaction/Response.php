@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
@@ -19,10 +19,26 @@ class EbayEnterprise_RiskInsight_Model_Transaction_Response
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_Transaction_IResponse
 {
-	/** @var string */
+	/** @var string $_response */
 	protected $_response;
-	/** @var string */
+	/** @var string  $_responseType */
 	protected $_responseType;
+	/** @var array $_responseTypeEnums */
+	protected $_responseTypeEnums = array(
+		'avsAddr',
+		'avsZip',
+		'3ds',
+		'cvv2',
+		'PayPalPayer',
+		'PayPalAddress',
+		'PayPalPayerCountry',
+		'PayPalSellerProtection',
+		'AmexName',
+		'AmexEmail',
+		'AmexPhone'
+	);
+	/** @var array $_responseEnums */
+	protected $_responseEnums = array('M', 'N', 'confirmed', 'verified', 'X');
 
 	public function __construct()
 	{
@@ -52,6 +68,12 @@ class EbayEnterprise_RiskInsight_Model_Transaction_Response
 	{
 		$this->_responseType = $responseType;
 		return $this;
+	}
+
+	protected function _canSerialize()
+	{
+		return in_array($this->getResponse(), $this->_responseEnums)
+			&& in_array($this->getResponseType(), $this->_responseTypeEnums);
 	}
 
 	protected function _getRootNodeName()

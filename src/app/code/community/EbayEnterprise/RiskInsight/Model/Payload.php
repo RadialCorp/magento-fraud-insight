@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
@@ -18,20 +18,20 @@
 abstract class EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_IPayload
 {
-	/** @var EbayEnterprise_RiskInsight_Model_Xsd_Validator */
+	/** @var EbayEnterprise_RiskInsight_Model_Xsd_Validator $_schemaValidator */
 	protected $_schemaValidator;
-	/** @var EbayEnterprise_RiskInsight_Helper_Data */
+	/** @var EbayEnterprise_RiskInsight_Helper_Data $_helper */
 	protected $_helper;
-	/** @var array XPath expressions to extract required data from the serialized payload (XML) */
+	/** @var array $_extractionPaths - XPath expressions to extract required data from the serialized payload (XML) */
 	protected $_extractionPaths = array();
-	/** @var array */
+	/** @var array $_optionalExtractionPaths */
 	protected $_optionalExtractionPaths = array();
-	/** @var array */
+	/** @var array $_dateTimeExtractionPaths */
 	protected $_dateTimeExtractionPaths = array();
-	/** @var array property/XPath pairs that take boolean values */
+	/** @var array $_booleanExtractionPaths - property/XPath pairs that take boolean values */
 	protected $_booleanExtractionPaths = array();
 	/**
-	 * @var array property/XPath pairs. if property is a payload, first node matched
+	 * @var array $_subpayloadExtractionPaths - property/XPath pairs. if property is a payload, first node matched
 	 *            will be deserialized by that payload
 	 */
 	protected $_subpayloadExtractionPaths = array();
@@ -57,7 +57,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	}
 
 	/**
-	 * @param DOMXPath $xpath
+	 * @param  DOMXPath $xpath
 	 * @return self
 	 */
 	protected function _deserializeExtractionPaths(DOMXPath $xpath)
@@ -72,7 +72,8 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	 * When optional nodes are not included in the serialized data,
 	 * they should not be set in the payload. Fortunately, these
 	 * are all string values so no additional type conversion is necessary.
-	 * @param DOMXPath $xpath
+	 *
+	 * @param  DOMXPath $xpath
 	 * @return self
 	 */
 	protected function _deserializeOptionalExtractionPaths(DOMXPath $xpath)
@@ -88,7 +89,8 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 
 	/**
 	 * boolean values have to be handled specially
-	 * @param DOMXPath $xpath
+	 *
+	 * @param  DOMXPath $xpath
 	 * @return self
 	 */
 	protected function _deserializeBooleanExtractionPaths(DOMXPath $xpath)
@@ -101,7 +103,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	}
 
 	/**
-	 * @param DOMXPath $xpath
+	 * @param  DOMXPath $xpath
 	 * @return self
 	 */
 	protected function _deserializeSubpayloadExtractionPaths(DOMXPath $xpath)
@@ -118,7 +120,8 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 
 	/**
 	 * Ensure any date time string is instantiate
-	 * @param DOMXPath $xpath
+	 *
+	 * @param  DOMXPath $xpath
 	 * @return self
 	 */
 	protected function _deserializeDateTimeExtractionPaths(DOMXPath $xpath)
@@ -158,6 +161,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 
 	/**
 	 * Stash the xsd validator in the class property '_schemaValidator'
+	 *
 	 * @return EbayEnterprise_RiskInsight_Model_Xsd_Validator
 	 */
 	protected function _getXsdValidator()
@@ -170,6 +174,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 
 	/**
 	 * Stash the helper class in the class property '_helper'
+	 *
 	 * @return EbayEnterprise_RiskInsight_Helper_Data
 	 */
 	protected function _getHelper()
@@ -186,7 +191,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	 * deserialization paths. Default implementation is a no-op. Expected to
 	 * be overridden by payloads that need it.
 	 *
-	 * @param string
+	 * @param  string
 	 * @return self
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */
@@ -197,6 +202,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 
 	/**
 	 * convert line item substrings into line item objects
+	 *
 	 * @param  string $serializedPayload
 	 * @return self
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
@@ -209,7 +215,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	/**
 	 * Build a new EbayEnterprise_RiskInsight_Model_IPayload for the given interface.
 	 *
-	 * @param string
+	 * @param  string
 	 * @return EbayEnterprise_RiskInsight_Model_IPayload
 	 */
 	protected function _buildPayloadForModel($model)
@@ -226,6 +232,8 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 
 	/**
 	 * Serialize Root Attributes
+	 *
+	 * @return string
 	 */
 	protected function _serializeRootAttributes()
 	{
@@ -264,13 +272,13 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	/**
 	 * Serialize the value as an xml element with the given node name.
 	 *
-	 * @param string
-	 * @param mixed
+	 * @param  string
+	 * @param  mixed
 	 * @return string
 	 */
 	protected function _serializeNode($nodeName, $value)
 	{
-		return sprintf('<%s>%s</%1$s>', $nodeName, $value);
+		return sprintf('<%s>%s</%1$s>', $nodeName, $this->_getHelper()->escapeHtml($value));
 	}
 
 	protected function _serializeAmountNode($nodeName, $amount)
@@ -283,8 +291,8 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	 * given an empty value, returns an empty string instead of an empty
 	 * element.
 	 *
-	 * @param string
-	 * @param mixed
+	 * @param  string
+	 * @param  mixed
 	 * @return string
 	 */
 	protected function _serializeOptionalValue($nodeName, $value)
@@ -296,8 +304,8 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	 * Serialize the currency amount as an XML node with the provided name.
 	 * When the amount is not set, returns an empty string.
 	 *
-	 * @param string
-	 * @param float
+	 * @param  string
+	 * @param  float
 	 * @return string
 	 */
 	protected function _serializeOptionalAmount($nodeName, $amount)
@@ -316,9 +324,9 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	 * formatted with the given format. When no DateTime is given, return
 	 * an empty string.
 	 *
-	 * @param string
-	 * @param string
-	 * @param DateTime
+	 * @param  string
+	 * @param  string
+	 * @param  DateTime
 	 * @return string
 	 */
 	protected function _serializeOptionalDateValue($nodeName, $format, DateTime $date = null)

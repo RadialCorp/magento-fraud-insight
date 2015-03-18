@@ -1,4 +1,12 @@
-# Universal Customer Profile
+# Risk Insight
 src/app/code/community/EbayEnterprise/* app/code/community/EbayEnterprise/
 src/app/etc/modules/*.xml app/etc/modules/
 
+# Layout
+src/app/design/adminhtml/default/default/layout/* app/design/adminhtml/default/default/layout/
+
+# Templates
+src/app/design/adminhtml/default/default/template/* app/design/adminhtml/default/default/template/
+
+# Library
+src/lib/* lib/

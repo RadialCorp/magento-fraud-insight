@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
@@ -26,9 +26,9 @@ class EbayEnterprise_RiskInsight_Test_Model_RequestTest
 	 * @param  array $properties
 	 * @return EbayEnterprise_RiskInsight_Model_IPayload
 	 */
-	protected function buildPayload(array $properties = array())
+	protected function _buildPayload(array $properties = array())
 	{
-		$payload = $this->createNewPayload();
+		$payload = $this->_createNewPayload();
 
 		foreach ($properties as $setterMethod => $value) {
 			$payload->$setterMethod($value);
@@ -41,7 +41,7 @@ class EbayEnterprise_RiskInsight_Test_Model_RequestTest
 	 *
 	 * @return EbayEnterprise_RiskInsight_Model_IPayload
 	 */
-	protected function createNewPayload()
+	protected function _createNewPayload()
 	{
 		return Mage::getModel('ebayenterprise_riskinsight/request');
 	}
@@ -49,7 +49,7 @@ class EbayEnterprise_RiskInsight_Test_Model_RequestTest
 	/**
 	 * Return a C14N, whitespace removed, XML string.
 	 */
-	protected function loadXmlTestString($fixtureFile)
+	protected function _loadXmlTestString($fixtureFile)
 	{
 		$dom = new DOMDocument();
 		$dom->preserveWhiteSpace = false;
@@ -82,8 +82,8 @@ class EbayEnterprise_RiskInsight_Test_Model_RequestTest
 	 */
 	public function testRequestDeserializeSerialize($serializedDataFile)
 	{
-		$payload = $this->buildPayload();
-		$serializedData = $this->loadXmlTestString($serializedDataFile);
+		$payload = $this->_buildPayload();
+		$serializedData = $this->_loadXmlTestString($serializedDataFile);
 		$payload->deserialize($serializedData);
 		$this->assertSame($serializedData, $payload->serialize());
 	}
@@ -105,8 +105,8 @@ class EbayEnterprise_RiskInsight_Test_Model_RequestTest
 	 */
 	public function testRequestInvlidPayload($serializedDataFile)
 	{
-		$payload = $this->buildPayload();
-		$serializedData = $this->loadXmlTestString($serializedDataFile);
+		$payload = $this->_buildPayload();
+		$serializedData = $this->_loadXmlTestString($serializedDataFile);
 		$payload->deserialize($serializedData);
 	}
 }

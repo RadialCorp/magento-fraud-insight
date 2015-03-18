@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
@@ -32,73 +32,90 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	const LOW_RESPONSE_ACTION = 'ebayenterprise_riskinsight/risk_insight/low_action';
 	const UNKNOWN_RESPONSE_ACTION = 'ebayenterprise_riskinsight/risk_insight/unknown_action';
 	const LANGUAGE_CODE = 'ebayenterprise_riskinsight/risk_insight/language_code';
+	const CARD_TYPE_MAP = 'ebayenterprise_riskinsight/risk_insight/card_type_map';
+	const SHIPPING_METHOD_MAP = 'ebayenterprise_riskinsight/risk_insight/shipping_method_map';
 
 	/**
 	 * check if Risk Insight module is enable in the store config
-	 * @param mixed $store
+	 *
+	 * @param  mixed $store
 	 * @return bool
 	 */
 	public function isEnabled($store=null)
 	{
 		return Mage::getStoreConfigFlag(static::ENABLED, $store);
 	}
+
 	/**
-	 * check if debug mode enable in the store config
-	 * @param mixed $store
+	 * check if debug mode is enable in the store config
+	 *
+	 * @param  mixed $store
 	 * @return bool
 	 */
 	public function isDebugMode($store=null)
 	{
 		return Mage::getStoreConfigFlag(static::DEBUG, $store);
 	}
+
 	/**
 	 * retrieve the FraudNet Store id from store config
-	 * @param mixed $store
+	 *
+	 * @param  mixed $store
 	 * @return string
 	 */
 	public function getStoreId($store=null)
 	{
 		return Mage::getStoreConfig(static::STORE_ID, $store);
 	}
+
 	/**
 	 * retrieve the language code from store config
-	 * @param mixed $store
+	 *
+	 * @param  mixed $store
 	 * @return string
 	 */
 	public function getLanguageCodeId($store=null)
 	{
 		return Mage::getStoreConfig(static::LANGUAGE_CODE, $store);
 	}
+
 	/**
-	 * retrieve the api hostname from store config
-	 * @param mixed $store
+	 * retrieve the API Host Name from store config
+	 *
+	 * @param  mixed $store
 	 * @return string
 	 */
 	public function getApiHostname($store=null)
 	{
 		return Mage::getStoreConfig(static::API_HOSTNAME, $store);
 	}
+
 	/**
-	 * retrieve the api encrypted key from store config
-	 * @param mixed $store
+	 * retrieve the API encrypted key from store config
+	 *
+	 * @param  mixed $store
 	 * @return string
 	 */
 	public function getApiKey($store=null)
 	{
 		return Mage::getStoreConfig(static::API_KEY, $store);
 	}
+
 	/**
-	 * retrieve the api timeout setting from store config
-	 * @param mixed $store
+	 * retrieve the API timeout setting from store config
+	 *
+	 * @param  mixed $store
 	 * @return string
 	 */
 	public function getApiTimeout($store=null)
 	{
 		return Mage::getStoreConfig(static::API_TIMEOUT, $store);
 	}
+
 	/**
 	 * retrieve the order source override setting from store config
-	 * @param mixed $store
+	 *
+	 * @param  mixed $store
 	 * @return string
 	 */
 	public function getOrderSource($store=null)
@@ -108,7 +125,8 @@ class EbayEnterprise_RiskInsight_Helper_Config
 
 	/**
 	 * retrieve the high response action settings from store config
-	 * @param mixed $store
+	 *
+	 * @param  mixed $store
 	 * @return string
 	 */
 	public function getHighResponseAction($store=null)
@@ -118,7 +136,8 @@ class EbayEnterprise_RiskInsight_Helper_Config
 
 	/**
 	 * retrieve the medium response action settings from store config
-	 * @param mixed $store
+	 *
+	 * @param  mixed $store
 	 * @return string
 	 */
 	public function getMediumResponseAction($store=null)
@@ -128,7 +147,8 @@ class EbayEnterprise_RiskInsight_Helper_Config
 
 	/**
 	 * retrieve the low response action settings from store config
-	 * @param mixed $store
+	 *
+	 * @param  mixed $store
 	 * @return string
 	 */
 	public function getLowResponseAction($store=null)
@@ -138,11 +158,34 @@ class EbayEnterprise_RiskInsight_Helper_Config
 
 	/**
 	 * retrieve the unknown response action settings from store config
-	 * @param mixed $store
+	 *
+	 * @param  mixed $store
 	 * @return string
 	 */
 	public function getUnknownResponseAction($store=null)
 	{
 		return Mage::getStoreConfig(static::UNKNOWN_RESPONSE_ACTION, $store);
+	}
+
+	/**
+	 * retrieve the payment method card type map settings from store config
+	 *
+	 * @param  mixed $store
+	 * @return string
+	 */
+	public function getPaymentMethodCardTypeMap($store=null)
+	{
+		return Mage::getStoreConfig(static::CARD_TYPE_MAP, $store);
+	}
+
+	/**
+	 * retrieve the shipping method map settings from store config
+	 *
+	 * @param  mixed $store
+	 * @return string
+	 */
+	public function getShippingMethodMap($store=null)
+	{
+		return Mage::getStoreConfig(static::SHIPPING_METHOD_MAP, $store);
 	}
 }

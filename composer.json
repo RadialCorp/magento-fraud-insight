@@ -1,6 +1,6 @@
 {
 	"name": "ebayenterprise/magento-risk-insight",
-	"description": "eBay Enterprise Universal Customer Profile Magento Extension",
+	"description": "eBay Enterprise Risk Insight Magento Extension",
 	"license": "proprietary",
 	"authors": [
 		{
@@ -23,9 +23,6 @@
 	"type": "magento-module",
 	"minimum-stability": "dev",
 	"prefer-stable": true,
-	"require": {
-		"rmccue/requests": "~1.6"
-	},
 	"require-dev": {
 		"ecomdev/ecomdev_phpunit": "~0.3",
 		"pdepend/pdepend": "~1.1",

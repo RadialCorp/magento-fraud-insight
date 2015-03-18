@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
@@ -19,11 +19,11 @@ abstract class EbayEnterprise_RiskInsight_Model_Iterable
 	extends SPLObjectStorage
 	implements EbayEnterprise_RiskInsight_Model_IIterable
 {
-	/** @var EbayEnterprise_RiskInsight_Helper_Data */
+	/** @var EbayEnterprise_RiskInsight_Helper_Data $_helper */
 	protected $_helper;
-	/** @var bool */
+	/** @var bool $_includeIfEmpty */
 	protected $_includeIfEmpty = false;
-	/** @var bool */
+	/** @var bool $_buildRootNode */
 	protected $_buildRootNode = true;
 
 	public function serialize()
@@ -56,6 +56,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Iterable
 
 	/**
 	 * Stash the helper class in the class property '_helper'
+	 *
 	 * @return EbayEnterprise_RiskInsight_Helper_Data
 	 */
 	protected function _getHelper()
@@ -84,7 +85,6 @@ abstract class EbayEnterprise_RiskInsight_Model_Iterable
 	{
 		return Mage::getModel($model);
 	}
-
 
 	/**
 	 * XML Namespace of the document.

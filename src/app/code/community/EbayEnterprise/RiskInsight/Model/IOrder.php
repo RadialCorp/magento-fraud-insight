@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
@@ -32,11 +32,13 @@ interface EbayEnterprise_RiskInsight_Model_IOrder extends EbayEnterprise_RiskIns
 	 * @return string
 	 */
 	public function getOrderId();
+
 	/**
 	 * @param  string $orderId
 	 * @return self
 	 */
 	public function setOrderId($orderId);
+
 	/**
 	 * Identifies the system/method that was used to take the order.
 	 *
@@ -44,11 +46,13 @@ interface EbayEnterprise_RiskInsight_Model_IOrder extends EbayEnterprise_RiskIns
 	 * @return string
 	 */
 	public function getOrderSource();
+
 	/**
 	 * @param  string $orderSource
 	 * @return self
 	 */
 	public function setOrderSource($orderSource);
+
 	/**
 	 * The timestamp of the order submitted in UTC.
 	 * Sample Data: 2015-05-30T09:00:00 or 2015-05-30T09:30:10.5 or 2015-05-30T09:30:10Z
@@ -56,11 +60,13 @@ interface EbayEnterprise_RiskInsight_Model_IOrder extends EbayEnterprise_RiskIns
 	 * @return DateTime
 	 */
 	public function getOrderDate();
+
 	/**
 	 * @param  DateTime $orderDate
 	 * @return self
 	 */
 	public function setOrderDate(DateTime $orderDate);
+
 	/**
 	 * Store code/identifier for each partner. New store codes will require configuration by eBay Enterprise.
 	 *
@@ -68,51 +74,62 @@ interface EbayEnterprise_RiskInsight_Model_IOrder extends EbayEnterprise_RiskIns
 	 * @return string
 	 */
 	public function getStoreId();
+
 	/**
 	 * @param  string $storeId
 	 * @return self
 	 */
 	public function setStoreId($storeId);
+
 	/**
 	 * @return EbayEnterprise_RiskInsight_Model_Shipping_IList
 	 */
 	public function getShippingList();
+
 	/**
 	 * @param  EbayEnterprise_RiskInsight_Model_Shipping_IList $shippingList
 	 * @return self
 	 */
 	public function setShippingList(EbayEnterprise_RiskInsight_Model_Shipping_IList $shippingList);
+
 	/**
 	 * @return EbayEnterprise_RiskInsight_Model_Line_IItems
 	 */
 	public function getLineItems();
+
 	/**
 	 * @param  EbayEnterprise_RiskInsight_Model_Line_IItems $lineItems
 	 * @return self
 	 */
 	public function setLineItems(EbayEnterprise_RiskInsight_Model_Line_IItems $lineItems);
+
 	/**
 	 * @return EbayEnterprise_RiskInsight_Model_IPayments
 	 */
 	public function getFormOfPayments();
+
 	/**
 	 * @param  EbayEnterprise_RiskInsight_Model_IPayments $payments
 	 * @return self
 	 */
 	public function setFormOfPayments(EbayEnterprise_RiskInsight_Model_IPayments $payments);
+
 	/**
 	 * @return EbayEnterprise_RiskInsight_Model_ITotal
 	 */
 	public function getTotalCost();
+
 	/**
 	 * @param  EbayEnterprise_RiskInsight_Model_ITotal $totalCost
 	 * @return self
 	 */
 	public function setTotalCost(EbayEnterprise_RiskInsight_Model_ITotal $totalCost);
+
 	/**
 	 * @return EbayEnterprise_RiskInsight_Model_Device_IInfo
 	 */
 	public function getDeviceInfo();
+
 	/**
 	 * @param  EbayEnterprise_RiskInsight_Model_Device_IInfo $deviceInfo
 	 * @return self

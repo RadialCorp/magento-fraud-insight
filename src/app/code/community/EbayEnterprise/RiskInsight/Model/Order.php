@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
@@ -19,23 +19,23 @@ class EbayEnterprise_RiskInsight_Model_Order
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_IOrder
 {
-	/** @var string */
+	/** @var string $_orderId */
 	protected $_orderId;
-	/** @var string */
+	/** @var string $_orderSource */
 	protected $_orderSource;
-	/** @var DateTime */
+	/** @var DateTime $_orderDate */
 	protected $_orderDate;
-	/** @var string */
+	/** @var string $_storeId */
 	protected $_storeId;
-	/** @var EbayEnterprise_RiskInsight_Model_Shipping_List */
+	/** @var EbayEnterprise_RiskInsight_Model_Shipping_List $_shippingList */
 	protected $_shippingList;
-	/** @var EbayEnterprise_RiskInsight_Model_Line_Items */
+	/** @var EbayEnterprise_RiskInsight_Model_Line_Items $_lineItems */
 	protected $_lineItems;
-	/** @var EbayEnterprise_RiskInsight_Model_Payments */
+	/** @var EbayEnterprise_RiskInsight_Model_Payments $_formOfPayments */
 	protected $_formOfPayments;
-	/** @var EbayEnterprise_RiskInsight_Model_Total */
+	/** @var EbayEnterprise_RiskInsight_Model_Total $_totalCost */
 	protected $_totalCost;
-	/** @var EbayEnterprise_RiskInsight_Model_Device_Info */
+	/** @var EbayEnterprise_RiskInsight_Model_Device_Info $_deviceInfo */
 	protected $_deviceInfo;
 
 	public function __construct()

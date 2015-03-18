@@ -1,10 +1,10 @@
 {
 	"name": "ebayenterprise/magento-with-universal-customer-profile",
-	"description": "Installation of the eBay Enterprise Universal Customer Profile Extension in Magento",
+	"description": "Installation of the eBay Enterprise Risk Insight Extension in Magento",
 	"license": "proprietary",
 	"type": "project",
 	"require": {
-		"ebayenterprise/magento-universal-customer-profile": "dev-master",
+		"ebayenterprise/magento-risk-insight": "dev-master",
 		"ecomdev/ecomdev_phpunit": "~0.3",
 		"pdepend/pdepend": "~1.1",
 		"phpdocumentor/phpdocumentor":"~2.4",
@@ -30,7 +30,7 @@
 		},
 		{
 			"type": "vcs",
-			"url": "/home/stack/git/magento-universal-customer-profile.git"
+			"url": "/home/stack/git/magento-risk-insight.git"
 		}
 	],
 	"extra": {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
@@ -20,6 +20,7 @@ class EbayEnterprise_RiskInsight_Model_Xsd_Validator
 {
 	/**
 	 * Validate the serialized string as XML against a provided XSD schema.
+	 *
 	 * @param  string $xmlString
 	 * @param  string $schemaFile Path to XSD file
 	 * @return self
@@ -40,6 +41,7 @@ class EbayEnterprise_RiskInsight_Model_Xsd_Validator
 
 	/**
 	 * Load the XML string into a DOMDocument
+	 *
 	 * @param  string $xmlString
 	 * @return \DOMDocument
 	 */
@@ -53,6 +55,7 @@ class EbayEnterprise_RiskInsight_Model_Xsd_Validator
 	/**
 	 * Set libxml to use user defined error handling. Return the previous
 	 * setting to be reset after schema validation is complete.
+	 *
 	 * @return bool
 	 */
 	protected function _setupValidationErrorHandling()
@@ -62,6 +65,7 @@ class EbayEnterprise_RiskInsight_Model_Xsd_Validator
 
 	/**
 	 * Retrieve errors encountered while validating the XML against the schema.
+	 *
 	 * @return array
 	 */
 	protected function _retrieveErrors()
@@ -71,6 +75,7 @@ class EbayEnterprise_RiskInsight_Model_Xsd_Validator
 
 	/**
 	 * Reset libxml error handling.
+	 *
 	 * @param  bool $oldUseErrors Value to reset
 	 * @return self
 	 */
@@ -82,7 +87,8 @@ class EbayEnterprise_RiskInsight_Model_Xsd_Validator
 
 	/**
 	 * Format the array of validation errors.
-	 * @param  \libXMLError[] $libxmlErrors
+	 *
+	 * @param  array $libxmlErrors
 	 * @return string
 	 */
 	protected function _formatErrors(array $libxmlErrors = array())

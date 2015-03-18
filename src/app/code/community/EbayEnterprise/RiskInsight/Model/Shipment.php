@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
@@ -19,17 +19,17 @@ class EbayEnterprise_RiskInsight_Model_Shipment
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_IShipment
 {
-	/** @var string */
+	/** @var string $_shipmentId */
 	protected $_shipmentId;
-	/** @var EbayEnterprise_RiskInsight_Model_Person_Name */
+	/** @var EbayEnterprise_RiskInsight_Model_Person_Name $_personName */
 	protected $_personName;
-	/** @var string */
+	/** @var string $_email */
 	protected $_email;
-	/** @var EbayEnterprise_RiskInsight_Model_Telephone */
+	/** @var EbayEnterprise_RiskInsight_Model_Telephone $_telephone */
 	protected $_telephone;
-	/** @var EbayEnterprise_RiskInsight_Model_Address */
+	/** @var EbayEnterprise_RiskInsight_Model_Address $_address */
 	protected $_address;
-	/** @var string */
+	/** @var string $_shippingMethod */
 	protected $_shippingMethod;
 
 	public function __construct()

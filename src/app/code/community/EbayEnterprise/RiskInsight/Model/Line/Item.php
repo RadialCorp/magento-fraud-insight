@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
@@ -19,23 +19,23 @@ class EbayEnterprise_RiskInsight_Model_Line_Item
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_Line_IItem
 {
-	/** @var string */
+	/** @var string $_lineItemId */
 	protected $_lineItemId;
-	/** @var string */
+	/** @var string $_shipmentId */
 	protected $_shipmentId;
-	/** @var string */
+	/** @var string $_productId */
 	protected $_productId;
-	/** @var string */
+	/** @var string $_description */
 	protected $_description;
-	/** @var float */
+	/** @var float $_unitCost */
 	protected $_unitCost;
-	/** @var string */
+	/** @var string $_unitCurrencyCode */
 	protected $_unitCurrencyCode;
-	/** @var int */
+	/** @var int $_quantity */
 	protected $_quantity;
-	/** @var string */
+	/** @var string $_category */
 	protected $_category;
-	/** @var string */
+	/** @var string $_promoCode */
 	protected $_promoCode;
 
 	public function __construct()
@@ -168,7 +168,7 @@ class EbayEnterprise_RiskInsight_Model_Line_Item
 	{
 		return $this->_serializeOptionalValue('ProductId', $this->getProductId())
 			. $this->_serializeOptionalValue('Description', $this->getDescription())
-			. $this->_serializeNode('UnitCost', $this->getUnitCost())
+			. $this->_serializeAmountNode('UnitCost', $this->getUnitCost())
 			. $this->_serializeNode('UnitCurrencyCode', $this->getUnitCurrencyCode())
 			. $this->_serializeNode('Quantity', $this->getQuantity())
 			. $this->_serializeOptionalValue('Category', $this->getCategory())

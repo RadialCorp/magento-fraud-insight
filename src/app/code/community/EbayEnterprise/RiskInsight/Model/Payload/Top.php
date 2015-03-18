@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
@@ -23,7 +23,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload_Top
 	 * Return the string form of the payload data for transmission.
 	 * Validation is implied.
 	 *
-	 * @throws Exception\InvalidPayload
+	 * @throws EbayEnterprise_RiskInsight_Model_Exception_Invalid_Payload_Exception
 	 * @return string
 	 */
 	public function serialize()
@@ -42,8 +42,8 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload_Top
 	/**
 	 * Fill out this payload object with data from the supplied string.
 	 *
-	 * @throws Exception\InvalidPayload
-	 * @param string $serializedPayload
+	 * @throws EbayEnterprise_RiskInsight_Model_Exception_Invalid_Payload_Exception
+	 * @param  string $serializedPayload
 	 * @return $this
 	 */
 	public function deserialize($serializedPayload)
@@ -56,6 +56,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload_Top
 
 	/**
 	 * Validate the serialized data via the schema validator.
+	 *
 	 * @param  string $serializedData
 	 * @return $this
 	 */
@@ -93,6 +94,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload_Top
 	{
 		return Mage::getModuleDir('', $this->_getModuleNameByClass(__CLASS__)) . DS . 'xsd' . DS;
 	}
+
 	/**
 	 * @param  string $className
 	 * @return string

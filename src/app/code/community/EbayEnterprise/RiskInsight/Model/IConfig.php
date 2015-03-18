@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 eBay Enterprise, Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
@@ -10,7 +10,7 @@
  * It is also available through the world-wide-web at this URL:
  * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2014 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
  * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
  *
  */
@@ -21,15 +21,18 @@ interface EbayEnterprise_RiskInsight_Model_IConfig
 	 * @return EbayEnterprise_RiskInsight_Model_IPayload
 	 */
 	public function getRequest();
+
 	/**
 	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
 	 * @return self
 	 */
 	public function setRequest(EbayEnterprise_RiskInsight_Model_IPayload $request);
+
 	/**
 	 * @return EbayEnterprise_RiskInsight_Model_IPayload
 	 */
 	public function getResponse();
+
 	/**
 	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
 	 * @return self

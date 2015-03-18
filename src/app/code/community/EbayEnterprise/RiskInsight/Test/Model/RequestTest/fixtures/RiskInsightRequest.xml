@@ -29,14 +29,14 @@
 					<MainDivisionCode>PA</MainDivisionCode>
 					<CountryCode>US</CountryCode>
 				</Address>
-				<ShippingMethod>Standard_Ground</ShippingMethod>
+				<ShippingMethod>Ground</ShippingMethod>
 			</Shipment>
 		</ShippingList>
 		<LineItems>
 			<LineItem LineItemId="1234" ShipmentId="4321">
 				<ProductId>SKU-8893</ProductId>
 				<Description>Dell Laptop</Description>
-				<UnitCost>789</UnitCost>
+				<UnitCost>789.00</UnitCost>
 				<UnitCurrencyCode>$</UnitCurrencyCode>
 				<Quantity>1</Quantity>
 				<Category>Electronics / Computer</Category>
