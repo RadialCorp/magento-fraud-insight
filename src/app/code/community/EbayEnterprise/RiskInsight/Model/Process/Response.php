@@ -109,12 +109,14 @@ class EbayEnterprise_RiskInsight_Model_Process_Response
 	{
 		switch ($action) {
 			case EbayEnterprise_RiskInsight_Model_System_Config_Source_Responseaction::HOLD_FOR_REVIEW:
+				$this->_order->hold();
 				$this->_updateOrder(
 					static::STATUS_RISK_REVIEW,
 					Mage_Sales_Model_Order::STATE_HOLDED
 				);
 				break;
 			case EbayEnterprise_RiskInsight_Model_System_Config_Source_Responseaction::CANCEL:
+				$this->_order->cancel();
 				$this->_updateOrder(
 					static::STATUS_RISK_CANCELED,
 					Mage_Sales_Model_Order::STATE_CANCELED

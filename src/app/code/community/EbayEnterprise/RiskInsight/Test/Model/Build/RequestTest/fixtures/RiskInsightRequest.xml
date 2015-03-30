@@ -19,7 +19,7 @@
 					<Line1>630 Allendale Rd</Line1>
 					<City>KING OF PRUSSIA</City>
 					<PostalCode>19406-1342</PostalCode>
-					<MainDivisionCode>Pennsylvania</MainDivisionCode>
+					<MainDivisionCode>PA</MainDivisionCode>
 					<CountryCode>US</CountryCode>
 				</Address>
 				<ShippingMethod>freeshipping_freeshipping</ShippingMethod>
@@ -53,7 +53,7 @@
 					<Line1>630 Allendale Rd</Line1>
 					<City>KING OF PRUSSIA</City>
 					<PostalCode>19406-1342</PostalCode>
-					<MainDivisionCode>Pennsylvania</MainDivisionCode>
+					<MainDivisionCode>PA</MainDivisionCode>
 					<CountryCode>US</CountryCode>
 				</Address>
 				<PaymentTransactionDate>2015-03-18T15:57:01+00:00</PaymentTransactionDate>

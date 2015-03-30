@@ -373,7 +373,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 			->setLineD($orderAddress->getStreet(4))
 			->setCity($orderAddress->getCity())
 			->setPostalCode($orderAddress->getPostcode())
-			->setMainDivisionCode($orderAddress->getRegion())
+			->setMainDivisionCode($orderAddress->getRegionCode())
 			->setCountryCode($orderAddress->getCountryId());
 		return $this;
 	}
@@ -463,7 +463,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	)
 	{
 		$subPayloadCard->setCardHolderName($this->_getCardHolderName($orderBillingAddress))
-			->setPaymentAccountUniqueId(null)
+			->setPaymentAccountUniqueId($this->_helper->getAccountUniqueId($orderPayment))
 			->setIsToken(static::IS_TOKEN)
 			->setPaymentAccountBin($this->_helper->getAccountBin($orderPayment))
 			->setExpireDate($this->_getExpireDate($orderPayment))

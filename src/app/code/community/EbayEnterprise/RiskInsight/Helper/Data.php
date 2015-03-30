@@ -259,4 +259,26 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 		$cc = $this->_decryptCc($payment);
 		return $cc ? substr($cc, 0, 6) : null;
 	}
+
+	/**
+	 * Decrypt the encrypted credit card number and return base64 encoded string hash with sha1 algorithm.
+	 *
+	 * @param  Mage_Sales_Model_Order_Payment $payment
+	 * @return string | null
+	 */
+	public function getAccountUniqueId(Mage_Sales_Model_Order_Payment $payment)
+	{
+		$cc = $this->_decryptCc($payment);
+		return $cc ? $this->_hashAndEncodeCc($cc) : null;
+	}
+
+	/**
+	 * Return a hash and base64 encoded string of the passed in credit card number.
+	 * @param  string $cc
+	 * @return string
+	 */
+	protected function _hashAndEncodeCc($cc)
+	{
+		return base64_encode(hash('sha1', $cc, true));
+	}
 }
