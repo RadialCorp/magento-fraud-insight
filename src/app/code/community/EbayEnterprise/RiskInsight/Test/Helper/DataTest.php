@@ -44,7 +44,8 @@ class EbayEnterprise_RiskInsight_Test_Helper_DataTest
 	}
 
 	/**
-	 * @param mixed $input
+	 * @param mixed
+	 * @param boo | null
 	 * @dataProvider providerConvertStringToBoolean
 	 */
 	public function testConvertStringToBoolean($input, $expected)
@@ -55,6 +56,7 @@ class EbayEnterprise_RiskInsight_Test_Helper_DataTest
 	/**
 	 * Test that an exception is thrown when an invalid xml string is passed to the
 	 * EbayEnterprise_RiskInsight_Helper_Data::getPayloadAsDoc method.
+	 *
 	 * @expectedException Exception
 	 */
 	public function testGetPayloadAsDocInvalidPayloadThrowException()
@@ -95,7 +97,7 @@ class EbayEnterprise_RiskInsight_Test_Helper_DataTest
 	}
 
 	/**
-	 * @param  string $orderIncrementId
+	 * @param  string
 	 * @return EbayEnterprise_RiskInsight_Model_Risk_Insight
 	 */
 	protected function _mockRiskInsight($orderIncrementId)

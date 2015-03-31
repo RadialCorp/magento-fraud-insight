@@ -19,21 +19,21 @@ class EbayEnterprise_RiskInsight_Model_Address
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_IAddress
 {
-	/** @var string $_lineA */
+	/** @var string */
 	protected $_lineA;
-	/** @var string $_lineB */
+	/** @var string */
 	protected $_lineB;
-	/** @var string $_lineC */
+	/** @var string */
 	protected $_lineC;
-	/** @var string $_lineD */
+	/** @var string */
 	protected $_lineD;
-	/** @var string $_city */
+	/** @var string */
 	protected $_city;
-	/** @var string $_postalCode */
+	/** @var string */
 	protected $_postalCode;
-	/** @var string $_mainDivisionCode */
+	/** @var string */
 	protected $_mainDivisionCode;
-	/** @var string $_countryCode */
+	/** @var string */
 	protected $_countryCode;
 
 	public function __construct()

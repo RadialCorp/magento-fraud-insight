@@ -19,7 +19,7 @@ class EbayEnterprise_RiskInsight_Model_Total
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_ITotal
 {
-	/** @var EbayEnterprise_RiskInsight_Model_Cost_Totals $_costTotals */
+	/** @var EbayEnterprise_RiskInsight_Model_Cost_Totals */
 	protected $_costTotals;
 
 	public function __construct()

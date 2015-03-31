@@ -18,7 +18,7 @@
 class EbayEnterprise_RiskInsight_Test_Model_Risk_OrderTest
 	extends EcomDev_PHPUnit_Test_Case
 {
-	/** @var EbayEnterprise_RiskInsight_Model_Risk_Order $_order */
+	/** @var EbayEnterprise_RiskInsight_Model_Risk_Order */
 	protected $_order;
 
 	public function setUp()

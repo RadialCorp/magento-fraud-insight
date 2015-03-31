@@ -30,7 +30,7 @@ interface EbayEnterprise_RiskInsight_Model_IPayload
 	 * Fill out this payload object with data from the supplied string.
 	 *
 	 * @throws EbayEnterprise_RiskInsight_Model_Exception_Invalid_Payload_Exception
-	 * @param string $string
+	 * @param string
 	 * @return self
 	 */
 	public function deserialize($string);

@@ -26,7 +26,7 @@ interface EbayEnterprise_RiskInsight_Model_Payment_ICard extends EbayEnterprise_
 	public function getCardHolderName();
 
 	/**
-	 * @param  string $cardHolderName
+	 * @param  string
 	 * @return self
 	 */
 	public function setCardHolderName($cardHolderName);
@@ -40,7 +40,7 @@ interface EbayEnterprise_RiskInsight_Model_Payment_ICard extends EbayEnterprise_
 	public function getPaymentAccountUniqueId();
 
 	/**
-	 * @param  string $paymentAccountUniqueId
+	 * @param  string
 	 * @return self
 	 */
 	public function setPaymentAccountUniqueId($paymentAccountUniqueId);
@@ -51,7 +51,7 @@ interface EbayEnterprise_RiskInsight_Model_Payment_ICard extends EbayEnterprise_
 	public function getIsToken();
 
 	/**
-	 * @param  bool $isToken
+	 * @param  bool
 	 * @return self
 	 */
 	public function setIsToken($isToken);
@@ -62,7 +62,7 @@ interface EbayEnterprise_RiskInsight_Model_Payment_ICard extends EbayEnterprise_
 	public function getPaymentAccountBin();
 
 	/**
-	 * @param  string $paymentAccountBin
+	 * @param  string
 	 * @return self
 	 */
 	public function setPaymentAccountBin($paymentAccountBin);
@@ -73,7 +73,7 @@ interface EbayEnterprise_RiskInsight_Model_Payment_ICard extends EbayEnterprise_
 	public function getExpireDate();
 
 	/**
-	 * @param  string $expireDate
+	 * @param  string
 	 * @return self
 	 */
 	public function setExpireDate($expireDate);
@@ -86,7 +86,7 @@ interface EbayEnterprise_RiskInsight_Model_Payment_ICard extends EbayEnterprise_
 	public function getCardType();
 
 	/**
-	 * @param  string $cardType
+	 * @param  string
 	 * @return self
 	 */
 	public function setCardType($cardType);

@@ -19,13 +19,13 @@ class EbayEnterprise_RiskInsight_Model_Telephone
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_ITelephone
 {
-	/** @var string $_countryCode */
+	/** @var string */
 	protected $_countryCode;
-	/** @var string $_areaCode */
+	/** @var string */
 	protected $_areaCode;
-	/** @var string $_number */
+	/** @var string */
 	protected $_number;
-	/** @var string $_extension */
+	/** @var string */
 	protected $_extension;
 
 	public function __construct()

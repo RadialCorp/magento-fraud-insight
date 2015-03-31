@@ -21,12 +21,12 @@ class EbayEnterprise_RiskInsight_Model_Xsd_Validator
 	/**
 	 * Validate the serialized string as XML against a provided XSD schema.
 	 *
-	 * @param  string $xmlString
+	 * @param  string
 	 * @param  string $schemaFile Path to XSD file
 	 * @return self
 	 * @throws EbayEnterprise_RiskInsight_Model_Exception_Invalid_Payload_Exception If the XML does not pass XSD schema validation.
 	 */
-	public function validate($xmlString, $schemaFile = null)
+	public function validate($xmlString, $schemaFile=null)
 	{
 		$doc = $this->_loadXmlDoc($xmlString);
 		$originalUseErrors = $this->_setupValidationErrorHandling();
@@ -42,8 +42,8 @@ class EbayEnterprise_RiskInsight_Model_Xsd_Validator
 	/**
 	 * Load the XML string into a DOMDocument
 	 *
-	 * @param  string $xmlString
-	 * @return \DOMDocument
+	 * @param  string
+	 * @return DOMDocument
 	 */
 	protected function _loadXmlDoc($xmlString)
 	{
@@ -88,10 +88,10 @@ class EbayEnterprise_RiskInsight_Model_Xsd_Validator
 	/**
 	 * Format the array of validation errors.
 	 *
-	 * @param  array $libxmlErrors
+	 * @param  array
 	 * @return string
 	 */
-	protected function _formatErrors(array $libxmlErrors = array())
+	protected function _formatErrors(array $libxmlErrors=array())
 	{
 		return 'XSD validation failed with following messages:' . PHP_EOL . implode('', array_map(
 			function (\libXMLError $xmlError) {

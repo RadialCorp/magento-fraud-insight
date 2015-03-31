@@ -33,7 +33,7 @@ interface EbayEnterprise_RiskInsight_Model_IApi
 	 * This is the only way to guarantee an api has
 	 * a payload to send.
 	 *
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload $payload
+	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
 	 * @return self
 	 */
 	public function setRequestBody(EbayEnterprise_RiskInsight_Model_IPayload $payload);

@@ -38,7 +38,7 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	/**
 	 * check if Risk Insight module is enable in the store config
 	 *
-	 * @param  mixed $store
+	 * @param  mixed
 	 * @return bool
 	 */
 	public function isEnabled($store=null)
@@ -49,7 +49,7 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	/**
 	 * check if debug mode is enable in the store config
 	 *
-	 * @param  mixed $store
+	 * @param  mixed
 	 * @return bool
 	 */
 	public function isDebugMode($store=null)
@@ -60,7 +60,7 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	/**
 	 * retrieve the FraudNet Store id from store config
 	 *
-	 * @param  mixed $store
+	 * @param  mixed
 	 * @return string
 	 */
 	public function getStoreId($store=null)
@@ -71,7 +71,7 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	/**
 	 * retrieve the language code from store config
 	 *
-	 * @param  mixed $store
+	 * @param  mixed
 	 * @return string
 	 */
 	public function getLanguageCodeId($store=null)
@@ -82,7 +82,7 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	/**
 	 * retrieve the API Host Name from store config
 	 *
-	 * @param  mixed $store
+	 * @param  mixed
 	 * @return string
 	 */
 	public function getApiHostname($store=null)
@@ -93,7 +93,7 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	/**
 	 * retrieve the API encrypted key from store config
 	 *
-	 * @param  mixed $store
+	 * @param  mixed
 	 * @return string
 	 */
 	public function getApiKey($store=null)
@@ -104,7 +104,7 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	/**
 	 * retrieve the API timeout setting from store config
 	 *
-	 * @param  mixed $store
+	 * @param  mixed
 	 * @return string
 	 */
 	public function getApiTimeout($store=null)
@@ -115,7 +115,7 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	/**
 	 * retrieve the order source override setting from store config
 	 *
-	 * @param  mixed $store
+	 * @param  mixed
 	 * @return string
 	 */
 	public function getOrderSource($store=null)
@@ -126,7 +126,7 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	/**
 	 * retrieve the high response action settings from store config
 	 *
-	 * @param  mixed $store
+	 * @param  mixed
 	 * @return string
 	 */
 	public function getHighResponseAction($store=null)
@@ -137,7 +137,7 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	/**
 	 * retrieve the medium response action settings from store config
 	 *
-	 * @param  mixed $store
+	 * @param  mixed
 	 * @return string
 	 */
 	public function getMediumResponseAction($store=null)
@@ -148,7 +148,7 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	/**
 	 * retrieve the low response action settings from store config
 	 *
-	 * @param  mixed $store
+	 * @param  mixed
 	 * @return string
 	 */
 	public function getLowResponseAction($store=null)
@@ -159,7 +159,7 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	/**
 	 * retrieve the unknown response action settings from store config
 	 *
-	 * @param  mixed $store
+	 * @param  mixed
 	 * @return string
 	 */
 	public function getUnknownResponseAction($store=null)
@@ -170,7 +170,7 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	/**
 	 * retrieve the payment method card type map settings from store config
 	 *
-	 * @param  mixed $store
+	 * @param  mixed
 	 * @return string
 	 */
 	public function getPaymentMethodCardTypeMap($store=null)
@@ -181,7 +181,7 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	/**
 	 * retrieve the shipping method map settings from store config
 	 *
-	 * @param  mixed $store
+	 * @param  mixed
 	 * @return string
 	 */
 	public function getShippingMethodMap($store=null)

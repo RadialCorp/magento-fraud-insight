@@ -19,11 +19,11 @@ class EbayEnterprise_RiskInsight_Model_Transaction_Response
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_Transaction_IResponse
 {
-	/** @var string $_response */
+	/** @var string */
 	protected $_response;
-	/** @var string  $_responseType */
+	/** @var string */
 	protected $_responseType;
-	/** @var array $_responseTypeEnums */
+	/** @var array */
 	protected $_responseTypeEnums = array(
 		'avsAddr',
 		'avsZip',
@@ -37,7 +37,7 @@ class EbayEnterprise_RiskInsight_Model_Transaction_Response
 		'AmexEmail',
 		'AmexPhone'
 	);
-	/** @var array $_responseEnums */
+	/** @var array */
 	protected $_responseEnums = array('M', 'N', 'confirmed', 'verified', 'X');
 
 	public function __construct()

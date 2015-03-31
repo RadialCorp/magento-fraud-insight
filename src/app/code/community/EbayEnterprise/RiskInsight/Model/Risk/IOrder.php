@@ -27,8 +27,8 @@ interface EbayEnterprise_RiskInsight_Model_Risk_IOrder
 	public function process();
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight $insight
-	 * @param  Mage_Sales_Model_Order $order
+	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight
+	 * @param  Mage_Sales_Model_Order
 	 * @return self
 	 */
 	public function processRiskOrder(EbayEnterprise_RiskInsight_Model_Risk_Insight $insight, Mage_Sales_Model_Order $order);

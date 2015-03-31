@@ -19,17 +19,17 @@ class EbayEnterprise_RiskInsight_Model_Error
 	extends EbayEnterprise_RiskInsight_Model_Payload_Top
 	implements EbayEnterprise_RiskInsight_Model_IError
 {
-	/** @var string $_primaryLangId */
+	/** @var string */
 	protected $_primaryLangId;
-	/** @var string $_orderId */
+	/** @var string */
 	protected $_orderId;
-	/** @var string $_storeId */
+	/** @var string */
 	protected $_storeId;
-	/** @var string $_errorCode */
+	/** @var string */
 	protected $_errorCode;
-	/** @var string $_errorDescription */
+	/** @var string */
 	protected $_errorDescription;
-	/** @var string $_exceptionLog */
+	/** @var string */
 	protected $_exceptionLog;
 
 	public function __construct()

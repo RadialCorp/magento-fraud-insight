@@ -34,7 +34,7 @@ interface EbayEnterprise_RiskInsight_Model_IOrder extends EbayEnterprise_RiskIns
 	public function getOrderId();
 
 	/**
-	 * @param  string $orderId
+	 * @param  string
 	 * @return self
 	 */
 	public function setOrderId($orderId);
@@ -48,7 +48,7 @@ interface EbayEnterprise_RiskInsight_Model_IOrder extends EbayEnterprise_RiskIns
 	public function getOrderSource();
 
 	/**
-	 * @param  string $orderSource
+	 * @param  string
 	 * @return self
 	 */
 	public function setOrderSource($orderSource);
@@ -62,7 +62,7 @@ interface EbayEnterprise_RiskInsight_Model_IOrder extends EbayEnterprise_RiskIns
 	public function getOrderDate();
 
 	/**
-	 * @param  DateTime $orderDate
+	 * @param  DateTime
 	 * @return self
 	 */
 	public function setOrderDate(DateTime $orderDate);
@@ -76,7 +76,7 @@ interface EbayEnterprise_RiskInsight_Model_IOrder extends EbayEnterprise_RiskIns
 	public function getStoreId();
 
 	/**
-	 * @param  string $storeId
+	 * @param  string
 	 * @return self
 	 */
 	public function setStoreId($storeId);
@@ -87,7 +87,7 @@ interface EbayEnterprise_RiskInsight_Model_IOrder extends EbayEnterprise_RiskIns
 	public function getShippingList();
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Shipping_IList $shippingList
+	 * @param  EbayEnterprise_RiskInsight_Model_Shipping_IList
 	 * @return self
 	 */
 	public function setShippingList(EbayEnterprise_RiskInsight_Model_Shipping_IList $shippingList);
@@ -98,7 +98,7 @@ interface EbayEnterprise_RiskInsight_Model_IOrder extends EbayEnterprise_RiskIns
 	public function getLineItems();
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Line_IItems $lineItems
+	 * @param  EbayEnterprise_RiskInsight_Model_Line_IItems
 	 * @return self
 	 */
 	public function setLineItems(EbayEnterprise_RiskInsight_Model_Line_IItems $lineItems);
@@ -109,7 +109,7 @@ interface EbayEnterprise_RiskInsight_Model_IOrder extends EbayEnterprise_RiskIns
 	public function getFormOfPayments();
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayments $payments
+	 * @param  EbayEnterprise_RiskInsight_Model_IPayments
 	 * @return self
 	 */
 	public function setFormOfPayments(EbayEnterprise_RiskInsight_Model_IPayments $payments);
@@ -120,7 +120,7 @@ interface EbayEnterprise_RiskInsight_Model_IOrder extends EbayEnterprise_RiskIns
 	public function getTotalCost();
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_ITotal $totalCost
+	 * @param  EbayEnterprise_RiskInsight_Model_ITotal
 	 * @return self
 	 */
 	public function setTotalCost(EbayEnterprise_RiskInsight_Model_ITotal $totalCost);
@@ -131,7 +131,7 @@ interface EbayEnterprise_RiskInsight_Model_IOrder extends EbayEnterprise_RiskIns
 	public function getDeviceInfo();
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Device_IInfo $deviceInfo
+	 * @param  EbayEnterprise_RiskInsight_Model_Device_IInfo
 	 * @return self
 	 */
 	public function setDeviceInfo(EbayEnterprise_RiskInsight_Model_Device_IInfo $deviceInfo);

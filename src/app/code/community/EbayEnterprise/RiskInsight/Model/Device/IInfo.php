@@ -28,7 +28,7 @@ interface EbayEnterprise_RiskInsight_Model_Device_IInfo extends EbayEnterprise_R
 	public function getDeviceIP();
 
 	/**
-	 * @param  string $deviceIP
+	 * @param  string
 	 * @return self
 	 */
 	public function setDeviceIP($deviceIP);
@@ -39,7 +39,7 @@ interface EbayEnterprise_RiskInsight_Model_Device_IInfo extends EbayEnterprise_R
 	public function getHttpHeaders();
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Http_Headers $httpHeaders
+	 * @param  EbayEnterprise_RiskInsight_Model_Http_Headers
 	 * @return self
 	 */
 	public function setHttpHeaders(EbayEnterprise_RiskInsight_Model_Http_Headers $httpHeaders);

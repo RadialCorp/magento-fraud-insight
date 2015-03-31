@@ -18,9 +18,9 @@
 class EbayEnterprise_RiskInsight_Risk_Insight_Order_CheckController
 	extends Mage_Adminhtml_Controller_Action
 {
-	/** @var EbayEnterprise_RiskInsight_Helper_Data $_helperRiskInsight */
+	/** @var EbayEnterprise_RiskInsight_Helper_Data */
 	protected $_helperRiskInsight;
-	/** @var EbayEnterprise_RiskInsight_Model_Risk_Order $_riskOrder */
+	/** @var EbayEnterprise_RiskInsight_Model_Risk_Order */
 	protected $_riskOrder;
 
 	protected function _construct()
@@ -31,7 +31,7 @@ class EbayEnterprise_RiskInsight_Risk_Insight_Order_CheckController
 	}
 
 	/**
-	 * @param Mage_Sales_Model_Order
+	 * @return Mage_Sales_Model_Order
 	 */
 	protected function _initOrder()
 	{
@@ -57,7 +57,7 @@ class EbayEnterprise_RiskInsight_Risk_Insight_Order_CheckController
 	}
 
 	/**
-	 * @param  Mage_Sales_Model_Order $order
+	 * @param  Mage_Sales_Model_Order
 	 * @return self
 	 */
 	protected function _checkRequestSent(Mage_Sales_Model_Order $order)
@@ -67,5 +67,6 @@ class EbayEnterprise_RiskInsight_Risk_Insight_Order_CheckController
 		} else {
 			$this->_getSession()->addError($this->__('Risk Insight request could not be sent, please check your configuration settings.'));
 		}
+		return $this;
 	}
 }

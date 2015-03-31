@@ -18,19 +18,19 @@
 class EbayEnterprise_RiskInsight_Model_Build_Request
 	implements EbayEnterprise_RiskInsight_Model_Build_IRequest
 {
-	/** @var EbayEnterprise_RiskInsight_Model_IPayload $_request */
+	/** @var EbayEnterprise_RiskInsight_Model_IPayload */
 	protected $_request;
-	/** @var EbayEnterprise_RiskInsight_Model_Risk_Insight $_request */
+	/** @var EbayEnterprise_RiskInsight_Model_Risk_Insight */
 	protected $_insight;
-	/** @var Mage_Sales_Model_Order $_order */
+	/** @var Mage_Sales_Model_Order */
 	protected $_order;
-	/** @var Mage_Sales_Model_Quote $_quote */
+	/** @var Mage_Sales_Model_Quote */
 	protected $_quote;
-	/** @var EbayEnterprise_RiskInsight_Helper_Data $_helper */
+	/** @var EbayEnterprise_RiskInsight_Helper_Data */
 	protected $_helper;
-	/** @var EbayEnterprise_RiskInsight_Helper_Config $_config*/
+	/** @var EbayEnterprise_RiskInsight_Helper_Config */
 	protected $_config;
-	/** @var Mage_Catalog_Model_Product $_product*/
+	/** @var Mage_Catalog_Model_Product */
 	protected $_product;
 	/** @var string */
 	protected $_shipmentId;
@@ -61,13 +61,13 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	/**
 	 * Type hinting for self::__construct $initParams
 	 *
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload $request
-	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight $insight
-	 * @param  Mage_Sales_Model_Order $order
-	 * @param  Mage_Sales_Model_Quote $quote
-	 * @param  EbayEnterprise_RiskInsight_Helper_Data $helper
-	 * @param  EbayEnterprise_RiskInsight_Helper_Config $config
-	 * @param  Mage_Catalog_Model_Product $product
+	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight
+	 * @param  Mage_Sales_Model_Order
+	 * @param  Mage_Sales_Model_Quote
+	 * @param  EbayEnterprise_RiskInsight_Helper_Data
+	 * @param  EbayEnterprise_RiskInsight_Helper_Config
+	 * @param  Mage_Catalog_Model_Product
 	 * @return array
 	 */
 	protected function _checkTypes(
@@ -85,9 +85,9 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	/**
 	 * Return the value at field in array if it exists. Otherwise, use the default value.
 	 *
-	 * @param  array $arr
+	 * @param  array
 	 * @param  string | int $field Valid array key
-	 * @param  mixed $default
+	 * @param  mixed
 	 * @return mixed
 	 */
 	protected function _nullCoalesce(array $arr, $field, $default)
@@ -119,7 +119,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  Mage_Sales_Model_Quote $quote
+	 * @param  Mage_Sales_Model_Quote
 	 * @return string | null
 	 */
 	protected function _getPaymentCreatedDate(Mage_Sales_Model_Quote $quote)
@@ -154,7 +154,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  Mage_Core_Model_Abstract $item
+	 * @param  Mage_Core_Model_Abstract
 	 * @return string | null
 	 */
 	protected function _getItemCategory(Mage_Core_Model_Abstract $item)
@@ -175,7 +175,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  Mage_Core_Model_Abstract $item
+	 * @param  Mage_Core_Model_Abstract
 	 * @return string | null
 	 */
 	protected function _getCategoryName(Mage_Core_Model_Abstract $product)
@@ -198,7 +198,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param string $categoryName
+	 * @param string
 	 */
 	protected function _getCategoryDelimiter($categoryName)
 	{
@@ -216,7 +216,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_IOrder $subPayloadOrder
+	 * @param  EbayEnterprise_RiskInsight_Model_IOrder
 	 * @return self
 	 */
 	protected function _buildOrder(EbayEnterprise_RiskInsight_Model_IOrder $subPayloadOrder)
@@ -235,7 +235,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Shipping_IList $subPayloadShippingList
+	 * @param  EbayEnterprise_RiskInsight_Model_Shipping_IList
 	 * @return self
 	 */
 	protected function _buildShippingList(EbayEnterprise_RiskInsight_Model_Shipping_IList $subPayloadShippingList)
@@ -250,7 +250,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Line_IItems $subPayloadLineItems
+	 * @param  EbayEnterprise_RiskInsight_Model_Line_IItems
 	 * @return self
 	 */
 	protected function _buildLineItems(EbayEnterprise_RiskInsight_Model_Line_IItems $subPayloadLineItems)
@@ -264,7 +264,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayments $subPayloadFormOfPayments
+	 * @param  EbayEnterprise_RiskInsight_Model_IPayments
 	 * @return self
 	 */
 	protected function _buildFormOfPayments(EbayEnterprise_RiskInsight_Model_IPayments $subPayloadFormOfPayments)
@@ -280,7 +280,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_ITotal $subPayloadTotalCost
+	 * @param  EbayEnterprise_RiskInsight_Model_ITotal
 	 * @return self
 	 */
 	protected function _buildTotalCost(EbayEnterprise_RiskInsight_Model_ITotal $subPayloadTotalCost)
@@ -294,7 +294,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Device_IInfo $subPayloadDeviceInfo
+	 * @param  EbayEnterprise_RiskInsight_Model_Device_IInfo
 	 * @return self
 	 */
 	protected function _buildDeviceInfo(EbayEnterprise_RiskInsight_Model_Device_IInfo $subPayloadDeviceInfo)
@@ -305,8 +305,8 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_IShipment $subPayloadShipment
-	 * @param  Mage_Customer_Model_Address_Abstract $orderShippingAddress
+	 * @param  EbayEnterprise_RiskInsight_Model_IShipment
+	 * @param  Mage_Customer_Model_Address_Abstract
 	 * @return self
 	 */
 	protected function _buildShipment(
@@ -325,8 +325,8 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Person_IName $subPayloadPersonName
-	 * @param  Mage_Customer_Model_Address_Abstract $orderAddress
+	 * @param  EbayEnterprise_RiskInsight_Model_Person_IName
+	 * @param  Mage_Customer_Model_Address_Abstract
 	 * @return self
 	 */
 	protected function _buildPersonName(
@@ -341,8 +341,8 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_ITelephone $subPayloadTelephone
-	 * @param  Mage_Customer_Model_Address_Abstract $orderAddress
+	 * @param  EbayEnterprise_RiskInsight_Model_ITelephone
+	 * @param  Mage_Customer_Model_Address_Abstract
 	 * @return self
 	 */
 	protected function _buildTelephone(
@@ -358,8 +358,8 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_IAddress $subPayloadAddress
-	 * @param  Mage_Customer_Model_Address_Abstract $orderAddress
+	 * @param  EbayEnterprise_RiskInsight_Model_IAddress
+	 * @param  Mage_Customer_Model_Address_Abstract
 	 * @return self
 	 */
 	protected function _buildAddress(
@@ -379,8 +379,8 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Line_IItem $subPayloadLineItem
-	 * @param  Mage_Core_Model_Abstract $orderItem
+	 * @param  EbayEnterprise_RiskInsight_Model_Line_IItem
+	 * @param  Mage_Core_Model_Abstract
 	 * @return self
 	 */
 	protected function _buildLineItem(
@@ -401,9 +401,9 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Line_IItem $subPayloadPayment
-	 * @param  Mage_Customer_Model_Address_Abstract $orderBillingAddress
-	 * @param  Mage_Sales_Model_Order_Payment $orderPayment
+	 * @param  EbayEnterprise_RiskInsight_Model_Line_IItem
+	 * @param  Mage_Customer_Model_Address_Abstract
+	 * @param  Mage_Sales_Model_Order_Payment
 	 * @return self
 	 */
 	protected function _buildPayment(
@@ -427,7 +427,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  Mage_Customer_Model_Address_Abstract $orderAddress
+	 * @param  Mage_Customer_Model_Address_Abstract
 	 * @return string
 	 */
 	protected function _getCardHolderName(Mage_Customer_Model_Address_Abstract $orderAddress)
@@ -439,7 +439,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  Mage_Sales_Model_Order_Payment $orderPayment
+	 * @param  Mage_Sales_Model_Order_Payment
 	 * @return string | null
 	 */
 	protected function _getExpireDate(Mage_Sales_Model_Order_Payment $orderPayment)
@@ -451,9 +451,9 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Payment_ICard $subPayloadCard
-	 * @param  Mage_Customer_Model_Address_Abstract $orderBillingAddress
-	 * @param  Mage_Sales_Model_Order_Payment $orderPayment
+	 * @param  EbayEnterprise_RiskInsight_Model_Payment_ICard
+	 * @param  Mage_Customer_Model_Address_Abstract
+	 * @param  Mage_Sales_Model_Order_Payment
 	 * @return self
 	 */
 	protected function _buildPaymentCard(
@@ -472,8 +472,8 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Transaction_IResponses $subPayloadResponses
-	 * @param  Mage_Sales_Model_Order_Payment $orderPayment
+	 * @param  EbayEnterprise_RiskInsight_Model_Transaction_IResponses
+	 * @param  Mage_Sales_Model_Order_Payment
 	 * @return self
 	 */
 	protected function _buildTransactionResponses(
@@ -488,8 +488,8 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Transaction_IResponse $subPayloadResponse
-	 * @param  Mage_Sales_Model_Order_Payment $orderPayment
+	 * @param  EbayEnterprise_RiskInsight_Model_Transaction_IResponse
+	 * @param  Mage_Sales_Model_Order_Payment
 	 * @return self
 	 */
 	protected function _buildTransactionResponse(
@@ -503,7 +503,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Http_IHeaders $subPayloadHttpHeaders
+	 * @param  EbayEnterprise_RiskInsight_Model_Http_IHeaders
 	 * @return self
 	 */
 	protected function _buildHttpHeaders(EbayEnterprise_RiskInsight_Model_Http_IHeaders $subPayloadHttpHeaders)
@@ -517,9 +517,9 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Http_IHeader $subPayloadHttpHeader
-	 * @param  string $name
-	 * @param  string $message
+	 * @param  EbayEnterprise_RiskInsight_Model_Http_IHeader
+	 * @param  string
+	 * @param  string
 	 * @return self
 	 */
 	protected function _buildHttpHeader(EbayEnterprise_RiskInsight_Model_Http_IHeader $subPayloadHttpHeader, $name, $message)

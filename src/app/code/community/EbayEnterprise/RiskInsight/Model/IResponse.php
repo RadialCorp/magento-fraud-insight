@@ -32,7 +32,7 @@ interface EbayEnterprise_RiskInsight_Model_IResponse extends EbayEnterprise_Risk
 	public function getPrimaryLangId();
 
 	/**
-	 * @param  string $primaryLangId
+	 * @param  string
 	 * @return self
 	 */
 	public function setPrimaryLangId($primaryLangId);
@@ -46,7 +46,7 @@ interface EbayEnterprise_RiskInsight_Model_IResponse extends EbayEnterprise_Risk
 	public function getOrderId();
 
 	/**
-	 * @param  string $orderId
+	 * @param  string
 	 * @return self
 	 */
 	public function setOrderId($orderId);
@@ -62,7 +62,7 @@ interface EbayEnterprise_RiskInsight_Model_IResponse extends EbayEnterprise_Risk
 	public function getStoreId();
 
 	/**
-	 * @param  string $storeId
+	 * @param  string
 	 * @return self
 	 */
 	public function setStoreId($storeId);
@@ -73,7 +73,7 @@ interface EbayEnterprise_RiskInsight_Model_IResponse extends EbayEnterprise_Risk
 	public function getResponseReasonCode();
 
 	/**
-	 * @param  string $responseReasonCode
+	 * @param  string
 	 * @return self
 	 */
 	public function setResponseReasonCode($responseReasonCode);
@@ -84,7 +84,7 @@ interface EbayEnterprise_RiskInsight_Model_IResponse extends EbayEnterprise_Risk
 	public function getResponseReasonCodeDescription();
 
 	/**
-	 * @param  string $responseReasonCodeDescription
+	 * @param  string
 	 * @return self
 	 */
 	public function setResponseReasonCodeDescription($responseReasonCodeDescription);

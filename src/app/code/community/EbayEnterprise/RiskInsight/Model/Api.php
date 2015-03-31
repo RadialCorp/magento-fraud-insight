@@ -21,22 +21,22 @@
 class EbayEnterprise_RiskInsight_Model_Api
 	implements EbayEnterprise_RiskInsight_Model_IApi
 {
-	/** @var EbayEnterprise_RiskInsight_Model_IConfig $_config */
+	/** @var EbayEnterprise_RiskInsight_Model_IConfig */
 	protected $_config;
-	/** @var EbayEnterprise_RiskInsight_Model_IPayload $_requestPayload */
+	/** @var EbayEnterprise_RiskInsight_Model_IPayload */
 	protected $_requestPayload;
-	/** @var  EbayEnterprise_RiskInsight_Model_IPayload $_replyPayload */
+	/** @var  EbayEnterprise_RiskInsight_Model_IPayload */
 	protected $_replyPayload;
 	/** @var  Requests_Response $_lastRequestsResponse - Response object from the last call to Requests */
 	protected $_lastRequestsResponse;
-	/** @var EbayEnterprise_RiskInsight_Helper_Config $_helperConfig */
+	/** @var EbayEnterprise_RiskInsight_Helper_Config */
 	protected $_helperConfig;
 
 	/**
 	 * Configure the api by supplying an object that informs
 	 * what payload object to use, what URI to send to, etc.
 	 *
-	 * @param EbayEnterprise_RiskInsight_Model_Config $config
+	 * @param EbayEnterprise_RiskInsight_Model_Config
 	 */
 	public function __construct(EbayEnterprise_RiskInsight_Model_Config $config)
 	{
@@ -78,7 +78,7 @@ class EbayEnterprise_RiskInsight_Model_Api
 	}
 
 	/**
-	 * @param  string $responseData
+	 * @param  string
 	 * @return self
 	 */
 	protected function _deserializeResponse($responseData)
@@ -173,10 +173,10 @@ class EbayEnterprise_RiskInsight_Model_Api
 
 	protected function _buildHeader()
 	{
-		return [
+		return array(
 			'apikey' => $this->_config->getApiKey(),
 			'Content-type' => $this->_config->getContentType()
-		];
+		);
 	}
 
 	/**

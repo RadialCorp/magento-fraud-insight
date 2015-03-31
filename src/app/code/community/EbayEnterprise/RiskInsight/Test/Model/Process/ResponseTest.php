@@ -23,14 +23,13 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_ResponseTest
 	 * Each key in array should be a setter method to call and will be given
 	 * the value at that key.
 	 *
-	 * @param  string $type
-	 * @param  array $properties
+	 * @param  string
+	 * @param  array
 	 * @return EbayEnterprise_RiskInsight_Model_IPayload
 	 */
-	protected function _buildPayload($type, array $properties = array())
+	protected function _buildPayload($type, array $properties=array())
 	{
 		$payload = $this->_createNewPayload($type);
-
 		foreach ($properties as $setterMethod => $value) {
 			$payload->$setterMethod($value);
 		}
@@ -40,7 +39,7 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_ResponseTest
 	/**
 	 * Create a new order Response payload.
 	 *
-	 * @param  string $type
+	 * @param  string
 	 * @return EbayEnterprise_RiskInsight_Model_IPayload
 	 */
 	protected function _createNewPayload($type)
@@ -50,6 +49,9 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_ResponseTest
 
 	/**
 	 * Return a C14N, whitespace removed, XML string.
+	 *
+	 * @param  string
+	 * @return string
 	 */
 	protected function _loadXmlTestString($fixtureFile)
 	{
@@ -57,7 +59,6 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_ResponseTest
 		$dom->preserveWhiteSpace = false;
 		$dom->load($fixtureFile);
 		$string = $dom->C14N();
-
 		return $string;
 	}
 
@@ -79,6 +80,7 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_ResponseTest
 	}
 
 	/**
+	 * @param  string
 	 * @return EbayEnterprise_RiskInsight_Model_Response
 	 */
 	protected function _buildResponse($responseFile)
@@ -163,9 +165,7 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_ResponseTest
 	}
 
 	/**
-	 * Test
-	 *
-	 * @param string path to fixture file
+	 * @param string $responseFile - path to fixture file
 	 * @dataProvider providerProcessResponse
 	 */
 	public function testProcessResponse($responseFile)

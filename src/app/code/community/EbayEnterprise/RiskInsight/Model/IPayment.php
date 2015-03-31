@@ -33,7 +33,7 @@ interface EbayEnterprise_RiskInsight_Model_IPayment extends EbayEnterprise_RiskI
 	public function getPaymentCard();
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Payment_ICard $paymentCard
+	 * @param  EbayEnterprise_RiskInsight_Model_Payment_ICard
 	 * @return self
 	 */
 	public function setPaymentCard(EbayEnterprise_RiskInsight_Model_Payment_ICard $paymentCard);
@@ -44,7 +44,7 @@ interface EbayEnterprise_RiskInsight_Model_IPayment extends EbayEnterprise_RiskI
 	public function getPersonName();
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Person_IName $personName
+	 * @param  EbayEnterprise_RiskInsight_Model_Person_IName
 	 * @return self
 	 */
 	public function setPersonName(EbayEnterprise_RiskInsight_Model_Person_IName $personName);
@@ -55,7 +55,7 @@ interface EbayEnterprise_RiskInsight_Model_IPayment extends EbayEnterprise_RiskI
 	public function getEmail();
 
 	/**
-	 * @param  string $email
+	 * @param  string
 	 * @return self
 	 */
 	public function setEmail($email);
@@ -66,7 +66,7 @@ interface EbayEnterprise_RiskInsight_Model_IPayment extends EbayEnterprise_RiskI
 	public function getTelephone();
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_ITelephone $telephone
+	 * @param  EbayEnterprise_RiskInsight_Model_ITelephone
 	 * @return self
 	 */
 	public function setTelephone(EbayEnterprise_RiskInsight_Model_ITelephone $telephone);
@@ -77,7 +77,7 @@ interface EbayEnterprise_RiskInsight_Model_IPayment extends EbayEnterprise_RiskI
 	public function getAddress();
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_IAddress $address
+	 * @param  EbayEnterprise_RiskInsight_Model_IAddress
 	 * @return self
 	 */
 	public function setAddress(EbayEnterprise_RiskInsight_Model_IAddress $address);
@@ -88,7 +88,7 @@ interface EbayEnterprise_RiskInsight_Model_IPayment extends EbayEnterprise_RiskI
 	public function getPaymentTransactionDate();
 
 	/**
-	 * @param  DateTime $paymentTransactionDate
+	 * @param  DateTime
 	 * @return self
 	 */
 	public function setPaymentTransactionDate(DateTime $paymentTransactionDate);
@@ -99,7 +99,7 @@ interface EbayEnterprise_RiskInsight_Model_IPayment extends EbayEnterprise_RiskI
 	public function getCurrencyCode();
 
 	/**
-	 * @param  string $currencyCode
+	 * @param  string
 	 * @return self
 	 */
 	public function setCurrencyCode($currencyCode);
@@ -110,7 +110,7 @@ interface EbayEnterprise_RiskInsight_Model_IPayment extends EbayEnterprise_RiskI
 	public function getAmount();
 
 	/**
-	 * @param  float $amount
+	 * @param  float
 	 * @return self
 	 */
 	public function setAmount($amount);
@@ -121,7 +121,7 @@ interface EbayEnterprise_RiskInsight_Model_IPayment extends EbayEnterprise_RiskI
 	public function getTotalAuthAttemptCount();
 
 	/**
-	 * @param  int $totalAuthAttemptCount
+	 * @param  int
 	 * @return self
 	 */
 	public function setTotalAuthAttemptCount($totalAuthAttemptCount);
@@ -134,7 +134,7 @@ interface EbayEnterprise_RiskInsight_Model_IPayment extends EbayEnterprise_RiskI
 	public function getTransactionResponses();
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Transaction_IResponses $transactionResponses
+	 * @param  EbayEnterprise_RiskInsight_Model_Transaction_IResponses
 	 * @return self
 	 */
 	public function setTransactionResponses(EbayEnterprise_RiskInsight_Model_Transaction_IResponses $transactionResponses);

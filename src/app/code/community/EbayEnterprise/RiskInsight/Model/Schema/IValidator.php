@@ -18,8 +18,8 @@
 interface EbayEnterprise_RiskInsight_Model_Schema_IValidator
 {
 	/**
-	 * @param  string $serializedData
-	 * @param  string|null $schema
+	 * @param  string
+	 * @param  string|null
 	 * @return self
 	 * @throws EbayEnterprise_RiskInsight_Model_Exception_Invalid_Payload_Exception
 	 */

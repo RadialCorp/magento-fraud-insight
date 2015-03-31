@@ -46,7 +46,7 @@ setup:
 composer:
     image: kojiromike/magento_tools
     volumes:
-        - .:/git/magento-retail-order-management
+        - .:/git/magento-risk-insight
         - build/magento:/srv/magento
     entrypoint: composer
     command: list
@@ -136,7 +136,7 @@ modman:
     image: kojiromike/magento_tools
     volumes:
         - ./build/magento:/srv/magento
-        - .:/git/magento-retail-order-management
+        - .:/git/magento-risk-insight
     entrypoint: ["modman"]
     command: list
 composerCommandIntegrator:

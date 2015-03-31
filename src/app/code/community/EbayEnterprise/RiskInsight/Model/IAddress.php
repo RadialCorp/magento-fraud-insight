@@ -27,7 +27,7 @@ interface EbayEnterprise_RiskInsight_Model_IAddress extends EbayEnterprise_RiskI
 	public function getLineA();
 
 	/**
-	 * @param  string $lineA
+	 * @param  string
 	 * @return self
 	 */
 	public function setLineA($lineA);
@@ -38,7 +38,7 @@ interface EbayEnterprise_RiskInsight_Model_IAddress extends EbayEnterprise_RiskI
 	public function getLineB();
 
 	/**
-	 * @param  string $lineB
+	 * @param  string
 	 * @return self
 	 */
 	public function setLineB($lineB);
@@ -49,7 +49,7 @@ interface EbayEnterprise_RiskInsight_Model_IAddress extends EbayEnterprise_RiskI
 	public function getLineC();
 
 	/**
-	 * @param  string $lineC
+	 * @param  string
 	 * @return self
 	 */
 	public function setLineC($lineC);
@@ -60,7 +60,7 @@ interface EbayEnterprise_RiskInsight_Model_IAddress extends EbayEnterprise_RiskI
 	public function getLineD();
 
 	/**
-	 * @param  string $lineD
+	 * @param  string
 	 * @return self
 	 */
 	public function setLineD($lineD);
@@ -71,7 +71,7 @@ interface EbayEnterprise_RiskInsight_Model_IAddress extends EbayEnterprise_RiskI
 	public function getCity();
 
 	/**
-	 * @param  string $city
+	 * @param  string
 	 * @return self
 	 */
 	public function setCity($city);
@@ -82,7 +82,7 @@ interface EbayEnterprise_RiskInsight_Model_IAddress extends EbayEnterprise_RiskI
 	public function getPostalCode();
 
 	/**
-	 * @param  string $postalCode
+	 * @param  string
 	 * @return self
 	 */
 	public function setPostalCode($postalCode);
@@ -93,7 +93,7 @@ interface EbayEnterprise_RiskInsight_Model_IAddress extends EbayEnterprise_RiskI
 	public function getMainDivisionCode();
 
 	/**
-	 * @param  string $mainDivisionCode
+	 * @param  string
 	 * @return self
 	 */
 	public function setMainDivisionCode($mainDivisionCode);
@@ -104,7 +104,7 @@ interface EbayEnterprise_RiskInsight_Model_IAddress extends EbayEnterprise_RiskI
 	public function getCountryCode();
 
 	/**
-	 * @param  string $countryCode
+	 * @param  string
 	 * @return self
 	 */
 	public function setCountryCode($countryCode);

@@ -19,11 +19,11 @@ class EbayEnterprise_RiskInsight_Model_Cost_Totals
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_Cost_ITotals
 {
-	/** @var string $_currencyCode */
+	/** @var string */
 	protected $_currencyCode;
-	/** @var float $_amountBeforeTax */
+	/** @var float */
 	protected $_amountBeforeTax;
-	/** @var float $_amountAfterTax */
+	/** @var float */
 	protected $_amountAfterTax;
 
 	public function __construct()

@@ -19,9 +19,9 @@ class EbayEnterprise_RiskInsight_Model_Request
 	extends EbayEnterprise_RiskInsight_Model_Payload_Top
 	implements EbayEnterprise_RiskInsight_Model_IRequest
 {
-	/** @var string $_primaryLangId */
+	/** @var string */
 	protected $_primaryLangId;
-	/** @var EbayEnterprise_RiskInsight_Model_IOrder $_order */
+	/** @var EbayEnterprise_RiskInsight_Model_IOrder */
 	protected $_order;
 
 	public function __construct()

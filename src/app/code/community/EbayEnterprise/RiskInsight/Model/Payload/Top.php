@@ -43,7 +43,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload_Top
 	 * Fill out this payload object with data from the supplied string.
 	 *
 	 * @throws EbayEnterprise_RiskInsight_Model_Exception_Invalid_Payload_Exception
-	 * @param  string $serializedPayload
+	 * @param  string
 	 * @return $this
 	 */
 	public function deserialize($serializedPayload)
@@ -57,7 +57,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload_Top
 	/**
 	 * Validate the serialized data via the schema validator.
 	 *
-	 * @param  string $serializedData
+	 * @param  string
 	 * @return $this
 	 */
 	protected function _schemaValidate($serializedData)
@@ -96,7 +96,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload_Top
 	}
 
 	/**
-	 * @param  string $className
+	 * @param  string
 	 * @return string
 	 */
 	protected function _getModuleNameByClass($className)

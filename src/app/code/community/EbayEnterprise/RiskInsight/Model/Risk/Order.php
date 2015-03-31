@@ -18,9 +18,9 @@
 class EbayEnterprise_RiskInsight_Model_Risk_Order
 	implements EbayEnterprise_RiskInsight_Model_Risk_IOrder
 {
-	/** @var EbayEnterprise_RiskInsight_Helper_Data $_helper */
+	/** @var EbayEnterprise_RiskInsight_Helper_Data */
 	protected $_helper;
-	/** @var EbayEnterprise_RiskInsight_Helper_Config $_config*/
+	/** @var EbayEnterprise_RiskInsight_Helper_Config */
 	protected $_config;
 
 	/**
@@ -40,8 +40,8 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 	/**
 	 * Type hinting for self::__construct $initParams
 	 *
-	 * @param  EbayEnterprise_RiskInsight_Helper_Data $helper
-	 * @param  EbayEnterprise_RiskInsight_Helper_Config $config
+	 * @param  EbayEnterprise_RiskInsight_Helper_Data
+	 * @param  EbayEnterprise_RiskInsight_Helper_Config
 	 * @return array
 	 */
 	protected function _checkTypes(
@@ -54,9 +54,9 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 	/**
 	 * Return the value at field in array if it exists. Otherwise, use the default value.
 	 *
-	 * @param  array $arr
+	 * @param  array
 	 * @param  string | int $field Valid array key
-	 * @param  mixed $default
+	 * @param  mixed
 	 * @return mixed
 	 */
 	protected function _nullCoalesce(array $arr, $field, $default)
@@ -87,8 +87,8 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 	/**
 	 * Get new API config object.
 	 *
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload $request
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload $response
+	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
 	 * @return EbayEnterprise_RiskInsight_Model_IConfig
 	 */
 	protected function _setupApiConfig(
@@ -135,7 +135,7 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Resource_Risk_Insight_Collection $insightCollection
+	 * @param  EbayEnterprise_RiskInsight_Model_Resource_Risk_Insight_Collection
 	 * @return self
 	 */
 	protected function _processRiskOrderCollection(EbayEnterprise_RiskInsight_Model_Resource_Risk_Insight_Collection $insightCollection)
@@ -151,7 +151,7 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_IApi $api
+	 * @param  EbayEnterprise_RiskInsight_Model_IApi
 	 * @return EbayEnterprise_RiskInsight_Model_IPayload | null
 	 */
 	protected function _sendRequest(EbayEnterprise_RiskInsight_Model_IApi $api)
@@ -169,8 +169,8 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload $response
-	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight $insight
+	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight
 	 * @param  Mage_Sales_Model_Order $order
 	 * @return self
 	 */
@@ -192,9 +192,9 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 	/**
 	 * Build the passed in request object using the passed in order and insight object.
 	 *
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload $request
-	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight $insight
-	 * @param  Mage_Sales_Model_Order $order
+	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight
+	 * @param  Mage_Sales_Model_Order
 	 * @return EbayEnterprise_RiskInsight_Model_IPayload
 	 */
 	protected function _buildRequestFromOrder(
@@ -213,7 +213,7 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 	/**
 	 * Get all order increment id from a passed in collection of risk insight instance.
 	 *
-	 * @param  EbayEnterprise_RiskInsight_Model_Resource_Risk_Insight_Collection $collections
+	 * @param  EbayEnterprise_RiskInsight_Model_Resource_Risk_Insight_Collection
 	 * @return array
 	 */
 	protected function _getOrderIncementIds(EbayEnterprise_RiskInsight_Model_Resource_Risk_Insight_Collection $collections)

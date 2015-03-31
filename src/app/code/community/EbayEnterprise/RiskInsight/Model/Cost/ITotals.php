@@ -26,7 +26,7 @@ interface EbayEnterprise_RiskInsight_Model_Cost_ITotals extends EbayEnterprise_R
 	public function getCurrencyCode();
 
 	/**
-	 * @param  string $currencyCode
+	 * @param  string
 	 * @return self
 	 */
 	public function setCurrencyCode($currencyCode);
@@ -37,7 +37,7 @@ interface EbayEnterprise_RiskInsight_Model_Cost_ITotals extends EbayEnterprise_R
 	public function getAmountBeforeTax();
 
 	/**
-	 * @param  float $amountBeforeTax
+	 * @param  float
 	 * @return self
 	 */
 	public function setAmountBeforeTax($amountBeforeTax);
@@ -48,7 +48,7 @@ interface EbayEnterprise_RiskInsight_Model_Cost_ITotals extends EbayEnterprise_R
 	public function getAmountAfterTax();
 
 	/**
-	 * @param  float $amountAfterTax
+	 * @param  float
 	 * @return self
 	 */
 	public function setAmountAfterTax($amountAfterTax);

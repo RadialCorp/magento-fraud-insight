@@ -18,13 +18,13 @@
 class EbayEnterprise_RiskInsight_Model_Process_Response
 	implements EbayEnterprise_RiskInsight_Model_Process_IResponse
 {
-	/** @var EbayEnterprise_RiskInsight_Model_IPayload $_request */
+	/** @var EbayEnterprise_RiskInsight_Model_IPayload */
 	protected $_response;
-	/** @var EbayEnterprise_RiskInsight_Model_Risk_Insight $_request */
+	/** @var EbayEnterprise_RiskInsight_Model_Risk_Insight */
 	protected $_insight;
-	/** @var Mage_Sales_Model_Order $_order */
+	/** @var Mage_Sales_Model_Order */
 	protected $_order;
-	/** @var EbayEnterprise_RiskInsight_Helper_Config $_config*/
+	/** @var EbayEnterprise_RiskInsight_Helper_Config */
 	protected $_config;
 
 	/**
@@ -47,10 +47,10 @@ class EbayEnterprise_RiskInsight_Model_Process_Response
 	/**
 	 * Type hinting for self::__construct $initParams
 	 *
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload $response
-	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight $insight
-	 * @param  Mage_Sales_Model_Order $order
-	 * @param  EbayEnterprise_RiskInsight_Helper_Config $config
+	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight
+	 * @param  Mage_Sales_Model_Order
+	 * @param  EbayEnterprise_RiskInsight_Helper_Config
 	 * @return array
 	 */
 	protected function _checkTypes(
@@ -65,9 +65,9 @@ class EbayEnterprise_RiskInsight_Model_Process_Response
 	/**
 	 * Return the value at field in array if it exists. Otherwise, use the default value.
 	 *
-	 * @param  array $arr
+	 * @param  array
 	 * @param  string | int $field Valid array key
-	 * @param  mixed $default
+	 * @param  mixed
 	 * @return mixed
 	 */
 	protected function _nullCoalesce(array $arr, $field, $default)
@@ -102,7 +102,7 @@ class EbayEnterprise_RiskInsight_Model_Process_Response
 	}
 
 	/**
-	 * @param  string $action
+	 * @param  string
 	 * @return self
 	 */
 	protected function _processAction($action)
@@ -175,8 +175,8 @@ class EbayEnterprise_RiskInsight_Model_Process_Response
 	/**
 	 * Update the order status and state.
 	 *
-	 * @param  string $status
-	 * @param  string $state
+	 * @param  string
+	 * @param  string
 	 * @return self
 	 */
 	protected function _updateOrder($status, $state)

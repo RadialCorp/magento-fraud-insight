@@ -20,6 +20,9 @@ class EbayEnterprise_RiskInsight_Test_Model_Build_RequestTest
 {
 	/**
 	 * Return a C14N, whitespace removed, XML string.
+	 *
+	 * @param  string
+	 * @return string
 	 */
 	protected function _loadXmlTestString($fixtureFile)
 	{
@@ -162,6 +165,8 @@ class EbayEnterprise_RiskInsight_Test_Model_Build_RequestTest
 	}
 
 	/**
+	 * @param  string
+	 * @param  string
 	 * @return array
 	 */
 	protected function _getAddress($id, $type)

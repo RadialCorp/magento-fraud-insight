@@ -19,23 +19,23 @@ class EbayEnterprise_RiskInsight_Model_Order
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_IOrder
 {
-	/** @var string $_orderId */
+	/** @var string */
 	protected $_orderId;
-	/** @var string $_orderSource */
+	/** @var string */
 	protected $_orderSource;
-	/** @var DateTime $_orderDate */
+	/** @var DateTime */
 	protected $_orderDate;
-	/** @var string $_storeId */
+	/** @var string */
 	protected $_storeId;
-	/** @var EbayEnterprise_RiskInsight_Model_Shipping_List $_shippingList */
+	/** @var EbayEnterprise_RiskInsight_Model_Shipping_List */
 	protected $_shippingList;
-	/** @var EbayEnterprise_RiskInsight_Model_Line_Items $_lineItems */
+	/** @var EbayEnterprise_RiskInsight_Model_Line_Items */
 	protected $_lineItems;
-	/** @var EbayEnterprise_RiskInsight_Model_Payments $_formOfPayments */
+	/** @var EbayEnterprise_RiskInsight_Model_Payments */
 	protected $_formOfPayments;
-	/** @var EbayEnterprise_RiskInsight_Model_Total $_totalCost */
+	/** @var EbayEnterprise_RiskInsight_Model_Total */
 	protected $_totalCost;
-	/** @var EbayEnterprise_RiskInsight_Model_Device_Info $_deviceInfo */
+	/** @var EbayEnterprise_RiskInsight_Model_Device_Info */
 	protected $_deviceInfo;
 
 	public function __construct()

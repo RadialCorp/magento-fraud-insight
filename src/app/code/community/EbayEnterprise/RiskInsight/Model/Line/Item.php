@@ -19,23 +19,23 @@ class EbayEnterprise_RiskInsight_Model_Line_Item
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_Line_IItem
 {
-	/** @var string $_lineItemId */
+	/** @var string */
 	protected $_lineItemId;
-	/** @var string $_shipmentId */
+	/** @var string */
 	protected $_shipmentId;
-	/** @var string $_productId */
+	/** @var string */
 	protected $_productId;
-	/** @var string $_description */
+	/** @var string */
 	protected $_description;
-	/** @var float $_unitCost */
+	/** @var float */
 	protected $_unitCost;
-	/** @var string $_unitCurrencyCode */
+	/** @var string */
 	protected $_unitCurrencyCode;
-	/** @var int $_quantity */
+	/** @var int */
 	protected $_quantity;
-	/** @var string $_category */
+	/** @var string */
 	protected $_category;
-	/** @var string $_promoCode */
+	/** @var string */
 	protected $_promoCode;
 
 	public function __construct()

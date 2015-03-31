@@ -26,7 +26,7 @@ interface EbayEnterprise_RiskInsight_Model_ITelephone extends EbayEnterprise_Ris
 	public function getCountryCode();
 
 	/**
-	 * @param  string $countryCode
+	 * @param  string
 	 * @return self
 	 */
 	public function setCountryCode($countryCode);
@@ -37,7 +37,7 @@ interface EbayEnterprise_RiskInsight_Model_ITelephone extends EbayEnterprise_Ris
 	public function getAreaCode();
 
 	/**
-	 * @param  string $areaCode
+	 * @param  string
 	 * @return self
 	 */
 	public function setAreaCode($areaCode);
@@ -48,7 +48,7 @@ interface EbayEnterprise_RiskInsight_Model_ITelephone extends EbayEnterprise_Ris
 	public function getNumber();
 
 	/**
-	 * @param  string $number
+	 * @param  string
 	 * @return self
 	 */
 	public function setNumber($number);
@@ -59,7 +59,7 @@ interface EbayEnterprise_RiskInsight_Model_ITelephone extends EbayEnterprise_Ris
 	public function getExtension();
 
 	/**
-	 * @param  string $extension
+	 * @param  string
 	 * @return self
 	 */
 	public function setExtension($extension);

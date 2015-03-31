@@ -19,9 +19,9 @@ class EbayEnterprise_RiskInsight_Model_Device_Info
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_Device_IInfo
 {
-	/** @var string $_deviceIP */
+	/** @var string */
 	protected $_deviceIP;
-	/** @var EbayEnterprise_RiskInsight_Model_Http_Headers $_httpHeaders */
+	/** @var EbayEnterprise_RiskInsight_Model_Http_Headers */
 	protected $_httpHeaders;
 
 	public function __construct()

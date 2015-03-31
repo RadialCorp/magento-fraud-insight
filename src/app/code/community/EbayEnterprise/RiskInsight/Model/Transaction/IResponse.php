@@ -27,7 +27,7 @@ interface EbayEnterprise_RiskInsight_Model_Transaction_IResponse extends EbayEnt
 	 */
 	public function getResponse();
 	/**
-	 * @param  string $response
+	 * @param  string
 	 * @return self
 	 */
 	public function setResponse($response);
@@ -44,7 +44,7 @@ interface EbayEnterprise_RiskInsight_Model_Transaction_IResponse extends EbayEnt
 	public function getResponseType();
 
 	/**
-	 * @param  string $responseType
+	 * @param  string
 	 * @return self
 	 */
 	public function setResponseType($responseType);

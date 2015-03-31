@@ -48,7 +48,7 @@ class EbayEnterprise_RiskInsight_Block_Adminhtml_Sales_Order_View
 	}
 
 	/**
-	 * @param string
+	 * @return string
 	 */
 	public function getRiskInsightUrl()
 	{

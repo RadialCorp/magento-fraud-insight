@@ -20,9 +20,9 @@
  */
 class EbayEnterprise_RiskInsight_Model_Observer
 {
-	/** @var EbayEnterprise_RiskInsight_Helper_Data $_helper */
+	/** @var EbayEnterprise_RiskInsight_Helper_Data */
 	protected $_helper;
-	/** @var EbayEnterprise_RiskInsight_Helper_Config $_config*/
+	/** @var EbayEnterprise_RiskInsight_Helper_Config */
 	protected $_config;
 
 	public function __construct()
@@ -36,7 +36,7 @@ class EbayEnterprise_RiskInsight_Model_Observer
 	 * from the event down to the 'ebayenterprise_riskinsight/risk_fraud' instance. Invoke the process
 	 * method on the 'ebayenterprise_riskinsight/risk_fraud' instance.
 	 *
-	 * @param  Varien_Event_Observer $observer
+	 * @param  Varien_Event_Observer
 	 * @return self
 	 */
 	public function handleOrderRiskFraud(Varien_Event_Observer $observer)

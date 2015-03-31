@@ -26,7 +26,7 @@ interface EbayEnterprise_RiskInsight_Model_Line_IItem extends EbayEnterprise_Ris
 	public function getLineItemId();
 
 	/**
-	 * @param  string $lineItemId
+	 * @param  string
 	 * @return self
 	 */
 	public function setLineItemId($lineItemId);
@@ -37,7 +37,7 @@ interface EbayEnterprise_RiskInsight_Model_Line_IItem extends EbayEnterprise_Ris
 	public function getShipmentId();
 
 	/**
-	 * @param  string $shipmentId
+	 * @param  string
 	 * @return self
 	 */
 	public function setShipmentId($shipmentId);
@@ -48,7 +48,7 @@ interface EbayEnterprise_RiskInsight_Model_Line_IItem extends EbayEnterprise_Ris
 	public function getProductId();
 
 	/**
-	 * @param  string $productId
+	 * @param  string
 	 * @return self
 	 */
 	public function setProductId($productId);
@@ -59,7 +59,7 @@ interface EbayEnterprise_RiskInsight_Model_Line_IItem extends EbayEnterprise_Ris
 	public function getDescription();
 
 	/**
-	 * @param  string $description
+	 * @param  string
 	 * @return self
 	 */
 	public function setDescription($description);
@@ -70,7 +70,7 @@ interface EbayEnterprise_RiskInsight_Model_Line_IItem extends EbayEnterprise_Ris
 	public function getUnitCost();
 
 	/**
-	 * @param  float $unitCost
+	 * @param  float
 	 * @return self
 	 */
 	public function setUnitCost($unitCost);
@@ -81,7 +81,7 @@ interface EbayEnterprise_RiskInsight_Model_Line_IItem extends EbayEnterprise_Ris
 	public function getUnitCurrencyCode();
 
 	/**
-	 * @param  string $unitCurrencyCode
+	 * @param  string
 	 * @return self
 	 */
 	public function setUnitCurrencyCode($unitCurrencyCode);
@@ -92,7 +92,7 @@ interface EbayEnterprise_RiskInsight_Model_Line_IItem extends EbayEnterprise_Ris
 	public function getQuantity();
 
 	/**
-	 * @param  int $quantity
+	 * @param  int
 	 * @return self
 	 */
 	public function setQuantity($quantity);
@@ -103,7 +103,7 @@ interface EbayEnterprise_RiskInsight_Model_Line_IItem extends EbayEnterprise_Ris
 	public function getCategory();
 
 	/**
-	 * @param  string $category
+	 * @param  string
 	 * @return self
 	 */
 	public function setCategory($category);
@@ -114,7 +114,7 @@ interface EbayEnterprise_RiskInsight_Model_Line_IItem extends EbayEnterprise_Ris
 	public function getPromoCode();
 
 	/**
-	 * @param  string $promoCode
+	 * @param  string
 	 * @return self
 	 */
 	public function setPromoCode($promoCode);

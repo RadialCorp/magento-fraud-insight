@@ -26,7 +26,7 @@ interface EbayEnterprise_RiskInsight_Model_Person_IName extends EbayEnterprise_R
 	public function getLastName();
 
 	/**
-	 * @param  string $lastName
+	 * @param  string
 	 * @return self
 	 */
 	public function setLastName($lastName);
@@ -38,7 +38,7 @@ interface EbayEnterprise_RiskInsight_Model_Person_IName extends EbayEnterprise_R
 	public function getMiddleName();
 
 	/**
-	 * @param  string $middleName
+	 * @param  string
 	 * @return self
 	 */
 	public function setMiddleName($middleName);
@@ -49,7 +49,7 @@ interface EbayEnterprise_RiskInsight_Model_Person_IName extends EbayEnterprise_R
 	public function getFirstName();
 
 	/**
-	 * @param  string $firstName
+	 * @param  string
 	 * @return self
 	 */
 	public function setFirstName($firstName);

@@ -19,17 +19,17 @@ class EbayEnterprise_RiskInsight_Model_Shipment
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_IShipment
 {
-	/** @var string $_shipmentId */
+	/** @var string */
 	protected $_shipmentId;
-	/** @var EbayEnterprise_RiskInsight_Model_Person_Name $_personName */
+	/** @var EbayEnterprise_RiskInsight_Model_Person_Name */
 	protected $_personName;
-	/** @var string $_email */
+	/** @var string */
 	protected $_email;
-	/** @var EbayEnterprise_RiskInsight_Model_Telephone $_telephone */
+	/** @var EbayEnterprise_RiskInsight_Model_Telephone */
 	protected $_telephone;
-	/** @var EbayEnterprise_RiskInsight_Model_Address $_address */
+	/** @var EbayEnterprise_RiskInsight_Model_Address */
 	protected $_address;
-	/** @var string $_shippingMethod */
+	/** @var string */
 	protected $_shippingMethod;
 
 	public function __construct()

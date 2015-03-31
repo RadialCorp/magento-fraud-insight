@@ -19,25 +19,25 @@ class EbayEnterprise_RiskInsight_Model_Payment
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_IPayment
 {
-	/** @var EbayEnterprise_RiskInsight_Model_Payment_ICard $_paymentCard */
+	/** @var EbayEnterprise_RiskInsight_Model_Payment_ICard */
 	protected $_paymentCard;
-	/** @var EbayEnterprise_RiskInsight_Model_Person_IName $_personName */
+	/** @var EbayEnterprise_RiskInsight_Model_Person_IName */
 	protected $_personName;
-	/** @var string $_email */
+	/** @var string */
 	protected $_email;
-	/** @var EbayEnterprise_RiskInsight_Model_ITelephone $_telephone */
+	/** @var EbayEnterprise_RiskInsight_Model_ITelephone */
 	protected $_telephone;
-	/** @var EbayEnterprise_RiskInsight_Model_IAddress $_address */
+	/** @var EbayEnterprise_RiskInsight_Model_IAddress */
 	protected $_address;
-	/** @var DateTime $_paymentTransactionDate */
+	/** @var DateTime */
 	protected $_paymentTransactionDate;
-	/** @var string $_currencyCode */
+	/** @var string */
 	protected $_currencyCode;
-	/** @var float $_amount */
+	/** @var float */
 	protected $_amount;
-	/** @var int $_totalAuthAttemptCount */
+	/** @var int */
 	protected $_totalAuthAttemptCount;
-	/** @var EbayEnterprise_RiskInsight_Model_Transaction_IResponses $_transactionResponses */
+	/** @var EbayEnterprise_RiskInsight_Model_Transaction_IResponses */
 	protected $_transactionResponses;
 
 	public function __construct()

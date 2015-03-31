@@ -29,7 +29,7 @@ interface EbayEnterprise_RiskInsight_Model_IShipment extends EbayEnterprise_Risk
 	public function getShipmentId();
 
 	/**
-	 * @param  string $shipmentId
+	 * @param  string
 	 * @return self
 	 */
 	public function setShipmentId($shipmentId);
@@ -40,7 +40,7 @@ interface EbayEnterprise_RiskInsight_Model_IShipment extends EbayEnterprise_Risk
 	public function getPersonName();
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Person_IName $personName
+	 * @param  EbayEnterprise_RiskInsight_Model_Person_IName
 	 * @return self
 	 */
 	public function setPersonName(EbayEnterprise_RiskInsight_Model_Person_IName $personName);
@@ -54,7 +54,7 @@ interface EbayEnterprise_RiskInsight_Model_IShipment extends EbayEnterprise_Risk
 	public function getEmail();
 
 	/**
-	 * @param  string $email
+	 * @param  string
 	 * @return self
 	 */
 	public function setEmail($email);
@@ -65,7 +65,7 @@ interface EbayEnterprise_RiskInsight_Model_IShipment extends EbayEnterprise_Risk
 	public function getTelephone();
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_ITelephone $telephone
+	 * @param  EbayEnterprise_RiskInsight_Model_ITelephone
 	 * @return self
 	 */
 	public function setTelephone(EbayEnterprise_RiskInsight_Model_ITelephone $telephone);
@@ -76,7 +76,7 @@ interface EbayEnterprise_RiskInsight_Model_IShipment extends EbayEnterprise_Risk
 	public function getAddress();
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_IAddress $address
+	 * @param  EbayEnterprise_RiskInsight_Model_IAddress
 	 * @return self
 	 */
 	public function setAddress(EbayEnterprise_RiskInsight_Model_IAddress $address);
@@ -91,7 +91,7 @@ interface EbayEnterprise_RiskInsight_Model_IShipment extends EbayEnterprise_Risk
 	public function getShippingMethod();
 
 	/**
-	 * @param  string $shippingMethod
+	 * @param  string
 	 * @return self
 	 */
 	public function setShippingMethod($shippingMethod);

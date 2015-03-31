@@ -22,7 +22,7 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	const RISK_INSIGHT_GIFT_CARD_PAYMENT_METHOD = 'GC';
 	const RISK_INSIGHT_DEFAULT_PAYMENT_METHOD = 'OTHER';
 
-	/** @var EbayEnterprise_RiskInsight_Helper_Config $_config */
+	/** @var EbayEnterprise_RiskInsight_Helper_Config */
 	protected $_config;
 
 	public function __construct()
@@ -34,7 +34,7 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	 * Convert "true", "false", "1" or "0" to boolean
 	 * Everything else returns null
 	 *
-	 * @param  string $string
+	 * @param  string
 	 * @return bool | null
 	 */
 	public function convertStringToBoolean($string)
@@ -57,7 +57,7 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	/**
 	 * Consistent formatting of amounts.
 	 *
-	 * @param  float $amount
+	 * @param  float
 	 * @return string
 	 */
 	public function formatAmount($amount)
@@ -68,8 +68,8 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	/**
 	 * Load the payload XML into a DOMXPath for querying.
 	 *
-	 * @param  string $xmlString
-	 * @param  string $nameSpace
+	 * @param  string
+	 * @param  string
 	 * @return DOMXPath
 	 */
 	public function getPayloadAsXPath($xmlString, $nameSpace)
@@ -82,7 +82,7 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	/**
 	 * Load the payload XML into a DOMDocument
 	 *
-	 * @param  string $xmlString
+	 * @param  string
 	 * @return DOMDocument
 	 */
 	public function getPayloadAsDoc($xmlString)
@@ -126,7 +126,7 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	/**
 	 * Getting a collection of sales/order object filtered by increment ids.
 	 *
-	 * @param  array  $incrementIds
+	 * @param  array
 	 * @return Mage_Sales_Model_Resource_Order_Collection
 	 */
 	public function getOrderCollectionByIncrementIds(array $incrementIds=array())
@@ -136,7 +136,7 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	}
 
 	/**
-	 * @param  string $dateTime
+	 * @param  string
 	 * @return DateTime
 	 */
 	public function getNewDateTime($dateTime)
@@ -156,7 +156,7 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	}
 
 	/**
-	 * @param  Mage_Sales_Model_Order $order
+	 * @param  Mage_Sales_Model_Order
 	 * @return EbayEnterprise_RiskInsight_Model_Risk_Insight
 	 */
 	public function getRiskInsight(Mage_Sales_Model_Order $order)
@@ -169,7 +169,7 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	/**
 	 * Check if risk insight request has already been sent for the passed in order.
 	 *
-	 * @param  Mage_Sales_Model_Order $order
+	 * @param  Mage_Sales_Model_Order
 	 * @return bool
 	 */
 	public function isRiskInsightRequestSent(Mage_Sales_Model_Order $order)
@@ -188,8 +188,8 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	}
 
 	/**
-	 * @param  Mage_Sales_Model_Order $order
-	 * @param  Mage_Sales_Model_Order_Payment $payment
+	 * @param  Mage_Sales_Model_Order
+	 * @param  Mage_Sales_Model_Order_Payment
 	 * @return string
 	 */
 	public function getPaymentMethod(
@@ -205,7 +205,7 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	/**
 	 * Determine if the passed in order has gift card data.
 	 *
-	 * @param  Mage_Sales_Model_Order $order
+	 * @param  Mage_Sales_Model_Order
 	 * @return bool
 	 */
 	protected function _hasGiftCard(Mage_Sales_Model_Order $order)
@@ -217,7 +217,7 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	/**
 	 * Used configuration map to retrieve enumerated value for the risk insight request.
 	 *
-	 * @param  Mage_Sales_Model_Order_Payment $payment
+	 * @param  Mage_Sales_Model_Order_Payment
 	 * @return string
 	 */
 	protected function _getMapRiskInsightPaymentMethod(Mage_Sales_Model_Order_Payment $payment)
@@ -229,8 +229,8 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	}
 
 	/**
-	 * @param  array $map
-	 * @param  string $key
+	 * @param  array
+	 * @param  string
 	 * @return string | null
 	 */
 	protected function _getValueFromMap(array $map, $key)
@@ -239,7 +239,7 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	}
 
 	/**
-	 * @param  Mage_Sales_Model_Order_Payment $payment
+	 * @param  Mage_Sales_Model_Order_Payment
 	 * @return string | null
 	 */
 	protected function _decryptCc(Mage_Sales_Model_Order_Payment $payment)
@@ -251,7 +251,7 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	/**
 	 * Decrypt the encrypted credit card number and return the first 6 digits.
 	 *
-	 * @param  Mage_Sales_Model_Order_Payment $payment
+	 * @param  Mage_Sales_Model_Order_Payment
 	 * @return string | null
 	 */
 	public function getAccountBin(Mage_Sales_Model_Order_Payment $payment)

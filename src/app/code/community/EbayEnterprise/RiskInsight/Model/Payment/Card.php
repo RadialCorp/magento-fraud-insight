@@ -19,17 +19,17 @@ class EbayEnterprise_RiskInsight_Model_Payment_Card
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_Payment_ICard
 {
-	/** @var string $_cardHolderName */
+	/** @var string */
 	protected $_cardHolderName;
-	/** @var string paymentAccountUniqueId */
+	/** @var string */
 	protected $_paymentAccountUniqueId;
-	/** @var bool $_isToken */
+	/** @var bool */
 	protected $_isToken;
-	/** @var string $_paymentAccountBin */
+	/** @var string */
 	protected $_paymentAccountBin;
-	/** @var string $_expireDate */
+	/** @var string */
 	protected $_expireDate;
-	/** @var string $_cardType */
+	/** @var string */
 	protected $_cardType;
 
 	public function __construct()

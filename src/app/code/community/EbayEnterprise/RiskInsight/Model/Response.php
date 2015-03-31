@@ -19,15 +19,15 @@ class EbayEnterprise_RiskInsight_Model_Response
 	extends EbayEnterprise_RiskInsight_Model_Payload_Top
 	implements EbayEnterprise_RiskInsight_Model_IResponse
 {
-	/** @var string $_primaryLangId */
+	/** @var string */
 	protected $_primaryLangId;
-	/** @var string $_orderId */
+	/** @var string */
 	protected $_orderId;
-	/** @var string $_storeId */
+	/** @var string */
 	protected $_storeId;
-	/** @var string $_responseReasonCode */
+	/** @var string */
 	protected $_responseReasonCode;
-	/** @var string $_responseReasonCodeDescription */
+	/** @var string */
 	protected $_responseReasonCodeDescription;
 
 	public function __construct()

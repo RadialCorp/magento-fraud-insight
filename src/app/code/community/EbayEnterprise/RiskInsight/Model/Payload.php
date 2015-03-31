@@ -18,15 +18,15 @@
 abstract class EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_IPayload
 {
-	/** @var EbayEnterprise_RiskInsight_Model_Xsd_Validator $_schemaValidator */
+	/** @var EbayEnterprise_RiskInsight_Model_Xsd_Validator */
 	protected $_schemaValidator;
-	/** @var EbayEnterprise_RiskInsight_Helper_Data $_helper */
+	/** @var EbayEnterprise_RiskInsight_Helper_Data */
 	protected $_helper;
 	/** @var array $_extractionPaths - XPath expressions to extract required data from the serialized payload (XML) */
 	protected $_extractionPaths = array();
-	/** @var array $_optionalExtractionPaths */
+	/** @var array */
 	protected $_optionalExtractionPaths = array();
-	/** @var array $_dateTimeExtractionPaths */
+	/** @var array */
 	protected $_dateTimeExtractionPaths = array();
 	/** @var array $_booleanExtractionPaths - property/XPath pairs that take boolean values */
 	protected $_booleanExtractionPaths = array();
@@ -40,7 +40,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	 * Fill out this payload object with data from the supplied string.
 	 *
 	 * @throws EbayEnterprise_RiskInsight_Model_Exception_Invalid_Payload_Exception
-	 * @param  string $serializedPayload
+	 * @param  string
 	 * @return $this
 	 */
 	public function deserialize($serializedPayload)
@@ -57,7 +57,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	}
 
 	/**
-	 * @param  DOMXPath $xpath
+	 * @param  DOMXPath
 	 * @return self
 	 */
 	protected function _deserializeExtractionPaths(DOMXPath $xpath)
@@ -73,7 +73,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	 * they should not be set in the payload. Fortunately, these
 	 * are all string values so no additional type conversion is necessary.
 	 *
-	 * @param  DOMXPath $xpath
+	 * @param  DOMXPath
 	 * @return self
 	 */
 	protected function _deserializeOptionalExtractionPaths(DOMXPath $xpath)
@@ -90,7 +90,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	/**
 	 * boolean values have to be handled specially
 	 *
-	 * @param  DOMXPath $xpath
+	 * @param  DOMXPath
 	 * @return self
 	 */
 	protected function _deserializeBooleanExtractionPaths(DOMXPath $xpath)
@@ -103,7 +103,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	}
 
 	/**
-	 * @param  DOMXPath $xpath
+	 * @param  DOMXPath
 	 * @return self
 	 */
 	protected function _deserializeSubpayloadExtractionPaths(DOMXPath $xpath)
@@ -121,7 +121,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	/**
 	 * Ensure any date time string is instantiate
 	 *
-	 * @param  DOMXPath $xpath
+	 * @param  DOMXPath
 	 * @return self
 	 */
 	protected function _deserializeDateTimeExtractionPaths(DOMXPath $xpath)
@@ -203,7 +203,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	/**
 	 * convert line item substrings into line item objects
 	 *
-	 * @param  string $serializedPayload
+	 * @param  string
 	 * @return self
 	 * @SuppressWarnings(PHPMD.UnusedFormalParameter)
 	 */

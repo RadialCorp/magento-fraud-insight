@@ -23,13 +23,12 @@ class EbayEnterprise_RiskInsight_Test_Model_RequestTest
 	 * Each key in array should be a setter method to call and will be given
 	 * the value at that key.
 	 *
-	 * @param  array $properties
+	 * @param  array
 	 * @return EbayEnterprise_RiskInsight_Model_IPayload
 	 */
-	protected function _buildPayload(array $properties = array())
+	protected function _buildPayload(array $properties=array())
 	{
 		$payload = $this->_createNewPayload();
-
 		foreach ($properties as $setterMethod => $value) {
 			$payload->$setterMethod($value);
 		}
@@ -48,6 +47,9 @@ class EbayEnterprise_RiskInsight_Test_Model_RequestTest
 
 	/**
 	 * Return a C14N, whitespace removed, XML string.
+	 *
+	 * @param  string
+	 * @return string
 	 */
 	protected function _loadXmlTestString($fixtureFile)
 	{
@@ -55,7 +57,6 @@ class EbayEnterprise_RiskInsight_Test_Model_RequestTest
 		$dom->preserveWhiteSpace = false;
 		$dom->load($fixtureFile);
 		$string = $dom->C14N();
-
 		return $string;
 	}
 
@@ -77,7 +78,7 @@ class EbayEnterprise_RiskInsight_Test_Model_RequestTest
 	 * Test deserializing data into a payload and then deserializing back
 	 * to match the original data.
 	 *
-	 * @param string path to fixture file
+	 * @param string $serializedDataFile - path to fixture file
 	 * @dataProvider provideRequestSerializedDataFile
 	 */
 	public function testRequestDeserializeSerialize($serializedDataFile)
@@ -99,7 +100,7 @@ class EbayEnterprise_RiskInsight_Test_Model_RequestTest
 	}
 
 	/**
-	 * @param string path to fixture file
+	 * @param string $serializedDataFile - path to fixture file
 	 * @expectedException EbayEnterprise_RiskInsight_Model_Exception_Invalid_Payload_Exception
 	 * @dataProvider providerRequestInvlidPayload
 	 */

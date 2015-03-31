@@ -21,21 +21,21 @@
 class EbayEnterprise_RiskInsight_Model_Config
 	implements EbayEnterprise_RiskInsight_Model_IConfig
 {
-	/** @var string $_apiKey */
+	/** @var string */
 	protected $_apiKey;
-	/** @var string $_host */
+	/** @var string */
 	protected $_host;
-	/** @var string $_storeId */
+	/** @var string */
 	protected $_storeId;
-	/** @var string $_action */
+	/** @var string */
 	protected $_action = '_post';
-	/** @var string $_contentType */
+	/** @var string */
 	protected $_contentType = 'text/xml';
-	/** @var EbayEnterprise_RiskInsight_Model_IPayload $_request */
+	/** @var EbayEnterprise_RiskInsight_Model_IPayload */
 	protected $_request;
-	/** @var EbayEnterprise_RiskInsight_Model_IPayload $_response */
+	/** @var EbayEnterprise_RiskInsight_Model_IPayload */
 	protected $_response;
-	/** @var EbayEnterprise_RiskInsight_Model_IPayload $_error */
+	/** @var EbayEnterprise_RiskInsight_Model_IPayload */
 	protected $_error;
 
 	/**
@@ -69,12 +69,12 @@ class EbayEnterprise_RiskInsight_Model_Config
 	/**
 	 * Type hinting for self::__construct $initParams
 	 *
-	 * @param  string $apiKey
-	 * @param  string $host
-	 * @param  string $storeId
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload $request
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload $response
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload $error
+	 * @param  string
+	 * @param  string
+	 * @param  string
+	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
 	 * @return array
 	 */
 	protected function _checkTypes(
@@ -91,9 +91,9 @@ class EbayEnterprise_RiskInsight_Model_Config
 	/**
 	 * Return the value at field in array if it exists. Otherwise, use the default value.
 	 *
-	 * @param  array $arr
+	 * @param  array
 	 * @param  string | int $field Valid array key
-	 * @param  mixed $default
+	 * @param  mixed
 	 * @return mixed
 	 */
 	protected function _nullCoalesce(array $arr, $field, $default)

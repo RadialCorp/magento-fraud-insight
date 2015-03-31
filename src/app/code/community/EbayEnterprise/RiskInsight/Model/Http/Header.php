@@ -19,9 +19,9 @@ class EbayEnterprise_RiskInsight_Model_Http_Header
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_Http_IHeader
 {
-	/** @var string $_header */
+	/** @var string */
 	protected $_header;
-	/** @var string $_name */
+	/** @var string */
 	protected $_name;
 
 	public function __construct()

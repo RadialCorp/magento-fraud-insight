@@ -19,11 +19,11 @@ class EbayEnterprise_RiskInsight_Model_Person_Name
 	extends EbayEnterprise_RiskInsight_Model_Payload
 	implements EbayEnterprise_RiskInsight_Model_Person_IName
 {
-	/** @var string $_lastName */
+	/** @var string */
 	protected $_lastName;
-	/** @var string $_middleName */
+	/** @var string */
 	protected $_middleName;
-	/** @var string $_firstName */
+	/** @var string */
 	protected $_firstName;
 
 	public function __construct()

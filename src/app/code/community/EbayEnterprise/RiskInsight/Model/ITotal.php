@@ -29,7 +29,7 @@ interface EbayEnterprise_RiskInsight_Model_ITotal extends EbayEnterprise_RiskIns
 	public function getCostTotals();
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Cost_ITotals $costTotals
+	 * @param  EbayEnterprise_RiskInsight_Model_Cost_ITotals
 	 * @return self
 	 */
 	public function setCostTotals(EbayEnterprise_RiskInsight_Model_Cost_ITotals $costTotals);

@@ -33,7 +33,7 @@ interface EbayEnterprise_RiskInsight_Model_IRequest extends EbayEnterprise_RiskI
 	public function getPrimaryLangId();
 
 	/**
-	 * @param  string $primaryLangId
+	 * @param  string
 	 * @return self
 	 */
 	public function setPrimaryLangId($primaryLangId);
@@ -46,7 +46,7 @@ interface EbayEnterprise_RiskInsight_Model_IRequest extends EbayEnterprise_RiskI
 	public function getOrder();
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_IOrder $order
+	 * @param  EbayEnterprise_RiskInsight_Model_IOrder
 	 * @return self
 	 */
 	public function setOrder(EbayEnterprise_RiskInsight_Model_IOrder $order);

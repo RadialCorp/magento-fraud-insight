@@ -33,7 +33,7 @@ interface EbayEnterprise_RiskInsight_Model_Http_IHeader extends EbayEnterprise_R
 	public function getHeader();
 
 	/**
-	 * @param  string $header
+	 * @param  string
 	 * @return self
 	 */
 	public function setHeader($header);
@@ -44,7 +44,7 @@ interface EbayEnterprise_RiskInsight_Model_Http_IHeader extends EbayEnterprise_R
 	public function getName();
 
 	/**
-	 * @param  string $name
+	 * @param  string
 	 * @return self
 	 */
 	public function setName($name);

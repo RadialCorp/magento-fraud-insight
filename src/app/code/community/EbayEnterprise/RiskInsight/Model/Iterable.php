@@ -19,11 +19,11 @@ abstract class EbayEnterprise_RiskInsight_Model_Iterable
 	extends SPLObjectStorage
 	implements EbayEnterprise_RiskInsight_Model_IIterable
 {
-	/** @var EbayEnterprise_RiskInsight_Helper_Data $_helper */
+	/** @var EbayEnterprise_RiskInsight_Helper_Data */
 	protected $_helper;
-	/** @var bool $_includeIfEmpty */
+	/** @var bool */
 	protected $_includeIfEmpty = false;
-	/** @var bool $_buildRootNode */
+	/** @var bool */
 	protected $_buildRootNode = true;
 
 	public function serialize()
