@@ -75,11 +75,20 @@
 				<observers>
 					<handle_order_risk_fraud>
 						<class>ebayenterprise_riskinsight/observer</class>
-						<method>handleOrderRiskFraud</method>
+						<method>handleSalesModelServiceQuoteSubmitAfter</method>
 						<type>singleton</type>
 					</handle_order_risk_fraud>
 				</observers>
 			</sales_model_service_quote_submit_after>
+			<checkout_submit_all_after>
+				<observers>
+					<handle_multi_shipping_orders_risk_fraud>
+						<class>ebayenterprise_riskinsight/observer</class>
+						<method>handleCheckoutSubmitAllAfter</method>
+						<type>singleton</type>
+					</handle_multi_shipping_orders_risk_fraud>
+				</observers>
+			</checkout_submit_all_after>
 		</events>
 	</global>
 	<admin>
