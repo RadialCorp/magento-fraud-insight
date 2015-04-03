@@ -11,7 +11,6 @@
 					<LastName>Testy</LastName>
 					<FirstName>Tester</FirstName>
 				</PersonName>
-				<Email>test@example.com</Email>
 				<Telephone>
 					<Number>555-555-5555</Number>
 				</Telephone>
@@ -24,6 +23,14 @@
 				</Address>
 				<ShippingMethod>freeshipping_freeshipping</ShippingMethod>
 			</Shipment>
+			<Shipment ShipmentId="2">
+				<PersonName>
+					<LastName>Testy</LastName>
+					<FirstName>Tester</FirstName>
+				</PersonName>
+				<Email>test@example.com</Email>
+				<ShippingMethod>EMAIL</ShippingMethod>
+			</Shipment>
 		</ShippingList>
 		<LineItems>
 			<LineItem LineItemId="1" ShipmentId="1">
@@ -34,12 +41,23 @@
 				<Quantity>1</Quantity>
 				<Category>Root Catalog-&gt;Default Category,Root Catalog,Root Catalog-&gt;Default Category</Category>
 			</LineItem>
+			<LineItem LineItemId="2" ShipmentId="2">
+				<ProductId>hkp38832</ProductId>
+				<Description>5 Year Warranty</Description>
+				<UnitCost>100.00</UnitCost>
+				<UnitCurrencyCode>USD</UnitCurrencyCode>
+				<Quantity>1</Quantity>
+				<Category>Root Catalog-&gt;Default Category,Root Catalog,Root Catalog-&gt;Default Category</Category>
+			</LineItem>
 		</LineItems>
 		<FormOfPayments>
 			<FormOfPayment>
 				<PaymentCard>
 					<CardHolderName>Testy Tester</CardHolderName>
-					<CardType>OTHER</CardType>
+					<PaymentAccountUniqueId isToken="true">aL+zlvNa84dvxQlmWz3COgkwqrE=</PaymentAccountUniqueId>
+					<PaymentAccountBin>411111</PaymentAccountBin>
+					<ExpireDate>2023-09</ExpireDate>
+					<CardType>VC</CardType>
 				</PaymentCard>
 				<PersonName>
 					<LastName>Testy</LastName>

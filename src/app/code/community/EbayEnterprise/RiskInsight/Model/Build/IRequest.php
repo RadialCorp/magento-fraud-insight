@@ -20,6 +20,9 @@ interface EbayEnterprise_RiskInsight_Model_Build_IRequest
 	const IS_TOKEN = 'true';
 	const RESPONSE_TYPE = 'avs';
 	const DEFAULT_SHIPPING_METHOD ='Unknown';
+	const PHYSICAL_SHIPMENT_TYPE = 'physical';
+	const VIRTUAL_SHIPMENT_TYPE = 'virtual';
+	const VIRTUAL_SHIPPING_METHOD = 'EMAIL';
 
 	/**
 	 * Build the Risk Insight request payload.

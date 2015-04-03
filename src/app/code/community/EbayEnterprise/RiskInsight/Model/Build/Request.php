@@ -33,7 +33,9 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	/** @var Mage_Catalog_Model_Product */
 	protected $_product;
 	/** @var string */
-	protected $_shipmentId;
+	protected $_shippingId;
+	/** @var string */
+	protected $_billingId;
 
 	/**
 	 * @param array $initParams Must have this key:
@@ -138,19 +140,26 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
-	 * Add the shipping address id to the class property '_shipmentId' when there's a shipment
-	 * for the order, otherwise if the order is a virtual order without any shipment, just use
-	 * the billing address id.
-	 *
-	 * @return string
+	 * @return string | null
 	 */
-	protected function _getShipmentId()
+	protected function _getShippingId()
 	{
-		if (!$this->_shipmentId) {
+		if (!$this->_shippingId) {
 			$shippingAddress = $this->_order->getShippingAddress();
-			$this->_shipmentId = $shippingAddress ? $shippingAddress->getId() : $this->_order->getBillingAddress()->getId();
+			$this->_shippingId = $shippingAddress ? $shippingAddress->getId() : null;
 		}
-		return $this->_shipmentId;
+		return $this->_shippingId;
+	}
+
+	/**
+	 * @return string | null
+	 */
+	protected function _getBillingId()
+	{
+		if (!$this->_billingId) {
+			$this->_billingId = $this->_order->getBillingAddress()->getId();
+		}
+		return $this->_billingId;
 	}
 
 	/**
@@ -240,13 +249,135 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	 */
 	protected function _buildShippingList(EbayEnterprise_RiskInsight_Model_Shipping_IList $subPayloadShippingList)
 	{
-		$orderShippingAddress = $this->_order->getShippingAddress();
-		if ($orderShippingAddress) {
+		$shipments = $this->_getOrderShippingData();
+		foreach ($shipments as $shipment) {
 			$subPayloadShipment = $subPayloadShippingList->getEmptyShipment();
-			$this->_buildShipment($subPayloadShipment, $orderShippingAddress);
+			$this->_buildShipment($subPayloadShipment, $shipment['address'], $shipment['type']);
 			$subPayloadShippingList->offsetSet($subPayloadShipment);
 		}
 		return $this;
+	}
+
+	/**
+	 * When the order is virtual simply return virtual shipment data otherwise
+	 * find out if the order has any items that are virtual to return a combination
+	 * of both virtual and physical shipment data. However, if the order only
+	 * has physical items simply return physical shipment data.
+	 *
+	 * @return array
+	 */
+	protected function _getOrderShippingData()
+	{
+		return $this->_order->getIsVirtual()
+			? $this->_getVirtualOrderShippingData()
+			: $this->_getPhysicalVirtualShippingData();
+	}
+
+	/**
+	 * Determine if the order has an virtual items, if so,
+	 * simply return a combination of physical and virtual shipment
+	 * data. Otherwise, simply return physical shipment data.
+	 *
+	 * @return array
+	 */
+	protected function _getPhysicalVirtualShippingData()
+	{
+		return $this->_hasVirtualItems()
+			? array_merge($this->_getPhysicalOrderShippingData(), $this->_getVirtualOrderShippingData())
+			: $this->_getPhysicalOrderShippingData();
+	}
+
+	/**
+	 * Returns virtual shipment data.
+	 *
+	 * @return array
+	 */
+	protected function _getVirtualOrderShippingData()
+	{
+		return array(array(
+			'type' => static::VIRTUAL_SHIPMENT_TYPE,
+			'address' => $this->_order->getBillingAddress(),
+		));
+	}
+
+	/**
+	 * Returns physical shipment data.
+	 *
+	 * @return array
+	 */
+	protected function _getPhysicalOrderShippingData()
+	{
+		return array(array(
+			'type' => static::PHYSICAL_SHIPMENT_TYPE,
+			'address' => $this->_order->getShippingAddress(),
+		));
+	}
+
+	/**
+	 * Returns true when the item is virtual otherwise false.
+	 *
+	 * @param  Mage_Sales_Model_Order_Item
+	 * @return bool
+	 */
+	protected function _isItemVirtual(Mage_Sales_Model_Order_Item $item)
+	{
+		return ((int) $item->getIsVirtual() === 1);
+	}
+
+	/**
+	 * Returns true when the passed in type is a physical shipment type
+	 * otherwise false.
+	 *
+	 * @param  string
+	 * @return bool
+	 */
+	protected function _isVirtualShipmentType($type)
+	{
+		return ($type !== static::PHYSICAL_SHIPMENT_TYPE);
+	}
+
+	/**
+	 * Returns true if any items in the order is virtual, otherwise,
+	 * return false.
+	 *
+	 * @return bool
+	 */
+	protected function _hasVirtualItems()
+	{
+		$hasVirtual = false;
+		foreach ($this->_order->getAllItems() as $orderItem) {
+			if ($this->_isItemVirtual($orderItem)) {
+				$hasVirtual = true;
+				break;
+			}
+		}
+		return $hasVirtual;
+	}
+
+	/**
+	 * Returns the billing id if the item is virtual otherwise returns
+	 * the shipping id.
+	 *
+	 * @param  Mage_Sales_Model_Order_Item
+	 * @return string
+	 */
+	protected function _getShipmentIdByItem(Mage_Sales_Model_Order_Item $item)
+	{
+		return $this->_isItemVirtual($item) ? $this->_getBillingId() : $this->_getShippingId();
+	}
+
+	/**
+	 * Returns the virtual shipping method when the types is a virtual shipment
+	 * otherwise returns the shipping method in the order.
+	 *
+	 * @param  string
+	 * @return string
+	 */
+	protected function _getShippingMethodByType($type)
+	{
+		return $this->_isVirtualShipmentType($type)
+			? static::VIRTUAL_SHIPPING_METHOD
+			: $this->_order->getShippingMethod();
 	}
 
 	/**
@@ -307,20 +438,25 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	/**
 	 * @param  EbayEnterprise_RiskInsight_Model_IShipment
 	 * @param  Mage_Customer_Model_Address_Abstract
+	 * @param  string
 	 * @return self
 	 */
 	protected function _buildShipment(
 		EbayEnterprise_RiskInsight_Model_IShipment $subPayloadShipment,
-		Mage_Customer_Model_Address_Abstract $orderShippingAddress
+		Mage_Customer_Model_Address_Abstract $orderShippingAddress,
+		$type
 	)
 	{
-		$subPayloadShipment->setShipmentId($this->_getShipmentId())
-			->setEmail($this->_order->getCustomerEmail())
-			->setShippingMethod($this->_order->getShippingMethod());
+		$subPayloadShipment->setShipmentId($orderShippingAddress->getId())
+			->setShippingMethod($this->_getShippingMethodByType($type));
 
-		$this->_buildPersonName($subPayloadShipment->getPersonName(), $orderShippingAddress)
-			->_buildTelephone($subPayloadShipment->getTelephone(), $orderShippingAddress)
-			->_buildAddress($subPayloadShipment->getAddress(), $orderShippingAddress);
+		$this->_buildPersonName($subPayloadShipment->getPersonName(), $orderShippingAddress);
+		if ($this->_isVirtualShipmentType($type)) {
+			$subPayloadShipment->setEmail($this->_order->getCustomerEmail());
+		} else {
+			$this->_buildTelephone($subPayloadShipment->getTelephone(), $orderShippingAddress)
+				->_buildAddress($subPayloadShipment->getAddress(), $orderShippingAddress);
+		}
 		return $this;
 	}
 
@@ -389,7 +525,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	)
 	{
 		$subPayloadLineItem->setLineItemId($orderItem->getId())
-			->setShipmentId($this->_getShipmentId())
+			->setShipmentId($this->_getShipmentIdByItem($orderItem))
 			->setProductId($orderItem->getSku())
 			->setDescription($orderItem->getName())
 			->setUnitCost($orderItem->getPrice())

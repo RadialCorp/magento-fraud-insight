@@ -86,6 +86,15 @@ class EbayEnterprise_RiskInsight_Test_Model_Build_RequestTest
 			'price' => 100.0000,
 			'qty_ordered' => 1.0000,
 		)));
+		$collection->addItem(Mage::getModel('sales/order_item', array(
+			'item_id' => 2,
+			'order_id' => 1,
+			'sku' => 'hkp38832',
+			'name' => '5 Year Warranty',
+			'price' => 100.0000,
+			'qty_ordered' => 1.0000,
+			'is_virtual' => 1,
+		)));
 		return $collection;
 	}
 
@@ -99,11 +108,18 @@ class EbayEnterprise_RiskInsight_Test_Model_Build_RequestTest
 			'entity_id' => 1,
 			'parent_id' => 1,
 			'amount_authorized' => NULL,
-			'cc_exp_month' => 0,
-			'cc_exp_year' => 0,
+			'cc_exp_month' => 9,
+			'cc_exp_year' => 2023,
 			'cc_avs_status' => NULL,
-			'cc_number_enc' => NULL,
-			'cc_type' => NULL,
+			'cc_owner' => 'Testy Tester',
+			'cc_type' => 'VI',
+			'base_shipping_amount' => 15.3200,
+			'shipping_amount' => 15.3200,
+			'base_amount_ordered' => 396.7400,
+			'amount_ordered' => 396.7400,
+			'method' => 'ccsave',
+			'cc_last4' => '1111',
+			'cc_number_enc' => '0:2:e8796447aacd7c59:tHo6xuna2cxMJpcvzhPVQQ==',
 		)));
 		return $collection;
 	}
