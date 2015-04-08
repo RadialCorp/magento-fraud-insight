@@ -39,50 +39,6 @@ interface EbayEnterprise_RiskInsight_Model_IPayment extends EbayEnterprise_RiskI
 	public function setPaymentCard(EbayEnterprise_RiskInsight_Model_Payment_ICard $paymentCard);
 
 	/**
-	 * @return EbayEnterprise_RiskInsight_Model_Person_IName
-	 */
-	public function getPersonName();
-
-	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Person_IName
-	 * @return self
-	 */
-	public function setPersonName(EbayEnterprise_RiskInsight_Model_Person_IName $personName);
-
-	/**
-	 * @return string
-	 */
-	public function getEmail();
-
-	/**
-	 * @param  string
-	 * @return self
-	 */
-	public function setEmail($email);
-
-	/**
-	 * @return EbayEnterprise_RiskInsight_Model_ITelephone
-	 */
-	public function getTelephone();
-
-	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_ITelephone
-	 * @return self
-	 */
-	public function setTelephone(EbayEnterprise_RiskInsight_Model_ITelephone $telephone);
-
-	/**
-	 * @return EbayEnterprise_RiskInsight_Model_IAddress
-	 */
-	public function getAddress();
-
-	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_IAddress
-	 * @return self
-	 */
-	public function setAddress(EbayEnterprise_RiskInsight_Model_IAddress $address);
-
-	/**
 	 * @return DateTime
 	 */
 	public function getPaymentTransactionDate();

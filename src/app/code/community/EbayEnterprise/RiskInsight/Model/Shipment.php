@@ -16,19 +16,11 @@
  */
 
 class EbayEnterprise_RiskInsight_Model_Shipment
-	extends EbayEnterprise_RiskInsight_Model_Payload
+	extends EbayEnterprise_RiskInsight_Model_Info
 	implements EbayEnterprise_RiskInsight_Model_IShipment
 {
 	/** @var string */
 	protected $_shipmentId;
-	/** @var EbayEnterprise_RiskInsight_Model_Person_Name */
-	protected $_personName;
-	/** @var string */
-	protected $_email;
-	/** @var EbayEnterprise_RiskInsight_Model_Telephone */
-	protected $_telephone;
-	/** @var EbayEnterprise_RiskInsight_Model_Address */
-	protected $_address;
 	/** @var string */
 	protected $_shippingMethod;
 
@@ -59,50 +51,6 @@ class EbayEnterprise_RiskInsight_Model_Shipment
 	public function setShipmentId($shipmentId)
 	{
 		$this->_shipmentId = $shipmentId;
-		return $this;
-	}
-
-	public function getPersonName()
-	{
-		return $this->_personName;
-	}
-
-	public function setPersonName(EbayEnterprise_RiskInsight_Model_Person_IName $personName)
-	{
-		$this->_personName = $personName;
-		return $this;
-	}
-
-	public function getEmail()
-	{
-		return $this->_email;
-	}
-
-	public function setEmail($email)
-	{
-		$this->_email = $email;
-		return $this;
-	}
-
-	public function getTelephone()
-	{
-		return $this->_telephone;
-	}
-
-	public function setTelephone(EbayEnterprise_RiskInsight_Model_ITelephone $telephone)
-	{
-		$this->_telephone = $telephone;
-		return $this;
-	}
-
-	public function getAddress()
-	{
-		return $this->_address;
-	}
-
-	public function setAddress(EbayEnterprise_RiskInsight_Model_IAddress $address)
-	{
-		$this->_address = $address;
 		return $this;
 	}
 

@@ -35,53 +35,6 @@ interface EbayEnterprise_RiskInsight_Model_IShipment extends EbayEnterprise_Risk
 	public function setShipmentId($shipmentId);
 
 	/**
-	 * @return EbayEnterprise_RiskInsight_Model_Person_IName
-	 */
-	public function getPersonName();
-
-	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_Person_IName
-	 * @return self
-	 */
-	public function setPersonName(EbayEnterprise_RiskInsight_Model_Person_IName $personName);
-
-	/**
-	 * A valid email address format.
-	 *
-	 * xsd restrictions: >= 1 characters
-	 * @return string
-	 */
-	public function getEmail();
-
-	/**
-	 * @param  string
-	 * @return self
-	 */
-	public function setEmail($email);
-
-	/**
-	 * @return EbayEnterprise_RiskInsight_Model_ITelephone
-	 */
-	public function getTelephone();
-
-	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_ITelephone
-	 * @return self
-	 */
-	public function setTelephone(EbayEnterprise_RiskInsight_Model_ITelephone $telephone);
-
-	/**
-	 * @return EbayEnterprise_RiskInsight_Model_IAddress
-	 */
-	public function getAddress();
-
-	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_IAddress
-	 * @return self
-	 */
-	public function setAddress(EbayEnterprise_RiskInsight_Model_IAddress $address);
-
-	/**
 	 * The method of shipment for the order.
 	 * Sample Data: Standard_Ground,1DAY,2DAY,EXPRESS
 	 *
