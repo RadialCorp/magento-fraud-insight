@@ -11,7 +11,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - Use Reginon Code, not Region Name for `MainDivisionCode`
 
-## [1.0.0-alpha-1] - 2015-03-25
+## 1.0.0-alpha-1 - 2015-03-25
 ### Added
 - Initial development release
 
