@@ -21,8 +21,6 @@
 		}
 	],
 	"type": "magento-module",
-	"minimum-stability": "dev",
-	"prefer-stable": true,
 	"require-dev": {
 		"ecomdev/ecomdev_phpunit": "~0.3",
 		"pdepend/pdepend": "~1.1",
