@@ -32,8 +32,9 @@ class EbayEnterprise_RiskInsight_Model_Payment
 	/** @var EbayEnterprise_RiskInsight_Model_Transaction_IResponses */
 	protected $_transactionResponses;
 
-	public function __construct()
+	public function __construct(array $initParams=array())
 	{
+		parent::__construct($initParams);
 		$this->setPaymentCard($this->_buildPayloadForModel(static::PAYMENT_CARD_MODEL));
 		$this->setPersonName($this->_buildPayloadForModel(static::PERSON_NAME_MODEL));
 		$this->setTelephone($this->_buildPayloadForModel(static::TELEPHONE_MODEL));

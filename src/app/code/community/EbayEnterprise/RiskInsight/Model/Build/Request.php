@@ -537,6 +537,16 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	}
 
 	/**
+	 * @return EbayEnterprise_RiskInsight_Model_Payment_IAdapter
+	 */
+	protected function _getPaymentAdapter()
+	{
+		return Mage::getModel('ebayenterprise_riskinsight/payment_adapter', array(
+			'order' => $this->_order
+		));
+	}
+
+	/**
 	 * @param  EbayEnterprise_RiskInsight_Model_Line_IItem
 	 * @param  Mage_Customer_Model_Address_Abstract
 	 * @param  Mage_Sales_Model_Order_Payment
@@ -554,87 +564,67 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 			->setAmount($orderPayment->getAmountAuthorized())
 			->setTotalAuthAttemptCount(null);
 
-		$this->_buildPaymentCard($subPayloadPayment->getPaymentCard(), $orderBillingAddress, $orderPayment)
+		$paymentAdapterType = $this->_getPaymentAdapter()->getAdapter();
+		$this->_buildPaymentCard($subPayloadPayment->getPaymentCard(), $paymentAdapterType)
 			->_buildPersonName($subPayloadPayment->getPersonName(), $orderBillingAddress)
 			->_buildTelephone($subPayloadPayment->getTelephone(), $orderBillingAddress)
 			->_buildAddress($subPayloadPayment->getAddress(), $orderBillingAddress)
-			->_buildTransactionResponses($subPayloadPayment->getTransactionResponses(), $orderPayment);
+			->_buildTransactionResponses($subPayloadPayment->getTransactionResponses(), $paymentAdapterType);
 		return $this;
 	}
 
 	/**
-	 * @param  Mage_Customer_Model_Address_Abstract
-	 * @return string
-	 */
-	protected function _getCardHolderName(Mage_Customer_Model_Address_Abstract $orderAddress)
-	{
-		$name = $orderAddress->getFirstname();
-		$middle = $orderAddress->getMiddlename();
-		$name .= $middle ? ' ' . $middle . ' ' : ' ';
-		return $name . $orderAddress->getLastname();
-	}
-
-	/**
-	 * @param  Mage_Sales_Model_Order_Payment
-	 * @return string | null
-	 */
-	protected function _getExpireDate(Mage_Sales_Model_Order_Payment $orderPayment)
-	{
-		$month = $orderPayment->getCcExpMonth();
-		$month = strlen($month) > 1 ? $month : '0' . $month;
-		$year = $orderPayment->getCcExpYear();
-		return ($year > 0 && $month > 0) ? $year . '-' . $month : null;
-	}
-
-	/**
 	 * @param  EbayEnterprise_RiskInsight_Model_Payment_ICard
-	 * @param  Mage_Customer_Model_Address_Abstract
-	 * @param  Mage_Sales_Model_Order_Payment
+	 * @param  EbayEnterprise_RiskInsight_Model_Payment_Adapter_IType
 	 * @return self
 	 */
 	protected function _buildPaymentCard(
 		EbayEnterprise_RiskInsight_Model_Payment_ICard $subPayloadCard,
-		Mage_Customer_Model_Address_Abstract $orderBillingAddress,
-		Mage_Sales_Model_Order_Payment $orderPayment
+		EbayEnterprise_RiskInsight_Model_Payment_Adapter_IType $paymentAdapterType
 	)
 	{
-		$subPayloadCard->setCardHolderName($this->_getCardHolderName($orderBillingAddress))
-			->setPaymentAccountUniqueId($this->_helper->getAccountUniqueId($orderPayment))
+		$subPayloadCard->setCardHolderName($paymentAdapterType->getExtractCardHolderName())
+			->setPaymentAccountUniqueId($paymentAdapterType->getExtractPaymentAccountUniqueId())
 			->setIsToken(static::IS_TOKEN)
-			->setPaymentAccountBin($this->_helper->getAccountBin($orderPayment))
-			->setExpireDate($this->_getExpireDate($orderPayment))
-			->setCardType($this->_helper->getPaymentMethod($this->_order, $orderPayment));
+			->setPaymentAccountBin($paymentAdapterType->getExtractPaymentAccountBin())
+			->setExpireDate($paymentAdapterType->getExtractExpireDate())
+			->setCardType($paymentAdapterType->getExtractCardType());
 		return $this;
 	}
 
 	/**
 	 * @param  EbayEnterprise_RiskInsight_Model_Transaction_IResponses
-	 * @param  Mage_Sales_Model_Order_Payment
+	 * @param  EbayEnterprise_RiskInsight_Model_Payment_Adapter_IType
 	 * @return self
 	 */
 	protected function _buildTransactionResponses(
 		EbayEnterprise_RiskInsight_Model_Transaction_IResponses $subPayloadResponses,
-		Mage_Sales_Model_Order_Payment $orderPayment
+		EbayEnterprise_RiskInsight_Model_Payment_Adapter_IType $paymentAdapterType
 	)
 	{
-		$subPayloadResponse = $subPayloadResponses->getEmptyTransactionResponse();
-		$this->_buildTransactionResponse($subPayloadResponse, $orderPayment);
-		$subPayloadResponses->offsetSet($subPayloadResponse);
+		$transactionResponses = (array) $paymentAdapterType->getExtractTransactionResponses();
+		foreach ($transactionResponses as $transaction) {
+			$subPayloadResponse = $subPayloadResponses->getEmptyTransactionResponse();
+			$this->_buildTransactionResponse($subPayloadResponse, $transaction['response'], $transaction['type']);
+			$subPayloadResponses->offsetSet($subPayloadResponse);
+		}
 		return $this;
 	}
 
 	/**
 	 * @param  EbayEnterprise_RiskInsight_Model_Transaction_IResponse
-	 * @param  Mage_Sales_Model_Order_Payment
+	 * @param  string
+	 * @param  string
 	 * @return self
 	 */
 	protected function _buildTransactionResponse(
 		EbayEnterprise_RiskInsight_Model_Transaction_IResponse $subPayloadResponse,
-		Mage_Sales_Model_Order_Payment $orderPayment
+		$response,
+		$type
 	)
 	{
-		$subPayloadResponse->setResponse($orderPayment->getCcAvsStatus())
-			->setResponseType(static::RESPONSE_TYPE);
+		$subPayloadResponse->setResponse($response)
+			->setResponseType($type);
 		return $this;
 	}
 

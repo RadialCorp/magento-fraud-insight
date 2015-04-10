@@ -24,8 +24,9 @@ class EbayEnterprise_RiskInsight_Model_Device_Info
 	/** @var EbayEnterprise_RiskInsight_Model_Http_Headers */
 	protected $_httpHeaders;
 
-	public function __construct()
+	public function __construct(array $initParams=array())
 	{
+		parent::__construct($initParams);
 		$this->setHttpHeaders($this->_buildPayloadForModel(static::HTTP_HEADERS_MODEL));
 		$this->_optionalExtractionPaths = array(
 			'setDeviceIP' => 'x:DeviceIP',

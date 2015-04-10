@@ -34,6 +34,7 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	const LANGUAGE_CODE = 'ebayenterprise_riskinsight/risk_insight/language_code';
 	const CARD_TYPE_MAP = 'ebayenterprise_riskinsight/risk_insight/card_type_map';
 	const SHIPPING_METHOD_MAP = 'ebayenterprise_riskinsight/risk_insight/shipping_method_map';
+	const PAYMENT_ADAPTER_MAP = 'ebayenterprise_riskinsight/risk_insight/payment_adapter_map';
 
 	/**
 	 * check if Risk Insight module is enable in the store config
@@ -187,5 +188,16 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	public function getShippingMethodMap($store=null)
 	{
 		return Mage::getStoreConfig(static::SHIPPING_METHOD_MAP, $store);
+	}
+
+	/**
+	 * retrieve the payment adapter map settings from store config
+	 *
+	 * @param  mixed
+	 * @return string
+	 */
+	public function getPaymentAdapterMap($store=null)
+	{
+		return Mage::getStoreConfig(static::PAYMENT_ADAPTER_MAP, $store);
 	}
 }

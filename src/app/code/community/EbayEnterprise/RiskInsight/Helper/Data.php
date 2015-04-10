@@ -24,10 +24,13 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 
 	/** @var EbayEnterprise_RiskInsight_Helper_Config */
 	protected $_config;
+	/** @var array */
+	protected $_paymentMethodMap;
 
 	public function __construct()
 	{
 		$this->_config = Mage::helper('ebayenterprise_riskinsight/config');
+		$this->_paymentMethodMap = $this->_config->getPaymentMethodCardTypeMap();
 	}
 
 	/**
@@ -84,15 +87,19 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	 *
 	 * @param  string
 	 * @return DOMDocument
+	 * @throws EbayEnterprise_RiskInsight_Model_Exception_Invalid_Xml_Exception
 	 */
 	public function getPayloadAsDoc($xmlString)
 	{
 		$d = new DOMDocument();
-		try {
-			$d->loadXML($xmlString);
-		} catch (Exception $e) {
-			throw $e;
+		if(!$d->loadXML($xmlString)) {
+			$exceptionMessage = "The XML string ($xmlString) is invalid";
+			throw Mage::exception('EbayEnterprise_RiskInsight_Model_Exception_Invalid_Xml', $exceptionMessage);
 		}
+		$d->encoding = 'utf-8';
+		$d->formatOutput = false;
+		$d->preserveWhiteSpace = false;
+		$d->normalizeDocument();
 		return $d;
 	}
 
@@ -197,9 +204,22 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 		Mage_Sales_Model_Order_Payment $payment
 	)
 	{
-		return ($this->_hasGiftCard($order) && ($payment->getMethod() === static::FREE_PAYMENT_METHOD))
+		return $this->isGiftCardPayment($order, $payment)
 			? static::RISK_INSIGHT_GIFT_CARD_PAYMENT_METHOD
-			: $this->_getMapRiskInsightPaymentMethod($payment);
+			: $this->getMapRiskInsightPaymentMethod($payment);
+	}
+
+	/**
+	 * @param  Mage_Sales_Model_Order
+	 * @param  Mage_Sales_Model_Order_Payment
+	 * @return bool
+	 */
+	public function isGiftCardPayment(
+		Mage_Sales_Model_Order $order,
+		Mage_Sales_Model_Order_Payment $payment
+	)
+	{
+		return ($this->_hasGiftCard($order) && ($payment->getMethod() === static::FREE_PAYMENT_METHOD));
 	}
 
 	/**
@@ -210,8 +230,19 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	 */
 	protected function _hasGiftCard(Mage_Sales_Model_Order $order)
 	{
-		$giftCards = unserialize($order->getGiftGards());
+		$giftCards = $this->getGiftCard($order);
 		return !empty($giftCards);
+	}
+
+	/**
+	 * Get the gift card data in the order.
+	 *
+	 * @param  Mage_Sales_Model_Order
+	 * @return array
+	 */
+	public function getGiftCard(Mage_Sales_Model_Order $order)
+	{
+		return (array) unserialize($order->getGiftCards());
 	}
 
 	/**
@@ -220,22 +251,20 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	 * @param  Mage_Sales_Model_Order_Payment
 	 * @return string
 	 */
-	protected function _getMapRiskInsightPaymentMethod(Mage_Sales_Model_Order_Payment $payment)
+	public function getMapRiskInsightPaymentMethod(Mage_Sales_Model_Order_Payment $payment)
 	{
-		$map = $this->_config->getPaymentMethodCardTypeMap();
-		$method = $this->_getValueFromMap($map, $payment->getCcType())
-			?: $this->_getValueFromMap($map, $payment->getMethod());
+		$method = $this->getPaymentMethodValueFromMap($payment->getCcType())
+			?: $this->getPaymentMethodValueFromMap($payment->getMethod());
 		return $method ?: static::RISK_INSIGHT_DEFAULT_PAYMENT_METHOD;
 	}
 
 	/**
-	 * @param  array
 	 * @param  string
 	 * @return string | null
 	 */
-	protected function _getValueFromMap(array $map, $key)
+	public function getPaymentMethodValueFromMap($key)
 	{
-		return isset($map[$key]) ? $map[$key] : null;
+		return isset($this->_paymentMethodMap[$key]) ? $this->_paymentMethodMap[$key] : null;
 	}
 
 	/**
@@ -257,7 +286,18 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	public function getAccountBin(Mage_Sales_Model_Order_Payment $payment)
 	{
 		$cc = $this->_decryptCc($payment);
-		return $cc ? substr($cc, 0, 6) : null;
+		return $this->getFirstSixChars($cc);
+	}
+
+	/**
+	 * Get the first 6 characters from a passed in string
+	 *
+	 * @param  string
+	 * @return string
+	 */
+	public function getFirstSixChars($string)
+	{
+		return $string ? substr($string, 0, 6) : $string;
 	}
 
 	/**
@@ -269,7 +309,7 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	public function getAccountUniqueId(Mage_Sales_Model_Order_Payment $payment)
 	{
 		$cc = $this->_decryptCc($payment);
-		return $cc ? $this->_hashAndEncodeCc($cc) : null;
+		return $cc ? $this->hashAndEncodeCc($cc) : null;
 	}
 
 	/**
@@ -277,8 +317,38 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	 * @param  string $cc
 	 * @return string
 	 */
-	protected function _hashAndEncodeCc($cc)
+	public function hashAndEncodeCc($cc)
 	{
 		return base64_encode(hash('sha1', $cc, true));
+	}
+
+	/**
+	 * @param  Mage_Sales_Model_Order_Payment
+	 * @return string | null
+	 */
+	public function getPaymentExpireDate(Mage_Sales_Model_Order_Payment $payment)
+	{
+		$month = $payment->getCcExpMonth();
+		$year = $payment->getCcExpYear();
+		return ($year > 0 && $month > 0) ? $this->getYearMonth($year, $month) : null;
+	}
+
+	/**
+	 * @param  string
+	 * @param  string
+	 * @return string
+	 */
+	public function getYearMonth($year, $month)
+	{
+		return $year . '-' . $this->_correctMonth($month);
+	}
+
+	/**
+	 * @param  string
+	 * @return string
+	 */
+	protected function _correctMonth($month)
+	{
+		return (strlen($month) === 1) ? sprintf('%02d', $month) : $month;
 	}
 }

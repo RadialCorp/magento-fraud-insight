@@ -32,8 +32,9 @@ class EbayEnterprise_RiskInsight_Model_Error
 	/** @var string */
 	protected $_exceptionLog;
 
-	public function __construct()
+	public function __construct(array $initParams=array())
 	{
+		parent::__construct($initParams);
 		$this->_extractionPaths = array(
 			'setErrorCode' => 'string(x:ErrorCode)',
 			'setErrorDescription' => 'string(x:ErrorDescription)',

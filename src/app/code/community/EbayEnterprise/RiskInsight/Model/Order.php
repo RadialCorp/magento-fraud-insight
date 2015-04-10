@@ -38,8 +38,9 @@ class EbayEnterprise_RiskInsight_Model_Order
 	/** @var EbayEnterprise_RiskInsight_Model_Device_Info */
 	protected $_deviceInfo;
 
-	public function __construct()
+	public function __construct(array $initParams=array())
 	{
+		parent::__construct($initParams);
 		$this->setShippingList($this->_buildPayloadForModel(static::SHIPPING_LIST_MODEL));
 		$this->setLineItems($this->_buildPayloadForModel(static::LINE_ITEMS_MODEL));
 		$this->setFormOfPayments($this->_buildPayloadForModel(static::PAYMENTS_MODEL));

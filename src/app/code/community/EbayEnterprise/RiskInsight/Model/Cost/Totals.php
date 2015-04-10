@@ -26,8 +26,9 @@ class EbayEnterprise_RiskInsight_Model_Cost_Totals
 	/** @var float */
 	protected $_amountAfterTax;
 
-	public function __construct()
+	public function __construct(array $initParams=array())
 	{
+		parent::__construct($initParams);
 		$this->_extractionPaths = array(
 			'setCurrencyCode' => 'string(x:CurrencyCode)',
 			'setAmountBeforeTax' => 'number(x:AmountBeforeTax)',

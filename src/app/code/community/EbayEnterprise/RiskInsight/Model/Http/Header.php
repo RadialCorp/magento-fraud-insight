@@ -24,8 +24,9 @@ class EbayEnterprise_RiskInsight_Model_Http_Header
 	/** @var string */
 	protected $_name;
 
-	public function __construct()
+	public function __construct(array $initParams=array())
 	{
+		parent::__construct($initParams);
 		$this->_extractionPaths = array(
 			'setHeader' => 'string(.)',
 			'setName' => 'string(@name)',

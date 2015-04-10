@@ -32,8 +32,9 @@ class EbayEnterprise_RiskInsight_Model_Payment_Card
 	/** @var string */
 	protected $_cardType;
 
-	public function __construct()
+	public function __construct(array $initParams=array())
 	{
+		parent::__construct($initParams);
 		$this->_optionalExtractionPaths = array(
 			'setCardHolderName' => 'x:CardHolderName',
 			'setPaymentAccountUniqueId' => 'x:PaymentAccountUniqueId',

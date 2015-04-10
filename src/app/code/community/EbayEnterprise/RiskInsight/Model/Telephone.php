@@ -28,8 +28,9 @@ class EbayEnterprise_RiskInsight_Model_Telephone
 	/** @var string */
 	protected $_extension;
 
-	public function __construct()
+	public function __construct(array $initParams=array())
 	{
+		parent::__construct($initParams);
 		$this->_extractionPaths = array(
 			'setNumber' => 'string(x:Number)',
 		);

@@ -26,6 +26,41 @@ abstract class EbayEnterprise_RiskInsight_Model_Iterable
 	/** @var bool */
 	protected $_buildRootNode = true;
 
+	/**
+	 * @param array $initParams Must have this key:
+	 *                          - 'helper' => EbayEnterprise_RiskInsight_Helper_Data
+	 */
+	public function __construct(array $initParams=array())
+	{
+		$this->_helper = $this->_checkHelperClassType(
+			$this->_nullCoalesce($initParams, 'helper', Mage::helper('ebayenterprise_riskinsight'))
+		);
+	}
+
+	/**
+	 * Type hinting for self::__construct $initParams
+	 *
+	 * @param  EbayEnterprise_RiskInsight_Helper_Data
+	 * @return EbayEnterprise_RiskInsight_Helper_Data
+	 */
+	protected function _checkHelperClassType(EbayEnterprise_RiskInsight_Helper_Data $helper)
+	{
+		return $helper;
+	}
+
+	/**
+	 * Return the value at field in array if it exists. Otherwise, use the default value.
+	 *
+	 * @param  array
+	 * @param  string | int $field Valid array key
+	 * @param  mixed
+	 * @return mixed
+	 */
+	protected function _nullCoalesce(array $arr, $field, $default)
+	{
+		return isset($arr[$field]) ? $arr[$field] : $default;
+	}
+
 	public function serialize()
 	{
 		$format = $this->_buildRootNode ? '<%1$s>%2$s</%1$s>' : '%2$s';
@@ -37,7 +72,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Iterable
 
 	public function deserialize($serializedData)
 	{
-		$xpath = $this->_getHelper()->getPayloadAsXPath($serializedData, $this->_getXmlNamespace());
+		$xpath = $this->_helper->getPayloadAsXPath($serializedData, $this->_getXmlNamespace());
 		foreach ($xpath->query($this->_getSubpayloadXPath()) as $subpayloadNode) {
 			$pl = $this->_getNewSubpayload()->deserialize($subpayloadNode->C14N());
 			$this->offsetSet($pl);
@@ -52,19 +87,6 @@ abstract class EbayEnterprise_RiskInsight_Model_Iterable
 			$serializedSubpayloads .= $subpayload->serialize();
 		}
 		return $serializedSubpayloads;
-	}
-
-	/**
-	 * Stash the helper class in the class property '_helper'
-	 *
-	 * @return EbayEnterprise_RiskInsight_Helper_Data
-	 */
-	protected function _getHelper()
-	{
-		if (!$this->_helper) {
-			$this->_helper = Mage::helper('ebayenterprise_riskinsight');
-		}
-		return $this->_helper;
 	}
 
 	/**

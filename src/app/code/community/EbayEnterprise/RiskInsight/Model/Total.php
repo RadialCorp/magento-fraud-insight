@@ -22,8 +22,9 @@ class EbayEnterprise_RiskInsight_Model_Total
 	/** @var EbayEnterprise_RiskInsight_Model_Cost_Totals */
 	protected $_costTotals;
 
-	public function __construct()
+	public function __construct(array $initParams=array())
 	{
+		parent::__construct($initParams);
 		$this->setCostTotals($this->_buildPayloadForModel(static::COST_TOTALS_MODEL));
 		$this->_subpayloadExtractionPaths = array(
 			'setCostTotals' => 'x:CostTotals',

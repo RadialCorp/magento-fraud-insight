@@ -30,8 +30,9 @@ class EbayEnterprise_RiskInsight_Model_Response
 	/** @var string */
 	protected $_responseReasonCodeDescription;
 
-	public function __construct()
+	public function __construct(array $initParams=array())
 	{
+		parent::__construct($initParams);
 		$this->_extractionPaths = array(
 			'setPrimaryLangId' => 'string(x:PrimaryLangId)',
 			'setResponseReasonCode' => 'string(x:ResponseReasonCode)',

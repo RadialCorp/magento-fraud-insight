@@ -24,8 +24,9 @@ class EbayEnterprise_RiskInsight_Model_Shipment
 	/** @var string */
 	protected $_shippingMethod;
 
-	public function __construct()
+	public function __construct(array $initParams=array())
 	{
+		parent::__construct($initParams);
 		$this->setPersonName($this->_buildPayloadForModel(static::PERSON_NAME_MODEL));
 		$this->setTelephone($this->_buildPayloadForModel(static::TELEPHONE_MODEL));
 		$this->setAddress($this->_buildPayloadForModel(static::ADDRESS_MODEL));

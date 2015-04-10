@@ -24,8 +24,9 @@ class EbayEnterprise_RiskInsight_Model_Request
 	/** @var EbayEnterprise_RiskInsight_Model_IOrder */
 	protected $_order;
 
-	public function __construct()
+	public function __construct(array $initParams=array())
 	{
+		parent::__construct($initParams);
 		$this->setOrder($this->_buildPayloadForModel(static::ORDER_MODEL));
 		$this->_extractionPaths = array(
 			'setPrimaryLangId' => 'string(x:PrimaryLangId)',

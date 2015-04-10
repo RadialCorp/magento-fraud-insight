@@ -54,10 +54,12 @@ class EbayEnterprise_RiskInsight_Test_Model_ErrorTest
 	protected function _loadXmlTestString($fixtureFile)
 	{
 		$dom = new DOMDocument();
-		$dom->preserveWhiteSpace = false;
 		$dom->load($fixtureFile);
-		$string = $dom->C14N();
-		return $string;
+		$dom->encoding = 'utf-8';
+		$dom->formatOutput = false;
+		$dom->preserveWhiteSpace = false;
+		$dom->normalizeDocument();
+		return $dom->saveXML();
 	}
 
 	/**
@@ -86,6 +88,6 @@ class EbayEnterprise_RiskInsight_Test_Model_ErrorTest
 		$payload = $this->_buildPayload();
 		$serializedData = $this->_loadXmlTestString($serializedDataFile);
 		$payload->deserialize($serializedData);
-		$this->assertSame($serializedData, $payload->serialize());
+		$this->assertXmlStringEqualsXmlString($serializedData, $payload->serialize());
 	}
 }

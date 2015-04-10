@@ -38,8 +38,9 @@ class EbayEnterprise_RiskInsight_Model_Line_Item
 	/** @var string */
 	protected $_promoCode;
 
-	public function __construct()
+	public function __construct(array $initParams=array())
 	{
+		parent::__construct($initParams);
 		$this->_extractionPaths = array(
 			'setLineItemId' => 'string(@LineItemId)',
 			'setShipmentId' => 'string(@ShipmentId)',

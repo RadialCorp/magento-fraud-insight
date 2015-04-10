@@ -34,7 +34,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload_Top
 			$this->_serializeRootAttributes(),
 			$this->_serializeContents()
 		);
-		$canonicalXml = $this->_getHelper()->getPayloadAsDoc($xmlString)->C14N();
+		$canonicalXml = $this->_helper->getPayloadAsDoc($xmlString)->saveXML();
 		$this->_schemaValidate($canonicalXml);
 		return $canonicalXml;
 	}

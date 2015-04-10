@@ -37,6 +37,41 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	protected $_subpayloadExtractionPaths = array();
 
 	/**
+	 * @param array $initParams Must have this key:
+	 *                          - 'helper' => EbayEnterprise_RiskInsight_Helper_Data
+	 */
+	public function __construct(array $initParams=array())
+	{
+		$this->_helper = $this->_checkHelperClassType(
+			$this->_nullCoalesce($initParams, 'helper', Mage::helper('ebayenterprise_riskinsight'))
+		);
+	}
+
+	/**
+	 * Type hinting for self::__construct $initParams
+	 *
+	 * @param  EbayEnterprise_RiskInsight_Helper_Data
+	 * @return EbayEnterprise_RiskInsight_Helper_Data
+	 */
+	protected function _checkHelperClassType(EbayEnterprise_RiskInsight_Helper_Data $helper)
+	{
+		return $helper;
+	}
+
+	/**
+	 * Return the value at field in array if it exists. Otherwise, use the default value.
+	 *
+	 * @param  array
+	 * @param  string | int $field Valid array key
+	 * @param  mixed
+	 * @return mixed
+	 */
+	protected function _nullCoalesce(array $arr, $field, $default)
+	{
+		return isset($arr[$field]) ? $arr[$field] : $default;
+	}
+
+	/**
 	 * Fill out this payload object with data from the supplied string.
 	 *
 	 * @throws EbayEnterprise_RiskInsight_Model_Exception_Invalid_Payload_Exception
@@ -45,7 +80,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	 */
 	public function deserialize($serializedPayload)
 	{
-		$xpath = $this->_getHelper()->getPayloadAsXPath($serializedPayload, $this->_getXmlNamespace());
+		$xpath = $this->_helper->getPayloadAsXPath($serializedPayload, $this->_getXmlNamespace());
 		$this->_deserializeExtractionPaths($xpath)
 			->_deserializeOptionalExtractionPaths($xpath)
 			->_deserializeBooleanExtractionPaths($xpath)
@@ -97,7 +132,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	{
 		foreach ($this->_booleanExtractionPaths as $setter => $path) {
 			$value = $xpath->evaluate($path);
-			$this->$setter($this->_getHelper()->convertStringToBoolean($value));
+			$this->$setter($this->_helper->convertStringToBoolean($value));
 		}
 		return $this;
 	}
@@ -150,7 +185,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 			$this->_serializeRootAttributes(),
 			$this->_serializeContents()
 		);
-		$canonicalXml = $this->_getHelper()->getPayloadAsDoc($xmlString)->C14N();
+		$canonicalXml = $this->_helper->getPayloadAsDoc($xmlString)->C14N();
 		return $this->_canSerialize() ? $canonicalXml : '';
 	}
 
@@ -170,19 +205,6 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 			$this->_schemaValidator = Mage::getModel('ebayenterprise_riskinsight/xsd_validator');
 		}
 		return $this->_schemaValidator;
-	}
-
-	/**
-	 * Stash the helper class in the class property '_helper'
-	 *
-	 * @return EbayEnterprise_RiskInsight_Helper_Data
-	 */
-	protected function _getHelper()
-	{
-		if (!$this->_helper) {
-			$this->_helper = Mage::helper('ebayenterprise_riskinsight');
-		}
-		return $this->_helper;
 	}
 
 	/**
@@ -278,12 +300,12 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	 */
 	protected function _serializeNode($nodeName, $value)
 	{
-		return sprintf('<%s>%s</%1$s>', $nodeName, $this->_getHelper()->escapeHtml($value));
+		return sprintf('<%s>%s</%1$s>', $nodeName, $this->_helper->escapeHtml($value));
 	}
 
 	protected function _serializeAmountNode($nodeName, $amount)
 	{
-		return "<$nodeName>{$this->_getHelper()->formatAmount($amount)}</$nodeName>";
+		return "<$nodeName>{$this->_helper->formatAmount($amount)}</$nodeName>";
 	}
 
 	/**
@@ -310,7 +332,7 @@ abstract class EbayEnterprise_RiskInsight_Model_Payload
 	 */
 	protected function _serializeOptionalAmount($nodeName, $amount)
 	{
-		return (!is_null($amount) && !is_nan($amount)) ? "<$nodeName>{$this->_getHelper()->formatAmount($amount)}</$nodeName>" : '';
+		return (!is_null($amount) && !is_nan($amount)) ? "<$nodeName>{$this->_helper->formatAmount($amount)}</$nodeName>" : '';
 	}
 
 	protected function _serializeOptionalNumber($nodeName, $number)

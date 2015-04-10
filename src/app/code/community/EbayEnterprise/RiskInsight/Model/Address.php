@@ -36,8 +36,9 @@ class EbayEnterprise_RiskInsight_Model_Address
 	/** @var string */
 	protected $_countryCode;
 
-	public function __construct()
+	public function __construct(array $initParams=array())
 	{
+		parent::__construct($initParams);
 		$this->_extractionPaths = array(
 			'setLineA' => 'string(x:Line1)',
 			'setPostalCode' => 'string(x:PostalCode)',

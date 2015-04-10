@@ -40,8 +40,9 @@ class EbayEnterprise_RiskInsight_Model_Transaction_Response
 	/** @var array */
 	protected $_responseEnums = array('M', 'N', 'confirmed', 'verified', 'X');
 
-	public function __construct()
+	public function __construct(array $initParams=array())
 	{
+		parent::__construct($initParams);
 		$this->_extractionPaths = array(
 			'setResponse' => 'string(.)',
 			'setResponseType' => 'string(@ResponseType)',

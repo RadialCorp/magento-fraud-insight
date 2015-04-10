@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## UNRELEASED
+### Added
+- Send non credit card payment information in Risk Insight request payload
+
 ## [1.0.0-alpha-2] - 2015-04-09
 ### Added
 - Tested and validated against CE 1.6.2+
