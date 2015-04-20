@@ -10,3 +10,6 @@ src/app/design/adminhtml/default/default/template/* app/design/adminhtml/default
 
 # Library
 src/lib/* lib/
+
+# Skin and Javascript
+src/skin/adminhtml/default/default/js/* skin/adminhtml/default/default/js/
