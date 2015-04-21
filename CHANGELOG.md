@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## UNRELEASED
 ### Added
 - Send non credit card payment information in Risk Insight request payload
+- Add API connection test button in admin to validate the extension configuration and service
 
 ## [1.0.0-alpha-2] - 2015-04-09
 ### Added

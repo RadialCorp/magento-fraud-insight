@@ -281,7 +281,7 @@ EOF;
 	 */
 	protected function _validateApiSettings($storeId, $apiKey, $hostname)
 	{
-		$invalidSettings = [];
+		$invalidSettings = array();
 		if ($storeId === '') {
 			$invalidSettings[] = 'Store Id';
 		}

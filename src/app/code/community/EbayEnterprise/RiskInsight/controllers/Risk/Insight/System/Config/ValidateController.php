@@ -53,9 +53,9 @@ class EbayEnterprise_RiskInsight_Risk_Insight_System_Config_ValidateController
 	/**
 	 * Type checks for __construct's $initParams
 	 *
-	 * @param EbayEnterprise_RiskInsight_Helper_Validator
-	 * @param EbayEnterprise_RiskInsight_Helper_Config
-	 * @return mixed[]
+	 * @param  EbayEnterprise_RiskInsight_Helper_Validator
+	 * @param  EbayEnterprise_RiskInsight_Helper_Config
+	 * @return array
 	 */
 	protected function _checkTypes(
 		EbayEnterprise_RiskInsight_Helper_Validator $validatorHelper,
@@ -68,7 +68,7 @@ class EbayEnterprise_RiskInsight_Risk_Insight_System_Config_ValidateController
 	/**
 	 * Get the value form the array if set, else the default value.
 	 *
-	 * @param  mixed[]
+	 * @param  array
 	 * @param  string|int
 	 * @param  mixed
 	 * @return mixed
