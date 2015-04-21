@@ -20,14 +20,20 @@ RiskInsightApiValidation.prototype = {
 		this.ajaxUrl = ajaxUrl;
 		Event.observe($(elemId), 'click', this.testApiConnection.bind(this));
 	},
+	getScopeElement: function(element) {
+		if (typeof adminSystemConfig !== 'undefined') {
+			return adminSystemConfig.getScopeElement(element);
+		}
+		return false;
+	},
 	testApiConnection: function() {
 		var elem = $(this.elemId);
 		var hostnameEle = $('ebayenterprise_riskinsight_risk_insight_hostname');
-		var hostScopeEle = hostnameEle && adminSystemConfig.getScopeElement(hostnameEle);
+		var hostScopeEle = hostnameEle && this.getScopeElement(hostnameEle);
 		var keyEle = $('ebayenterprise_riskinsight_risk_insight_key');
-		var keyScopeEle = keyEle && adminSystemConfig.getScopeElement(keyEle);
+		var keyScopeEle = keyEle && this.getScopeElement(keyEle);
 		var storeIdEle = $('ebayenterprise_riskinsight_risk_insight_store_id');
-		var storeIdScopeEle = storeIdEle && adminSystemConfig.getScopeElement(storeIdEle);
+		var storeIdScopeEle = storeIdEle && this.getScopeElement(storeIdEle);
 		var params = {
 			'hostname_use_default': hostScopeEle && hostScopeEle.checked ? 1 : 0,
 			'key_use_default': keyScopeEle && keyScopeEle.checked ? 1 : 0,
