@@ -35,6 +35,8 @@ class EbayEnterprise_RiskInsight_Model_Payment_Adapter_Type
 	protected $_extractCardType;
 	/** @var string | null */
 	protected $_extractTransactionResponses;
+	/** @var string */
+	protected $_extractIsToken;
 
 	/**
 	 * @param array $initParams Must have this key:
@@ -140,6 +142,17 @@ class EbayEnterprise_RiskInsight_Model_Payment_Adapter_Type
 	public function setExtractTransactionResponses(array $transactionResponses)
 	{
 		$this->_extractTransactionResponses = $transactionResponses;
+		return $this;
+	}
+
+	public function getExtractIsToken()
+	{
+		return $this->_extractIsToken;
+	}
+
+	public function setExtractIsToken($isToken)
+	{
+		$this->_extractIsToken = $isToken;
 		return $this;
 	}
 

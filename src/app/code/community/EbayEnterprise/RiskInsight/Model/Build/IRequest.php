@@ -17,7 +17,6 @@
 
 interface EbayEnterprise_RiskInsight_Model_Build_IRequest
 {
-	const IS_TOKEN = 'true';
 	const RESPONSE_TYPE = 'avs';
 	const DEFAULT_SHIPPING_METHOD ='Unknown';
 	const PHYSICAL_SHIPMENT_TYPE = 'physical';

@@ -57,6 +57,7 @@ class EbayEnterprise_RiskInsight_Model_Payment_Adapter_Pbridge
 		$payment = $this->_order->getPayment();
 		$this->setExtractCardHolderName(null)
 			->setExtractPaymentAccountUniqueId(null)
+			->setExtractIsToken(static::IS_NOT_TOKEN)
 			->setExtractPaymentAccountBin(null)
 			->setExtractExpireDate(null)
 			->setExtractCardType($this->_helper->getMapRiskInsightPaymentMethod($payment))

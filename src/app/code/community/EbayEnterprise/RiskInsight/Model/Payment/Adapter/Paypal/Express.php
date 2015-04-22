@@ -23,6 +23,7 @@ class EbayEnterprise_RiskInsight_Model_Payment_Adapter_Paypal_Express
 		$payment = $this->_order->getPayment();
 		$this->setExtractCardHolderName(null)
 			->setExtractPaymentAccountUniqueId($this->_getExtractPaymentAccountUniqueId($payment))
+			->setExtractIsToken(static::IS_NOT_TOKEN)
 			->setExtractPaymentAccountBin(null)
 			->setExtractExpireDate(null)
 			->setExtractCardType($this->_helper->getPaymentMethodValueFromMap($payment->getMethod()))

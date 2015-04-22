@@ -585,7 +585,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	{
 		$subPayloadCard->setCardHolderName($paymentAdapterType->getExtractCardHolderName())
 			->setPaymentAccountUniqueId($paymentAdapterType->getExtractPaymentAccountUniqueId())
-			->setIsToken(static::IS_TOKEN)
+			->setIsToken($paymentAdapterType->getExtractIsToken())
 			->setPaymentAccountBin($paymentAdapterType->getExtractPaymentAccountBin())
 			->setExpireDate($paymentAdapterType->getExtractExpireDate())
 			->setCardType($paymentAdapterType->getExtractCardType());

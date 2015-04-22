@@ -17,6 +17,9 @@
 
 interface EbayEnterprise_RiskInsight_Model_Payment_Adapter_IType
 {
+	const IS_TOKEN = 'true';
+	const IS_NOT_TOKEN = 'false';
+
 	/**
 	 * @return string | null
 	 */
@@ -82,4 +85,15 @@ interface EbayEnterprise_RiskInsight_Model_Payment_Adapter_IType
 	 * @return self
 	 */
 	public function setExtractTransactionResponses(array $transactionResponses);
+
+	/**
+	 * @return string | null
+	 */
+	public function getExtractIsToken();
+
+	/**
+	 * @param  string
+	 * @return self
+	 */
+	public function setExtractIsToken($isToken);
 }

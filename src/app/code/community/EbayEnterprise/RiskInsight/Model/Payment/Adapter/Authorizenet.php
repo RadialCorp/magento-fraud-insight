@@ -24,6 +24,7 @@ class EbayEnterprise_RiskInsight_Model_Payment_Adapter_Authorizenet
 		$cardsData = $this->_getCardsData($this->_getPaymentMethod($payment));
 		$this->setExtractCardHolderName(null)
 			->setExtractPaymentAccountUniqueId(null)
+			->setExtractIsToken(static::IS_NOT_TOKEN)
 			->setExtractPaymentAccountBin(null)
 			->setExtractExpireDate($this->_getExtractExpireDate($cardsData))
 			->setExtractCardType($this->_getExtractCardType($cardsData))

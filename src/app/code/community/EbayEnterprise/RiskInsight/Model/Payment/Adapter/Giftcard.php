@@ -50,6 +50,7 @@ class EbayEnterprise_RiskInsight_Model_Payment_Adapter_Giftcard
 	{
 		$this->setExtractCardHolderName(null)
 			->setExtractPaymentAccountUniqueId($this->_getBase64HashGiftcardCode())
+			->setExtractIsToken(static::IS_TOKEN)
 			->setExtractPaymentAccountBin($this->_getGiftcardAccountBin())
 			->setExtractExpireDate($this->_getGiftCardExpireDate())
 			->setExtractCardType($this->_helper->getPaymentMethodValueFromMap(static::PAYMENT_METHOD_TYPE))

@@ -23,6 +23,7 @@ class EbayEnterprise_RiskInsight_Model_Payment_Adapter_Purchase_Order
 		$payment = $this->_order->getPayment();
 		$this->setExtractCardHolderName(null)
 			->setExtractPaymentAccountUniqueId($this->_getBase64HashPurchaseOrderNumber($payment))
+			->setExtractIsToken(static::IS_TOKEN)
 			->setExtractPaymentAccountBin($this->_getPurchaseOrderNumberAccountBin($payment))
 			->setExtractExpireDate(null)
 			->setExtractCardType($this->_helper->getPaymentMethodValueFromMap($payment->getMethod()))
