@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Send non credit card payment information in Risk Insight request payload
 - Add API connection test button in admin to validate the extension configuration and service
+- Include PayPal Payer ID in Risk Insight Request Payload
 
 ## [1.0.0-alpha-2] - 2015-04-09
 ### Added

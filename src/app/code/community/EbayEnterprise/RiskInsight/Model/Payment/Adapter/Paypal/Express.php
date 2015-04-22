@@ -22,7 +22,7 @@ class EbayEnterprise_RiskInsight_Model_Payment_Adapter_Paypal_Express
 	{
 		$payment = $this->_order->getPayment();
 		$this->setExtractCardHolderName(null)
-			->setExtractPaymentAccountUniqueId(null)
+			->setExtractPaymentAccountUniqueId($this->_getExtractPaymentAccountUniqueId($payment))
 			->setExtractPaymentAccountBin(null)
 			->setExtractExpireDate(null)
 			->setExtractCardType($this->_helper->getPaymentMethodValueFromMap($payment->getMethod()))
@@ -40,7 +40,7 @@ class EbayEnterprise_RiskInsight_Model_Payment_Adapter_Paypal_Express
 
 	/**
 	 * @param  Mage_Payment_Model_Info
-	 * @return array
+	 * @return Mage_Payment_Model_Method_Cc
 	 */
 	protected function _getPaypalInfo(Mage_Payment_Model_Info $payment)
 	{
@@ -50,7 +50,17 @@ class EbayEnterprise_RiskInsight_Model_Payment_Adapter_Paypal_Express
 
 	/**
 	 * @param  Mage_Payment_Model_Info
-	 * @return Mage_Payment_Model_Method_Cc
+	 * @return string | null
+	 */
+	protected function _getExtractPaymentAccountUniqueId(Mage_Payment_Model_Info $payment)
+	{
+		$info = $this->_getPaypalInfo($payment);
+		return isset($info['paypal_payer_id']) ? $info['paypal_payer_id']['value'] : null;
+	}
+
+	/**
+	 * @param  Mage_Payment_Model_Info
+	 * @return array
 	 */
 	protected function _getPaypalTransactions(Mage_Payment_Model_Info $payment)
 	{
