@@ -281,7 +281,7 @@ class Requests {
 	 *    certificate file as a string. (Using true uses the system-wide root
 	 *    certificate store instead, but this may have different behaviour
 	 *    across transports.)
-	 *    (string|boolean, default: library/Requests/Transport/cacert.pem)
+	 *    (string|boolean, default: lib/Requests/Transport/cacert.pem)
 	 * - `verifyname`: Should we verify the common name in the SSL certificate?
 	 *    (boolean: default, true)
 	 *
@@ -456,7 +456,7 @@ class Requests {
 			'idn' => true,
 			'hooks' => null,
 			'transport' => null,
-			'verify' => dirname( __FILE__ ) . '/Requests/Transport/cacert.pem',
+			'verify' => dirname( __FILE__ ) . '/Transport/cacert.pem',
 			'verifyname' => true,
 		);
 		if ($multirequest !== false) {
