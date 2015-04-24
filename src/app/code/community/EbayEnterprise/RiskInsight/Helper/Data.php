@@ -185,18 +185,30 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	}
 
 	/**
-	 * @see http://magento.stackexchange.com/questions/16757/
-	 * Magento store remote ip address for front-end customer order and not
-	 * for Admin orders.
+	 * Return 'WEBSTORE' when an order was created in the frontend, otherwise
+	 * return 'DASHBOARD' for order that was created from the admin interface.
 	 *
 	 * @param  Mage_Sales_Model_Order
 	 * @return string
 	 */
 	public function getOrderSourceByArea(Mage_Sales_Model_Order $order)
 	{
-		return $order->getRemoteIp()
-			? EbayEnterprise_RiskInsight_Model_System_Config_Source_Ordersource::WEBSTORE
-			: EbayEnterprise_RiskInsight_Model_System_Config_Source_Ordersource::DASHBOARD;
+		return $this->_isAdminOrder($order)
+			? EbayEnterprise_RiskInsight_Model_System_Config_Source_Ordersource::DASHBOARD
+			: EbayEnterprise_RiskInsight_Model_System_Config_Source_Ordersource::WEBSTORE;
+	}
+
+	/**
+	 * @link http://magento.stackexchange.com/questions/16757/
+	 * Magento store remote ip address for front-end customer order and not
+	 * for Admin orders.
+	 *
+	 * @param  Mage_Sales_Model_Order
+	 * @return bool
+	 */
+	protected function _isAdminOrder(Mage_Sales_Model_Order $order)
+	{
+		return !$order->getRemoteIp();
 	}
 
 	/**
