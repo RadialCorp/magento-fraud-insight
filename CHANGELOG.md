@@ -1,11 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## UNRELEASED
+## [1.0.0-alpha-3] - 2015-04-24
 ### Added
-- Send non credit card payment information in Risk Insight request payload
-- Add API connection test button in admin to validate the extension configuration and service
-- Include PayPal Payer ID in Risk Insight Request Payload
+- Support for non-credit card payments
+- Admin API connection test button to validate the extension configuration
 
 ## [1.0.0-alpha-2] - 2015-04-09
 ### Added
@@ -21,4 +20,5 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Initial development release
 
+[1.0.0-alpha-3]: https://github.com/eBayEnterprise/magento-risk-insight/compare/1.0.0-alpha-2...1.0.0-alpha-3
 [1.0.0-alpha-2]: https://github.com/eBayEnterprise/magento-risk-insight/compare/1.0.0-alpha-1...1.0.0-alpha-2
