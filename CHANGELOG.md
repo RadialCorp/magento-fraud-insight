@@ -14,7 +14,7 @@ All notable changes to this project will be documented in this file.
 - Support for Virtual Items
 
 ### Fixed
-- Use Reginon Code, not Region Name for `MainDivisionCode`
+- Use Region Code, not Region Name for `MainDivisionCode`
 
 ## 1.0.0-alpha-1 - 2015-03-25
 ### Added
