@@ -139,8 +139,24 @@ class EbayEnterprise_RiskInsight_Test_Helper_DataTest
 		$this->assertSame($expected, $this->_helper->isRiskInsightRequestSent($order));
 	}
 
-	public function testGetOrderSourceByArea()
+	/**
+	 * @return array
+	 */
+	public function providerGetOrderSourceByArea()
 	{
-		$this->assertSame('DASHBOARD', $this->_helper->getOrderSourceByArea());
+		return array(
+			array(Mage::getModel('sales/order', array('remote_ip' => null)), 'DASHBOARD'),
+			array(Mage::getModel('sales/order', array('remote_ip' => '127.0.0.1')), 'WEBSTORE'),
+		);
+	}
+
+	/**
+	 * @param Mage_Sales_Model_Order
+	 * @param string
+	 * @dataProvider providerGetOrderSourceByArea
+	 */
+	public function testGetOrderSourceByArea(Mage_Sales_Model_Order $order, $result)
+	{
+		$this->assertSame($result, $this->_helper->getOrderSourceByArea($order));
 	}
 }

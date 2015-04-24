@@ -108,7 +108,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Request
 	 */
 	protected function _getOrderSource()
 	{
-		return $this->_config->getOrderSource() ?: $this->_helper->getOrderSourceByArea();
+		return $this->_config->getOrderSource() ?: $this->_helper->getOrderSourceByArea($this->_order);
 	}
 
 	/**
