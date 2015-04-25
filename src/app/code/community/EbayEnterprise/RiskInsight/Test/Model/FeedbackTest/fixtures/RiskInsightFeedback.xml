@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RiskInsightFeedback xmlns="http://schema.gsicommerce.com/risk/insight/1.0/">
+	<PrimaryLangId>en</PrimaryLangId>
+	<OrderId>10000000001</OrderId>
+	<StoreId>STS-00112</StoreId>
+	<ActionTaken>canceled</ActionTaken>
+	<ActionTakenDescription>Risk Canceled</ActionTakenDescription>
+	<ChargeBackFlag>false</ChargeBackFlag>
+	<ChargeBackFlagDescription>No charge back</ChargeBackFlagDescription>
+</RiskInsightFeedback>

@@ -24,7 +24,7 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 	protected $_config;
 
 	/**
-	 * @param array $initParams Must have this key:
+	 * @param array $initParams optional keys:
 	 *                          - 'helper' => EbayEnterprise_RiskInsight_Helper_Data
 	 *                          - 'config' => EbayEnterprise_RiskInsight_Helper_Config
 	 */
@@ -140,7 +140,7 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 	 */
 	protected function _processRiskOrderCollection(EbayEnterprise_RiskInsight_Model_Resource_Risk_Insight_Collection $insightCollection)
 	{
-		$orderCollection = $this->_helper->getOrderCollectionByIncrementIds($this->_getOrderIncementIds($insightCollection));
+		$orderCollection = $this->_helper->getOrderCollectionByIncrementIds($insightCollection->getColumnValues('order_increment_id'));
 		foreach ($insightCollection as $insight) {
 			$order = $orderCollection->getItemByColumnValue('increment_id', $insight->getOrderIncrementId());
 			if ($order) {
@@ -208,20 +208,5 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 			'insight' => $insight,
 			'order' => $order,
 		))->build();
-	}
-
-	/**
-	 * Get all order increment id from a passed in collection of risk insight instance.
-	 *
-	 * @param  EbayEnterprise_RiskInsight_Model_Resource_Risk_Insight_Collection
-	 * @return array
-	 */
-	protected function _getOrderIncementIds(EbayEnterprise_RiskInsight_Model_Resource_Risk_Insight_Collection $collections)
-	{
-		$incrementIds = array();
-		foreach ($collections as $insight) {
-			$incrementIds[] = $insight->getOrderIncrementId();
-		}
-		return $incrementIds;
 	}
 }

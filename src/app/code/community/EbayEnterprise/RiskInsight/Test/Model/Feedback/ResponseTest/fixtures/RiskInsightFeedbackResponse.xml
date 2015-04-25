@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RiskInsightFeedbackResponse xmlns="http://schema.gsicommerce.com/risk/insight/1.0/">
+	<PrimaryLangId>en</PrimaryLangId>
+	<OrderId>10000000001</OrderId>
+	<StoreId>STS-00112</StoreId>
+	<ActionTakenAcknowledgement>true</ActionTakenAcknowledgement>
+	<ChargeBackAcknowledgement>true</ChargeBackAcknowledgement>
+</RiskInsightFeedbackResponse>

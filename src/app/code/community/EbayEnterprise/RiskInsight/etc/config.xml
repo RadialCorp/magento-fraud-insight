@@ -89,6 +89,15 @@
 					</handle_multi_shipping_orders_risk_fraud>
 				</observers>
 			</checkout_submit_all_after>
+			<sales_order_save_after>
+				<observers>
+					<handle_order_final_action_risk_feedback>
+						<class>ebayenterprise_riskinsight/observer</class>
+						<method>handleSalesOrderSaveAfter</method>
+						<type>singleton</type>
+					</handle_order_final_action_risk_feedback>
+				</observers>
+			</sales_order_save_after>
 		</events>
 	</global>
 	<admin>
@@ -128,6 +137,12 @@
 					<model>ebayenterprise_riskinsight/observer::detectFraudulentOrders</model>
 				</run>
 			</ebayenterprise_riskinsight_process_risk_fraud>
+			<ebayenterprise_riskinsight_resend_fail_feedback_request>
+				<schedule><cron_expr>0 */3 * * *</cron_expr></schedule>
+				<run>
+					<model>ebayenterprise_riskinsight/observer::resendFeedbacks</model>
+				</run>
+			</ebayenterprise_riskinsight_resend_fail_feedback_request>
 		</jobs>
 	</crontab>
 	<default>
@@ -145,6 +160,7 @@
 				<low_action>Process</low_action>
 				<unknown_action>Hold for Review</unknown_action>
 				<language_code>en</language_code>
+				<feedback_request_resend_threshold>2</feedback_request_resend_threshold>
 				<card_type_map>
 					<AE>AM</AE>
 					<VI>VC</VI>

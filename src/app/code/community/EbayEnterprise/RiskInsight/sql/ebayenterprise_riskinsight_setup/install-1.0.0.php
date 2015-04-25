@@ -45,6 +45,26 @@ $table = $conn
 		'nullable'  => false,
 		'default'   => '0',
 	), 'Flag to indicate ucp request has been sent')
+	->addColumn('is_feedback_sent', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+		'unsigned'  => true,
+		'nullable'  => false,
+		'default'   => '0',
+	), 'Flag indicating feedback request was sent successfully')
+	->addColumn('feedback_sent_attempt_count', Varien_Db_Ddl_Table::TYPE_INTEGER, null, array(
+		'unsigned'  => true,
+		'nullable'  => false,
+		'default'   => '0',
+	), 'Count of how many fail attempt to successfully send feedback request')
+	->addColumn('action_taken_acknowledgement', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+		'unsigned'  => true,
+		'nullable'  => false,
+		'default'   => '0',
+	), 'Feedback response action taken acknowledgement')
+	->addColumn('charge_back_acknowledgement', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
+		'unsigned'  => true,
+		'nullable'  => false,
+		'default'   => '0',
+	), 'Feedback response charge back acknowledgement')
 	->addIndex(
 		$installer->getIdxName('ebayenterprise_riskinsight/risk_insight', array('order_increment_id'), Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE),
 		array('order_increment_id'), array('type' => Varien_Db_Adapter_Interface::INDEX_TYPE_UNIQUE)

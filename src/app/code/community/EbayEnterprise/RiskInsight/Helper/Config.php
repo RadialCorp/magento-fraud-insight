@@ -35,6 +35,7 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	const CARD_TYPE_MAP = 'ebayenterprise_riskinsight/risk_insight/card_type_map';
 	const SHIPPING_METHOD_MAP = 'ebayenterprise_riskinsight/risk_insight/shipping_method_map';
 	const PAYMENT_ADAPTER_MAP = 'ebayenterprise_riskinsight/risk_insight/payment_adapter_map';
+	const FEEDBACK_RESEND_THRESHOLD = 'ebayenterprise_riskinsight/risk_insight/feedback_request_resend_threshold';
 
 	/**
 	 * check if Risk Insight module is enable in the store config
@@ -199,5 +200,16 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	public function getPaymentAdapterMap($store=null)
 	{
 		return Mage::getStoreConfig(static::PAYMENT_ADAPTER_MAP, $store);
+	}
+
+	/**
+	 * retrieve the feedback request resend threshold settings from store config
+	 *
+	 * @param  mixed
+	 * @return int
+	 */
+	public function getFeedbackResendThreshold($store=null)
+	{
+		return (int) Mage::getStoreConfig(static::FEEDBACK_RESEND_THRESHOLD, $store);
 	}
 }

@@ -57,7 +57,7 @@ class EbayEnterprise_RiskInsight_Test_Helper_DataTest
 	 * Test that an exception is thrown when an invalid xml string is passed to the
 	 * EbayEnterprise_RiskInsight_Helper_Data::getPayloadAsDoc method.
 	 *
-	 * @expectedException Exception
+	 * @expectedException EbayEnterprise_RiskInsight_Model_Exception_Invalid_Xml_Exception
 	 */
 	public function testGetPayloadAsDocInvalidPayloadThrowException()
 	{
@@ -158,5 +158,70 @@ class EbayEnterprise_RiskInsight_Test_Helper_DataTest
 	public function testGetOrderSourceByArea(Mage_Sales_Model_Order $order, $result)
 	{
 		$this->assertSame($result, $this->_helper->getOrderSourceByArea($order));
+	}
+
+	/**
+	 * @return array
+	 */
+	public function providerCanHandleFeedback()
+	{
+		return array(
+			array(
+				Mage::getModel('sales/order', array('state' => Mage_Sales_Model_Order::STATE_CANCELED)),
+				Mage::getModel('ebayenterprise_riskinsight/risk_insight', array(
+					'is_request_sent' => 1,
+					'is_feedback_sent' => 0,
+					'feedback_sent_attempt_count' => 0,
+				)),
+				true
+			),
+			array(
+				Mage::getModel('sales/order', array('state' => Mage_Sales_Model_Order::STATE_COMPLETE)),
+				Mage::getModel('ebayenterprise_riskinsight/risk_insight', array(
+					'is_request_sent' => 0,
+					'is_feedback_sent' => 1,
+					'feedback_sent_attempt_count' => 3,
+				)),
+				false
+			),
+		);
+	}
+
+	/**
+	 * Test helper method EbayEnterprise_RiskInsight_Helper_Data::canHandleFeedback
+	 *
+	 * @param Mage_Sales_Model_Order
+	 * @param EbayEnterprise_RiskInsight_Model_Risk_Insight
+	 * @param bool
+	 * @dataProvider providerCanHandleFeedback
+	 */
+	public function testCanHandleFeedback(
+		Mage_Sales_Model_Order $order,
+		EbayEnterprise_RiskInsight_Model_Risk_Insight $insight,
+		$result
+	)
+	{
+		$this->assertSame($result, $this->_helper->canHandleFeedback($order, $insight));
+	}
+
+	/**
+	 * Test helper method EbayEnterprise_RiskInsight_Helper_Data::getFeedbackOrderCollection
+	 */
+	public function testGetFeedbackOrderCollection()
+	{
+		$threshold = 2;
+		$feedbackCollection = $this->getResourceModelMockBuilder('ebayenterprise_riskinsight/risk_insight_collection')
+			->setMethods(array('addFieldToFilter'))
+			->getMock();
+		$feedbackCollection->expects($this->exactly(3))
+			->method('addFieldToFilter')
+			->will($this->returnValueMap(array(
+				array('is_request_sent', 1, $feedbackCollection),
+				array('is_feedback_sent', 0, $feedbackCollection),
+				array('feedback_sent_attempt_count', array('lt' => $threshold), $feedbackCollection),
+			)));
+		$this->replaceByMock('resource_model', 'ebayenterprise_riskinsight/risk_insight_collection', $feedbackCollection);
+
+		$this->assertSame($feedbackCollection, $this->_helper->getFeedbackOrderCollection());
 	}
 }

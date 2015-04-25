@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RiskInsightErrorResponse xmlns="http://schema.gsicommerce.com/risk/insight/1.0/">
+	<PrimaryLangId>en</PrimaryLangId>
+	<OrderId>10000000011</OrderId>
+	<StoreId>STS-00112</StoreId>
+	<ErrorCode>ERROR01</ErrorCode>
+	<ErrorDescription>UCP Service is temporarily out of service.</ErrorDescription>
+	<ExceptionLog>system</ExceptionLog>
+</RiskInsightErrorResponse>

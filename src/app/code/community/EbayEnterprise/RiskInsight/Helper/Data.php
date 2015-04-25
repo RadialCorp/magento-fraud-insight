@@ -92,7 +92,9 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	public function getPayloadAsDoc($xmlString)
 	{
 		$d = new DOMDocument();
-		if(!$d->loadXML($xmlString)) {
+		// Suppress the warning error that occurred when the passed in xml string is malformed
+		// instead throw a custom exception. Reference http://stackoverflow.com/questions/1759069/
+		if(@$d->loadXML($xmlString) === false) {
 			$exceptionMessage = "The XML string ($xmlString) is invalid";
 			throw Mage::exception('EbayEnterprise_RiskInsight_Model_Exception_Invalid_Xml', $exceptionMessage);
 		}
@@ -122,12 +124,29 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	/**
 	 * Get a collection of risk insight object where UCP request has not been sent.
 	 *
-	 * @return array
+	 * @return EbayEnterprise_RiskInsight_Model_Resource_Risk_Insight_Collection
 	 */
 	public function getRiskInsightCollection()
 	{
 		return Mage::getResourceModel('ebayenterprise_riskinsight/risk_insight_collection')
 			->addFieldToFilter('is_request_sent', 0);
+	}
+
+	/**
+	 * Get a collection of risk insight object where the risk insight request had already been sent,
+	 * there was no successful feedback request sent, and the fail attempt feedback request counter is
+	 * less than the configured threshold.
+	 *
+	 * @return EbayEnterprise_RiskInsight_Model_Resource_Risk_Insight_Collection
+	 */
+	public function getFeedbackOrderCollection()
+	{
+		return Mage::getResourceModel('ebayenterprise_riskinsight/risk_insight_collection')
+			->addFieldToFilter('is_request_sent', 1)
+			->addFieldToFilter('is_feedback_sent', 0)
+			->addFieldToFilter('feedback_sent_attempt_count', array(
+				'lt' => $this->_config->getFeedbackResendThreshold()
+			));
 	}
 
 	/**
@@ -163,14 +182,15 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	}
 
 	/**
+	 * Get a loaded risk insight object by order increment id from the passed in sales order object.
+	 *
 	 * @param  Mage_Sales_Model_Order
 	 * @return EbayEnterprise_RiskInsight_Model_Risk_Insight
 	 */
 	public function getRiskInsight(Mage_Sales_Model_Order $order)
 	{
-		$insight = Mage::getModel('ebayenterprise_riskinsight/risk_insight');
-		$insight->load($order->getIncrementId(), 'order_increment_id');
-		return $insight;
+		return Mage::getModel('ebayenterprise_riskinsight/risk_insight')
+			->load($order->getIncrementId(), 'order_increment_id');
 	}
 
 	/**
@@ -367,5 +387,39 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	protected function _correctMonth($month)
 	{
 		return (strlen($month) === 1) ? sprintf('%02d', $month) : $month;
+	}
+
+	/**
+	 * Determine if the passed order can be used to send feedback request.
+	 *
+	 * @param  Mage_Sales_Model_Order
+	 * @return bool
+	 */
+	public function isOrderInAStateToSendFeedback(Mage_Sales_Model_Order $order)
+	{
+		return (
+			$order->getState() === Mage_Sales_Model_Order::STATE_CANCELED
+			|| $order->getState() === Mage_Sales_Model_Order::STATE_COMPLETE
+		);
+	}
+
+	/**
+	 * Determine if feedback request can be sent.
+	 *
+	 * @param  Mage_Sales_Model_Order
+	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight
+	 * @return bool
+	 */
+	public function canHandleFeedback(
+		Mage_Sales_Model_Order $order,
+		EbayEnterprise_RiskInsight_Model_Risk_Insight $insight
+	)
+	{
+		return (
+			$this->isOrderInAStateToSendFeedback($order)
+			&& (bool) $insight->getIsRequestSent() === true
+			&& (bool) $insight->getIsFeedbackSent() === false
+			&& (int) $insight->getFeedbackSentAttemptCount() < $this->_config->getFeedbackResendThreshold()
+		);
 	}
 }

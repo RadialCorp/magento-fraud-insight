@@ -32,7 +32,7 @@ class EbayEnterprise_RiskInsight_Model_Observer
 	}
 
 	/**
-	 * @param  Mage_Sales_Model_Order $order
+	 * @param  Mage_Sales_Model_Order
 	 * @return self
 	 */
 	protected function _handleProcessOrder(Mage_Sales_Model_Order $order)
@@ -127,6 +127,82 @@ class EbayEnterprise_RiskInsight_Model_Observer
 	{
 		if ($this->_config->isEnabled()) {
 			Mage::getModel('ebayenterprise_riskinsight/risk_order', array(
+				'helper' => $this->_helper,
+			))->process();
+		}
+		return $this;
+	}
+
+	/**
+	 * Consume the event 'sales_order_save_after'. Get the sales/order object
+	 * from the event. Validate we have a valid sales/order object, then pass it
+	 * down to self::_processOrderFeedback() protected method. If we don't have
+	 * a valid sales/order object we simply log a warning message.
+	 *
+	 * @param  Varien_Event_Observer
+	 * @return self
+	 */
+	public function handleSalesOrderSaveAfter(Varien_Event_Observer $observer)
+	{
+		$order = $observer->getEvent()->getOrder();
+		if ($this->_isValidOrder($order)) {
+			$this->_handleOrderFeedback($order);
+		} else {
+			$logMessage = sprintf('[%s] No sales/order instance was found to send risk feedback request.', __CLASS__);
+			$this->_logWarning($logMessage);
+		}
+		return $this;
+	}
+
+	/**
+	 * Get the associated risk insight object for the passed in sales/order object.
+	 * Determine if the sales/order and risk insight objects are in a state to send
+	 * feedback request, if so, we simply passed the sales/order object and risk insight object
+	 * to the self::_processOrderFeedback() protected method.
+	 *
+	 * @param  Mage_Sales_Model_Order
+	 * @return self
+	 */
+	protected function _handleOrderFeedback(Mage_Sales_Model_Order $order)
+	{
+		$insight = $this->_helper->getRiskInsight($order);
+		if ($this->_helper->canHandleFeedback($order, $insight)) {
+			$this->_processOrderFeedback($order, $insight);
+		}
+		return $this;
+	}
+
+	/**
+	 * If we have reached this point that mean we have an order that is either canceled or completed.
+	 * Also, we have a risk insight record where the risk insight request has already been sent,
+	 * there were no previously successful feedback request sent, and the fail attempt feedback request
+	 * counter is less than the configured threshold. Therefore, we simply send the feedback request.
+	 *
+	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight
+	 * @param  Mage_Sales_Model_Order
+	 * @return self
+	 */
+	protected function _processOrderFeedback(
+		Mage_Sales_Model_Order $order,
+		EbayEnterprise_RiskInsight_Model_Risk_Insight $insight
+	)
+	{
+		Mage::getModel('ebayenterprise_riskinsight/send_feedback', array(
+			'order' => $order,
+			'insight' => $insight,
+		))->send();
+		return $this;
+	}
+
+	/**
+	 * Entry point for the CRONJOB 'ebayenterprise_riskinsight_resend_fail_feedback_request'.
+	 *
+	 * @return self
+	 */
+	public function resendFeedbacks()
+	{
+		if ($this->_config->isEnabled()) {
+			Mage::getModel('ebayenterprise_riskinsight/cron_feedback', array(
 				'helper' => $this->_helper,
 			))->process();
 		}
