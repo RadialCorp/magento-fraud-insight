@@ -16,11 +16,12 @@
  */
 
 class EbayEnterprise_RiskInsight_Model_Build_Feedback
+	extends EbayEnterprise_RiskInsight_Model_Abstract
 	implements EbayEnterprise_RiskInsight_Model_Build_IFeedback
 {
 	/** @var Mage_Sales_Model_Order */
 	protected $_order;
-	/** @var EbayEnterprise_RiskInsight_Model_IPayload */
+	/** @var EbayEnterprise_RiskInsight_Sdk_IPayload */
 	protected $_feedback;
 	/** @var EbayEnterprise_RiskInsight_Helper_Data */
 	protected $_helper;
@@ -35,7 +36,7 @@ class EbayEnterprise_RiskInsight_Model_Build_Feedback
 	{
 		list($this->_order, $this->_feedback, $this->_helper, $this->_config) = $this->_checkTypes(
 			$initParams['order'],
-			$this->_nullCoalesce($initParams, 'feedback', Mage::getModel('ebayenterprise_riskinsight/feedback')),
+			$this->_nullCoalesce($initParams, 'feedback', $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Feedback')),
 			$this->_nullCoalesce($initParams, 'helper', Mage::helper('ebayenterprise_riskinsight')),
 			$this->_nullCoalesce($initParams, 'config', Mage::helper('ebayenterprise_riskinsight/config'))
 		);
@@ -45,14 +46,14 @@ class EbayEnterprise_RiskInsight_Model_Build_Feedback
 	 * Type hinting for self::__construct $initParams
 	 *
 	 * @param  Mage_Sales_Model_Order
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Sdk_IPayload
 	 * @param  EbayEnterprise_RiskInsight_Helper_Data
 	 * @param  EbayEnterprise_RiskInsight_Helper_Config
 	 * @return array
 	 */
 	protected function _checkTypes(
 		Mage_Sales_Model_Order $order,
-		EbayEnterprise_RiskInsight_Model_IPayload $feedback,
+		EbayEnterprise_RiskInsight_Sdk_IPayload $feedback,
 		EbayEnterprise_RiskInsight_Helper_Data $helper,
 		EbayEnterprise_RiskInsight_Helper_Config $config
 	) {

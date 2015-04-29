@@ -15,9 +15,6 @@
  *
  */
 
-/**
- * @codeCoverageIgnore
- */
 class EbayEnterprise_RiskInsight_Model_Observer
 {
 	/** @var EbayEnterprise_RiskInsight_Helper_Data */
@@ -25,10 +22,44 @@ class EbayEnterprise_RiskInsight_Model_Observer
 	/** @var EbayEnterprise_RiskInsight_Helper_Config */
 	protected $_config;
 
-	public function __construct()
+	/**
+	 * @param array $initParams optional keys:
+	 *                          - 'helper' => EbayEnterprise_RiskInsight_Helper_Data
+	 *                          - 'config' => EbayEnterprise_RiskInsight_Helper_Config
+	 */
+	public function __construct(array $initParams=array())
 	{
-		$this->_helper = Mage::helper('ebayenterprise_riskinsight');
-		$this->_config = Mage::helper('ebayenterprise_riskinsight/config');
+		list($this->_helper, $this->_config) = $this->_checkTypes(
+			$this->_nullCoalesce($initParams, 'helper', Mage::helper('ebayenterprise_riskinsight')),
+			$this->_nullCoalesce($initParams, 'config', Mage::helper('ebayenterprise_riskinsight/config'))
+		);
+	}
+
+	/**
+	 * Type checks for self::__construct $initParams
+	 *
+	 * @param  EbayEnterprise_RiskInsight_Helper_Data
+	 * @param  EbayEnterprise_RiskInsight_Helper_Config
+	 * @return array
+	 */
+	protected function _checkTypes(
+		EbayEnterprise_RiskInsight_Helper_Data $helper,
+		EbayEnterprise_RiskInsight_Helper_Config $config
+	) {
+		return array($helper, $config);
+	}
+	/**
+	 * Return the value at field in array if it exists. Otherwise, use the
+	 * default value.
+	 *
+	 * @param array      $arr
+	 * @param string|int $field Valid array key
+	 * @param mixed      $default
+	 * @return mixed
+	 */
+	protected function _nullCoalesce(array $arr, $field, $default)
+	{
+		return isset($arr[$field]) ? $arr[$field] : $default;
 	}
 
 	/**
@@ -56,6 +87,7 @@ class EbayEnterprise_RiskInsight_Model_Observer
 	/**
 	 * @param  string
 	 * @return self
+	 * @codeCoverageIgnore
 	 */
 	protected function _logWarning($logMessage)
 	{

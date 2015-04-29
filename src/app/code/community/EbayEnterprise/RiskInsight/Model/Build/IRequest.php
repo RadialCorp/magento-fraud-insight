@@ -26,7 +26,7 @@ interface EbayEnterprise_RiskInsight_Model_Build_IRequest
 	/**
 	 * Build the Risk Insight request payload.
 	 *
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload
 	 */
 	public function build();
 }

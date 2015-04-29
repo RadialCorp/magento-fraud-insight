@@ -16,26 +16,27 @@
  */
 
 class EbayEnterprise_RiskInsight_Model_Process_Feedback_Response
+	extends EbayEnterprise_RiskInsight_Model_Abstract
 	implements EbayEnterprise_RiskInsight_Model_Process_Feedback_IResponse
 {
-	/** @var EbayEnterprise_RiskInsight_Model_IPayload */
+	/** @var EbayEnterprise_RiskInsight_Sdk_IPayload */
 	protected $_response;
 	/** @var EbayEnterprise_RiskInsight_Model_Risk_Insight */
 	protected $_insight;
-	/** @var EbayEnterprise_RiskInsight_Helper_Data */
-	protected $_helper;
+	/** @var EbayEnterprise_RiskInsight_Sdk_Helper */
+	protected $_sdkHelper;
 
 	/**
 	 * @param array $initParams Must have these keys:
-	 *                          - 'response' => EbayEnterprise_RiskInsight_Model_IPayload
+	 *                          - 'response' => EbayEnterprise_RiskInsight_Sdk_IPayload
 	 *                          - 'insight' => EbayEnterprise_RiskInsight_Model_Risk_Insight
 	 */
 	public function __construct(array $initParams)
 	{
-		list($this->_response, $this->_insight, $this->_helper) = $this->_checkTypes(
+		list($this->_response, $this->_insight, $this->_sdkHelper) = $this->_checkTypes(
 			$initParams['response'],
 			$initParams['insight'],
-			$this->_nullCoalesce($initParams, 'helper', Mage::helper('ebayenterprise_riskinsight'))
+			$this->_nullCoalesce($initParams, 'sdk_helper', $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Helper'))
 		);
 		$this->_checkRiskInsight();
 	}
@@ -43,30 +44,17 @@ class EbayEnterprise_RiskInsight_Model_Process_Feedback_Response
 	/**
 	 * Type hinting for self::__construct $initParams
 	 *
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Sdk_IPayload
 	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight
-	 * @param  EbayEnterprise_RiskInsight_Helper_Data
+	 * @param  EbayEnterprise_RiskInsight_Sdk_Helper
 	 * @return array
 	 */
 	protected function _checkTypes(
-		EbayEnterprise_RiskInsight_Model_IPayload $response,
+		EbayEnterprise_RiskInsight_Sdk_IPayload $response,
 		EbayEnterprise_RiskInsight_Model_Risk_Insight $insight,
-		EbayEnterprise_RiskInsight_Helper_Data $helper
+		EbayEnterprise_RiskInsight_Sdk_Helper $sdkHelper
 	) {
-		return array($response, $insight, $helper);
-	}
-
-	/**
-	 * Return the value at field in array if it exists. Otherwise, use the default value.
-	 *
-	 * @param  array
-	 * @param  string | int $field Valid array key
-	 * @param  mixed
-	 * @return mixed
-	 */
-	protected function _nullCoalesce(array $arr, $field, $default)
-	{
-		return isset($arr[$field]) ? $arr[$field] : $default;
+		return array($response, $insight, $sdkHelper);
 	}
 
 	/**
@@ -74,9 +62,9 @@ class EbayEnterprise_RiskInsight_Model_Process_Feedback_Response
 	 */
 	public function process()
 	{
-		if ($this->_response instanceof EbayEnterprise_RiskInsight_Model_Feedback_Response) {
+		if ($this->_response instanceof EbayEnterprise_RiskInsight_Sdk_Feedback_Response) {
 			$this->_updateFeedback();
-		} elseif ($this->_response instanceof EbayEnterprise_RiskInsight_Model_Error) {
+		} elseif ($this->_response instanceof EbayEnterprise_RiskInsight_Sdk_Error) {
 			$this->_processFeedbackError();
 		}
 		return $this;
@@ -158,8 +146,8 @@ class EbayEnterprise_RiskInsight_Model_Process_Feedback_Response
 		if ($this->_isLoaded()) {
 			$this->_incrementFeedbackAttemptCount()
 				->setIsFeedbackSent(1)
-				->setActionTakenAcknowledgement($this->_helper->convertStringToBoolean($this->_response->getActionTakenAcknowledgement()))
-				->setChargeBackAcknowledgement($this->_helper->convertStringToBoolean($this->_response->getChargeBackAcknowledgement()))
+				->setActionTakenAcknowledgement($this->_sdkHelper->convertStringToBoolean($this->_response->getActionTakenAcknowledgement()))
+				->setChargeBackAcknowledgement($this->_sdkHelper->convertStringToBoolean($this->_response->getChargeBackAcknowledgement()))
 				->save();
 		}
 		return $this;

@@ -20,7 +20,7 @@ interface EbayEnterprise_RiskInsight_Model_Send_IFeedback
 	/**
 	 * Send feeback request payload.
 	 *
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload | null
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload | null
 	 */
 	public function send();
 }

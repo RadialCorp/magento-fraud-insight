@@ -16,6 +16,7 @@
  */
 
 class EbayEnterprise_RiskInsight_Model_Send_Feedback
+	extends EbayEnterprise_RiskInsight_Model_Abstract
 	implements EbayEnterprise_RiskInsight_Model_Send_IFeedback
 {
 	/** @var Mage_Sales_Model_Order */
@@ -81,7 +82,7 @@ class EbayEnterprise_RiskInsight_Model_Send_Feedback
 	 * prepare the API accordingly, send the feedback request and get the response. If the response is valid
 	 * passed it down to the self::_processFeedbackResponse() protected method.
 	 *
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload
 	 */
 	protected function _sendFeedback()
 	{
@@ -97,36 +98,36 @@ class EbayEnterprise_RiskInsight_Model_Send_Feedback
 	/**
 	 * Get a new empty feedback request payload
 	 *
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload
 	 */
 	protected function _getNewEmptyFeedbackRequest()
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/feedback');
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Feedback');
 	}
 
 	/**
 	 * Get a new empty feedback response payload
 	 *
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload
 	 */
 	protected function _getNewEmptyFeedbackResponse()
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/feedback_response');
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Feedback_Response');
 	}
 
 	/**
 	 * Get a new API config object.
 	 *
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
-	 * @return EbayEnterprise_RiskInsight_Model_IConfig
+	 * @param  EbayEnterprise_RiskInsight_Sdk_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Sdk_IPayload
+	 * @return EbayEnterprise_RiskInsight_Sdk_IConfig
 	 */
 	protected function _setupApiConfig(
-		EbayEnterprise_RiskInsight_Model_IPayload $request,
-		EbayEnterprise_RiskInsight_Model_IPayload $response
+		EbayEnterprise_RiskInsight_Sdk_IPayload $request,
+		EbayEnterprise_RiskInsight_Sdk_IPayload $response
 	)
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/config', array(
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Config', array(
 			'api_key' => $this->_config->getApiKey(),
 			'host' => $this->_config->getApiHostname(),
 			'store_id' => $this->_config->getStoreId(),
@@ -138,21 +139,21 @@ class EbayEnterprise_RiskInsight_Model_Send_Feedback
 	/**
 	 * Get a new API object.
 	 *
-	 * @return EbayEnterprise_RiskInsight_Model_IApi
+	 * @return EbayEnterprise_RiskInsight_Sdk_IApi
 	 */
-	protected function _getApi(EbayEnterprise_RiskInsight_Model_IConfig $config)
+	protected function _getApi(EbayEnterprise_RiskInsight_Sdk_IConfig $config)
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/api', $config);
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Api', $config);
 	}
 
 	/**
 	 * Try to send feedback request if no exception was thrown get the response payload and return it.
 	 * Otherwise if an exception was thrown while sending the request simply log it.
 	 *
-	 * @param  EbayEnterprise_RiskInsight_Model_IApi
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload | null
+	 * @param  EbayEnterprise_RiskInsight_Sdk_IApi
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload | null
 	 */
-	protected function _sendFeedbackRequest(EbayEnterprise_RiskInsight_Model_IApi $api)
+	protected function _sendFeedbackRequest(EbayEnterprise_RiskInsight_Sdk_IApi $api)
 	{
 		$response = null;
 		try {
@@ -170,12 +171,12 @@ class EbayEnterprise_RiskInsight_Model_Send_Feedback
 	 * Build the passed in feedback request object using the passed in order object.
 	 *
 	 * @param  Mage_Sales_Model_Order
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Sdk_IPayload
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload
 	 */
 	protected function _buildFeedbackRequestFromOrder(
 		Mage_Sales_Model_Order $order,
-		EbayEnterprise_RiskInsight_Model_IPayload $feedback
+		EbayEnterprise_RiskInsight_Sdk_IPayload $feedback
 	)
 	{
 		return Mage::getModel('ebayenterprise_riskinsight/build_feedback', array(
@@ -187,12 +188,12 @@ class EbayEnterprise_RiskInsight_Model_Send_Feedback
 	/**
 	 * Process the feedback response payload.
 	 *
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Sdk_IPayload
 	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight
 	 * @return self
 	 */
 	protected function _processFeedbackResponse(
-		EbayEnterprise_RiskInsight_Model_IPayload $response,
+		EbayEnterprise_RiskInsight_Sdk_IPayload $response,
 		EbayEnterprise_RiskInsight_Model_Risk_Insight $insight
 	)
 	{

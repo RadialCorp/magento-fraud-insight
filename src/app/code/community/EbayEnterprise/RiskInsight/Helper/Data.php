@@ -34,78 +34,6 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 	}
 
 	/**
-	 * Convert "true", "false", "1" or "0" to boolean
-	 * Everything else returns null
-	 *
-	 * @param  string
-	 * @return bool | null
-	 */
-	public function convertStringToBoolean($string)
-	{
-		if (!is_string($string)) {
-			return null;
-		}
-		$string = strtolower($string);
-		switch ($string) {
-			case 'true':
-			case '1':
-				return true;
-			case 'false':
-			case '0':
-				return false;
-		}
-		return null;
-	}
-
-	/**
-	 * Consistent formatting of amounts.
-	 *
-	 * @param  float
-	 * @return string
-	 */
-	public function formatAmount($amount)
-	{
-		return sprintf('%01.2F', $amount);
-	}
-
-	/**
-	 * Load the payload XML into a DOMXPath for querying.
-	 *
-	 * @param  string
-	 * @param  string
-	 * @return DOMXPath
-	 */
-	public function getPayloadAsXPath($xmlString, $nameSpace)
-	{
-		$xpath = new DOMXPath($this->getPayloadAsDoc($xmlString));
-		$xpath->registerNamespace('x', $nameSpace);
-		return $xpath;
-	}
-
-	/**
-	 * Load the payload XML into a DOMDocument
-	 *
-	 * @param  string
-	 * @return DOMDocument
-	 * @throws EbayEnterprise_RiskInsight_Model_Exception_Invalid_Xml_Exception
-	 */
-	public function getPayloadAsDoc($xmlString)
-	{
-		$d = new DOMDocument();
-		// Suppress the warning error that occurred when the passed in xml string is malformed
-		// instead throw a custom exception. Reference http://stackoverflow.com/questions/1759069/
-		if(@$d->loadXML($xmlString) === false) {
-			$exceptionMessage = "The XML string ($xmlString) is invalid";
-			throw Mage::exception('EbayEnterprise_RiskInsight_Model_Exception_Invalid_Xml', $exceptionMessage);
-		}
-		$d->encoding = 'utf-8';
-		$d->formatOutput = false;
-		$d->preserveWhiteSpace = false;
-		$d->normalizeDocument();
-		return $d;
-	}
-
-	/**
 	 * Get all header data.
 	 *
 	 * @return array
@@ -229,21 +157,6 @@ class EbayEnterprise_RiskInsight_Helper_Data extends Mage_Core_Helper_Abstract
 		// Magento store remote ip address for front-end customer order and not for Admin orders.
 		// For more information reference this link http://magento.stackexchange.com/questions/16757/
 		return !$order->getRemoteIp();
-	}
-
-	/**
-	 * @param  Mage_Sales_Model_Order
-	 * @param  Mage_Sales_Model_Order_Payment
-	 * @return string
-	 */
-	public function getPaymentMethod(
-		Mage_Sales_Model_Order $order,
-		Mage_Sales_Model_Order_Payment $payment
-	)
-	{
-		return $this->isGiftCardPayment($order, $payment)
-			? static::RISK_INSIGHT_GIFT_CARD_PAYMENT_METHOD
-			: $this->getMapRiskInsightPaymentMethod($payment);
 	}
 
 	/**

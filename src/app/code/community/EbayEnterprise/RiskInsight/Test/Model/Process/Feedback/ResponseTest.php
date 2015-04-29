@@ -19,17 +19,29 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_Feedback_ResponseTest
 	extends EcomDev_PHPUnit_Test_Case
 {
 	/**
+	 * Instantiate new SDK class.
+	 *
+	 * @param  string
+	 * @param  mixed
+	 * @return mixed
+	 */
+	protected function _getNewSdkInstance($class, $argments=array())
+	{
+		return new $class($argments);
+	}
+
+	/**
 	 * Create a new payload and set any data passed in the properties parameter.
 	 * Each key in array should be a setter method to call and will be given
 	 * the value at that key.
 	 *
 	 * @param  string
 	 * @param  array
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload
 	 */
-	protected function _buildPayload($type, array $properties=array())
+	protected function _buildPayload($class, array $properties=array())
 	{
-		$payload = $this->_createNewPayload($type);
+		$payload = $this->_createNewPayload($class);
 		foreach ($properties as $setterMethod => $value) {
 			$payload->$setterMethod($value);
 		}
@@ -40,11 +52,11 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_Feedback_ResponseTest
 	 * Create a new order Response payload.
 	 *
 	 * @param  string
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload
 	 */
-	protected function _createNewPayload($type)
+	protected function _createNewPayload($class)
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/' . $type);
+		return $this->_getNewSdkInstance($class);
 	}
 
 	/**
@@ -84,9 +96,10 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_Feedback_ResponseTest
 	 */
 	protected function _buildFeedbackResponse($responseFile)
 	{
-		$type = (basename($responseFile) !== 'error.xml') ? 'feedback_response' : 'error';
+		$class = (basename($responseFile) !== 'error.xml')
+			? 'EbayEnterprise_RiskInsight_Sdk_Feedback_Response' : 'EbayEnterprise_RiskInsight_Sdk_Error';
 		$serializedData = $this->_loadXmlTestString($responseFile);
-		$payload = $this->_buildPayload($type);
+		$payload = $this->_buildPayload($class);
 		$payload->deserialize($serializedData);
 		return $payload;
 	}
@@ -117,11 +130,11 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_Feedback_ResponseTest
 	 * Test that when the method ebayenterprise_riskinsight/process_feedback_response::process
 	 * is invoked, and the ebayenterprise_riskinsight/process_feedback_response constructor instance
 	 * is passed in an array with key 'response' mapped to the an instance of
-	 * EbayEnterprise_RiskInsight_Model_Feedback_Response and another key 'insight' mapped to an
-	 * instance of EbayEnterprise_RiskInsight_Model_Risk_Insight it will call the method
+	 * EbayEnterprise_RiskInsight_Sdk_Feedback_Response and another key 'insight' mapped to an
+	 * instance of EbayEnterprise_RiskInsight_Model_Risk_Insight. It will, then call the method
 	 * ebayenterprise_riskinsight/process_feedback_response::_updateFeedback and then return
-	 * itself. When the passed in array to the constructor has a key 'response' mapped that mapped
-	 * to an instance of EbayEnterprise_RiskInsight_Model_Error. We expect the method
+	 * itself. When the passed in array to the constructor has a key 'response' mapped
+	 * to an instance of EbayEnterprise_RiskInsight_Sdk_Error. We expect the method
 	 * ebayenterprise_riskinsight/process_feedback_response::_processFeedbackError to be invoked.
 	 *
 	 * @param string $responseFile - path to fixture file
@@ -141,13 +154,13 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_Feedback_ResponseTest
 				->method('_updateFeedback')
 				->will($this->returnSelf());
 			$response->expects($this->never())
-				// Testing that when a response of type EbayEnterprise_RiskInsight_Model_Feedback_Response
+				// Testing that when a response of type EbayEnterprise_RiskInsight_Sdk_Feedback_Response
 				// is passed in the ebayenterprise_riskinsight/process_feedback_response constructor method
 				// this method will never be called.
 				->method('_processFeedbackError');
 		} else {
 			$response->expects($this->never())
-				// Testing that when a response of type EbayEnterprise_RiskInsight_Model_Error
+				// Testing that when a response of type EbayEnterprise_RiskInsight_Sdk_Error
 				// is passed in the ebayenterprise_riskinsight/process_feedback_response constructor method
 				// this method will never be called.
 				->method('_updateFeedback');
@@ -161,8 +174,8 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_Feedback_ResponseTest
 
 	/**
 	 * Test that when the method ebayenterprise_riskinsight/process_feedback_response::_checkRiskInsight
-	 * is invoked, it will call ebayenterprise_riskinsight/risk_insight::load method when there is a non empty
-	 * string value return from calling the method ebayenterprise_riskinsight/feedback_response::getOrderId()
+	 * is invoked, it will call ebayenterprise_riskinsight/risk_insight::load() method when there is a non empty
+	 * string value return from calling the method EbayEnterprise_RiskInsight_Sdk_Feedback_Response::getOrderId()
 	 * and when calling the method ebayenterprise_riskinsight/process_feedback_response::_isLoaded() returns
 	 * the boolean value false. It will passed in the increment id as first parameter and the string 'order_increment_id'
 	 * as second parameter. Finally, it will return itself.
@@ -172,7 +185,7 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_Feedback_ResponseTest
 		$incrementId = '10000000011';
 		$isLoaded = false;
 
-		$feedbackResponse = $this->getModelMock('ebayenterprise_riskinsight/feedback_response', array('getOrderId'));
+		$feedbackResponse = $this->getMock('EbayEnterprise_RiskInsight_Sdk_Feedback_Response', array('getOrderId'));
 		$feedbackResponse->expects($this->once())
 			->method('getOrderId')
 			->will($this->returnValue($incrementId));
@@ -212,7 +225,7 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_Feedback_ResponseTest
 	public function testIsLoaded()
 	{
 		$id = 8;
-		$feedbackResponse = Mage::getModel('ebayenterprise_riskinsight/feedback_response');
+		$feedbackResponse = $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Feedback_Response');
 		$insight = $this->getModelMock('ebayenterprise_riskinsight/risk_insight', array('getId'));
 		$insight->expects($this->once())
 			->method('getId')
@@ -257,14 +270,14 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_Feedback_ResponseTest
 
 	/**
 	 * Test that when the method ebayenterprise_riskinsight/process_feedback_response::_logResponse
-	 * is invoked, it will call ebayenterprise_riskinsight/feedback_response::getErrorCode method, then
-	 * call ebayenterprise_riskinsight/feedback_response::getErrorDescription method and then return itself.
+	 * is invoked, it will call EbayEnterprise_RiskInsight_Sdk_Feedback_Response::getErrorCode method, then
+	 * call EbayEnterprise_RiskInsight_Sdk_Feedback_Response::getErrorDescription method and then return itself.
 	 */
 	public function testLogResponse()
 	{
 		$errorCode = '500';
 		$errorDescription = 'API not accessible.';
-		$feedbackResponse = $this->getModelMock('ebayenterprise_riskinsight/feedback_response', array(
+		$feedbackResponse = $this->getMock('EbayEnterprise_RiskInsight_Sdk_Feedback_Response', array(
 			'getErrorCode', 'getErrorDescription'
 		));
 		$feedbackResponse->expects($this->once())
@@ -274,7 +287,7 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_Feedback_ResponseTest
 			->method('getErrorDescription')
 			->will($this->returnValue($errorDescription));
 
-		$insight =Mage::getModel('ebayenterprise_riskinsight/risk_insight');
+		$insight = Mage::getModel('ebayenterprise_riskinsight/risk_insight');
 
 		$response = $this->getModelMockBuilder('ebayenterprise_riskinsight/process_feedback_response')
 			->setConstructorArgs(array(array(
@@ -296,7 +309,7 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_Feedback_ResponseTest
 	public function testIncrementRequetAttempt()
 	{
 		$isLoaded = true;
-		$feedbackResponse = Mage::getModel('ebayenterprise_riskinsight/feedback_response');
+		$feedbackResponse = $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Feedback_Response');
 		$insight = $this->getModelMock('ebayenterprise_riskinsight/risk_insight', array('save'));
 		$insight->expects($this->once())
 			->method('save')
@@ -326,9 +339,9 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_Feedback_ResponseTest
 	 * which will return a ebayenterprise_riskinsight/risk_insight instance, then the method
 	 * ebayenterprise_riskinsight/risk_insight::setIsFeedbackSent() is invoked and get passed an integer value 1,
 	 * then the method ebayenterprise_riskinsight/risk_insight::setActionTakenAcknowledgement() is invoked and get passed the return value
-	 * from calling the ebayenterprise_riskinsight/feedback_response::getActionTakenAcknowledgement method,
+	 * from calling the EbayEnterprise_RiskInsight_Sdk_Feedback_Response::getActionTakenAcknowledgement method,
 	 * then the method ebayenterprise_riskinsight/risk_insight::setChargeBackAcknowledgement() is invoked and get passed the return value
-	 * from calling the ebayenterprise_riskinsight/feedback_response::getChargeBackAcknowledgement method.
+	 * from calling the EbayEnterprise_RiskInsight_Sdk_Feedback_Response::getChargeBackAcknowledgement method.
 	 * Finally, the method ebayenterprise_riskinsight/process_feedback_response::_updateFeedback return itself.
 	 */
 	public function testUpdateFeedback()
@@ -340,15 +353,15 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_Feedback_ResponseTest
 		$convertChargeBackAcknowledgement = false;
 		$isFeedbackSent = 1;
 
-		$helper = $this->getHelperMock('ebayenterprise_riskinsight/data', array('convertStringToBoolean'));
-		$helper->expects($this->exactly(2))
+		$sdkHelper = $this->getMock('EbayEnterprise_RiskInsight_Sdk_Helper', array('convertStringToBoolean'));
+		$sdkHelper->expects($this->exactly(2))
 			->method('convertStringToBoolean')
 			->will($this->returnValueMap(array(
 				array($actionTakenAcknowledgement, $convertActionTakenAcknowledgement),
 				array($chargeBackAcknowledgement, $convertChargeBackAcknowledgement),
 			)));
 
-		$feedbackResponse = $this->getModelMock('ebayenterprise_riskinsight/feedback_response', array(
+		$feedbackResponse = $this->getMock('EbayEnterprise_RiskInsight_Sdk_Feedback_Response', array(
 			'getActionTakenAcknowledgement', 'getChargeBackAcknowledgement'
 		));
 		$feedbackResponse->expects($this->once())
@@ -381,7 +394,7 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_Feedback_ResponseTest
 			->setConstructorArgs(array(array(
 				'response' => $feedbackResponse,
 				'insight' => $insight,
-				'helper' => $helper,
+				'sdk_helper' => $sdkHelper,
 			)))
 			->setMethods(array('_isLoaded', '_incrementFeedbackAttemptCount'))
 			->getMock();
@@ -404,7 +417,7 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_Feedback_ResponseTest
 	public function testIncrementFeedbackAttemptCount()
 	{
 		$feedbackSentAttemptCount = 1;
-		$feedbackResponse = Mage::getModel('ebayenterprise_riskinsight/feedback_response');
+		$feedbackResponse = $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Feedback_Response');
 		$insight = $this->getModelMock('ebayenterprise_riskinsight/risk_insight', array(
 			'setFeedbackSentAttemptCount', 'getFeedbackSentAttemptCount'
 		));

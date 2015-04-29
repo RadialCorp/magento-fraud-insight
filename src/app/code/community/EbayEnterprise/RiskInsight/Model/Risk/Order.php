@@ -16,6 +16,7 @@
  */
 
 class EbayEnterprise_RiskInsight_Model_Risk_Order
+	extends EbayEnterprise_RiskInsight_Model_Abstract
 	implements EbayEnterprise_RiskInsight_Model_Risk_IOrder
 {
 	/** @var EbayEnterprise_RiskInsight_Helper_Data */
@@ -52,51 +53,38 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 	}
 
 	/**
-	 * Return the value at field in array if it exists. Otherwise, use the default value.
-	 *
-	 * @param  array
-	 * @param  string | int $field Valid array key
-	 * @param  mixed
-	 * @return mixed
-	 */
-	protected function _nullCoalesce(array $arr, $field, $default)
-	{
-		return isset($arr[$field]) ? $arr[$field] : $default;
-	}
-
-	/**
 	 * Get new empty request payload
 	 *
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload
 	 */
 	protected function _getNewEmptyRequest()
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/request');
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Request');
 	}
 
 	/**
 	 * Get new empty response payload
 	 *
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload
 	 */
 	protected function _getNewEmptyResponse()
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/response');
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Response');
 	}
 
 	/**
 	 * Get new API config object.
 	 *
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
-	 * @return EbayEnterprise_RiskInsight_Model_IConfig
+	 * @param  EbayEnterprise_RiskInsight_Sdk_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Sdk_IPayload
+	 * @return EbayEnterprise_RiskInsight_Sdk_IConfig
 	 */
 	protected function _setupApiConfig(
-		EbayEnterprise_RiskInsight_Model_IPayload $request,
-		EbayEnterprise_RiskInsight_Model_IPayload $response
+		EbayEnterprise_RiskInsight_Sdk_IPayload $request,
+		EbayEnterprise_RiskInsight_Sdk_IPayload $response
 	)
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/config', array(
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Config', array(
 			'api_key' => $this->_config->getApiKey(),
 			'host' => $this->_config->getApiHostname(),
 			'store_id' => $this->_config->getStoreId(),
@@ -108,11 +96,13 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 	/**
 	 * Get new API object.
 	 *
-	 * @return EbayEnterprise_RiskInsight_Model_IApi
+	 * @param  EbayEnterprise_RiskInsight_Sdk_IConfig
+	 * @return EbayEnterprise_RiskInsight_Sdk_IApi
+	 * @codeCoverageIgnore
 	 */
-	protected function _getApi(EbayEnterprise_RiskInsight_Model_IConfig $config)
+	protected function _getApi(EbayEnterprise_RiskInsight_Sdk_IConfig $config)
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/api', $config);
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Api', $config);
 	}
 
 	public function process()
@@ -151,10 +141,10 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_IApi
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload | null
+	 * @param  EbayEnterprise_RiskInsight_Sdk_IApi
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload | null
 	 */
-	protected function _sendRequest(EbayEnterprise_RiskInsight_Model_IApi $api)
+	protected function _sendRequest(EbayEnterprise_RiskInsight_Sdk_IApi $api)
 	{
 		$response = null;
 		try {
@@ -169,13 +159,13 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Sdk_IPayload
 	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight
-	 * @param  Mage_Sales_Model_Order $order
+	 * @param  Mage_Sales_Model_Order
 	 * @return self
 	 */
 	protected function _processResponse(
-		EbayEnterprise_RiskInsight_Model_IPayload $response,
+		EbayEnterprise_RiskInsight_Sdk_IPayload $response,
 		EbayEnterprise_RiskInsight_Model_Risk_Insight $insight,
 		Mage_Sales_Model_Order $order
 	)
@@ -192,13 +182,13 @@ class EbayEnterprise_RiskInsight_Model_Risk_Order
 	/**
 	 * Build the passed in request object using the passed in order and insight object.
 	 *
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Sdk_IPayload
 	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight
 	 * @param  Mage_Sales_Model_Order
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload
 	 */
 	protected function _buildRequestFromOrder(
-		EbayEnterprise_RiskInsight_Model_IPayload $request,
+		EbayEnterprise_RiskInsight_Sdk_IPayload $request,
 		EbayEnterprise_RiskInsight_Model_Risk_Insight $insight,
 		Mage_Sales_Model_Order $order
 	)

@@ -42,6 +42,9 @@
 				<directory suffix=".php">app/code/community/EbayEnterprise/*/Test</directory>
 			</exclude>
 		</whitelist>
+		<blacklist>
+			<directory suffix=".php">lib/Requests</directory>
+		</blacklist>
 	</filter>
 	<logging>
 		<log type="coverage-html" target="var/phpunit/coverage" charset="UTF-8" highlight="true" lowUpperBound="35" highLowerBound="85"/>

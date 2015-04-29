@@ -233,6 +233,9 @@
 			<modules>
 				<EbayEnterprise_RiskInsight/>
 			</modules>
+			<groups>
+				<lib>Lib</lib>
+			</groups>
 		</suite>
 	</phpunit>
 </config>

@@ -25,9 +25,24 @@ class EbayEnterprise_RiskInsight_Test_Model_Risk_OrderTest
 	{
 		parent::setUp();
 
-		$this->_order = Mage::getModel('ebayenterprise_riskinsight/risk_order', array(
-			'helper' => $this->_mockHelper(),
-		));
+		$this->_order = $this->getModelMockBuilder('ebayenterprise_riskinsight/risk_order')
+			->setMethods(array('_getApi'))
+			->setConstructorArgs(array(array(
+				'helper' => $this->_mockHelper(),
+			)))
+			->getMock();
+	}
+
+	/**
+	 * Instantiate new object from the passed in class.
+	 *
+	 * @param  string
+	 * @param  mixed
+	 * @return mixed
+	 */
+	protected function _getNewSdkInstance($class, $argments=array())
+	{
+		return new $class($argments);
 	}
 
 	/**
@@ -68,27 +83,27 @@ class EbayEnterprise_RiskInsight_Test_Model_Risk_OrderTest
 	}
 
 	/**
-	 * @return EbayEnterprise_RiskInsight_Model_Request
+	 * @return EbayEnterprise_RiskInsight_Sdk_Request
 	 */
 	protected function _buildRequest()
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/request');
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Request');
 	}
 
 	/**
-	 * @return EbayEnterprise_RiskInsight_Model_Response
+	 * @return EbayEnterprise_RiskInsight_Sdk_Response
 	 */
 	protected function _buildResponse()
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/response');
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Response');
 	}
 
 	/**
-	 * @return EbayEnterprise_RiskInsight_Model_Config
+	 * @return EbayEnterprise_RiskInsight_Sdk_Config
 	 */
 	protected function _buildApiConfig()
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/config', array(
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Config', array(
 			'api_key' => '0393837376716267jsjj322323k',
 			'host' => 'https://localhost/risk/fraud/service',
 			'store_id' => 'MGS1332',
@@ -130,11 +145,11 @@ class EbayEnterprise_RiskInsight_Test_Model_Risk_OrderTest
 	}
 
 	/**
-	 * @return self
+	 * @return Mock_EbayEnterprise_RiskInsight_Sdk_Api
 	 */
 	protected function _mockApi()
 	{
-		$api = $this->getModelMockBuilder('ebayenterprise_riskinsight/api')
+		$api = $this->getMockBuilder('EbayEnterprise_RiskInsight_Sdk_Api')
 			->setMethods(array('send', 'getResponseBody'))
 			->setConstructorArgs(array($this->_buildApiConfig()))
 			->getMock();
@@ -144,24 +159,22 @@ class EbayEnterprise_RiskInsight_Test_Model_Risk_OrderTest
 		$api->expects($this->any())
 			->method('getResponseBody')
 			->will($this->returnValue($this->_buildRequest()));
-		$this->replaceByMock('model', 'ebayenterprise_riskinsight/api', $api);
-		return $this;
+		return $api;
 	}
 
 	/**
-	 * @return self
+	 * @return Mock_EbayEnterprise_RiskInsight_Sdk_Api
 	 */
 	protected function _mockApiThrownException()
 	{
-		$api = $this->getModelMockBuilder('ebayenterprise_riskinsight/api')
+		$api = $this->getMockBuilder('EbayEnterprise_RiskInsight_Sdk_Api')
 			->setMethods(array('send', 'getResponseBody'))
 			->setConstructorArgs(array($this->_buildApiConfig()))
 			->getMock();
 		$api->expects($this->any())
 			->method('send')
 			->will($this->throwException(new Exception('Simulating API Failure')));
-		$this->replaceByMock('model', 'ebayenterprise_riskinsight/api', $api);
-		return $this;
+		return $api;
 	}
 
 	/**
@@ -209,8 +222,11 @@ class EbayEnterprise_RiskInsight_Test_Model_Risk_OrderTest
 	 */
 	public function testOrderProcess()
 	{
-		$this->_mockApi()
-			->_mockBuildRequest()
+		$this->_order->expects($this->any())
+			->method('_getApi')
+			->will($this->returnValue($this->_mockApi()));
+
+		$this->_mockBuildRequest()
 			->_mockProcessResponse();
 		$this->assertSame($this->_order, $this->_order->process());
 	}
@@ -220,8 +236,11 @@ class EbayEnterprise_RiskInsight_Test_Model_Risk_OrderTest
 	 */
 	public function testOrderProcessWithApiException()
 	{
-		$this->_mockApiThrownException()
-			->_mockBuildRequest()
+		$this->_order->expects($this->any())
+			->method('_getApi')
+			->will($this->returnValue($this->_mockApiThrownException()));
+
+		$this->_mockBuildRequest()
 			->_mockProcessResponse();
 		$this->assertSame($this->_order, $this->_order->process());
 	}

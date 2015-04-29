@@ -25,11 +25,11 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_ResponseTest
 	 *
 	 * @param  string
 	 * @param  array
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload
 	 */
-	protected function _buildPayload($type, array $properties=array())
+	protected function _buildPayload($class, array $properties=array())
 	{
-		$payload = $this->_createNewPayload($type);
+		$payload = $this->_createNewPayload($class);
 		foreach ($properties as $setterMethod => $value) {
 			$payload->$setterMethod($value);
 		}
@@ -40,11 +40,11 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_ResponseTest
 	 * Create a new order Response payload.
 	 *
 	 * @param  string
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload
 	 */
-	protected function _createNewPayload($type)
+	protected function _createNewPayload($class)
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/' . $type);
+		return new $class();
 	}
 
 	/**
@@ -83,13 +83,14 @@ class EbayEnterprise_RiskInsight_Test_Model_Process_ResponseTest
 
 	/**
 	 * @param  string
-	 * @return EbayEnterprise_RiskInsight_Model_Response
+	 * @return EbayEnterprise_RiskInsight_Sdk_Response | EbayEnterprise_RiskInsight_Sdk_Error
 	 */
 	protected function _buildResponse($responseFile)
 	{
-		$type = (basename($responseFile) !== 'error.xml') ? 'response' : 'error';
+		$class = (basename($responseFile) !== 'error.xml')
+			? 'EbayEnterprise_RiskInsight_Sdk_Response' : 'EbayEnterprise_RiskInsight_Sdk_Error';
 		$serializedData = $this->_loadXmlTestString($responseFile);
-		$payload = $this->_buildPayload($type);
+		$payload = $this->_buildPayload($class);
 		$payload->deserialize($serializedData);
 		return $payload;
 	}

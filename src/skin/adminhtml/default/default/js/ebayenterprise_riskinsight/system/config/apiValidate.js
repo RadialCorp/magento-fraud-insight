@@ -36,7 +36,7 @@ RiskInsightApiValidation.prototype = {
 		var storeIdScopeEle = storeIdEle && this.getScopeElement(storeIdEle);
 		var params = {
 			'hostname_use_default': hostScopeEle && hostScopeEle.checked ? 1 : 0,
-			'key_use_default': keyScopeEle && keyScopeEle.checked ? 1 : 0,
+			'api_key_use_default': keyScopeEle && keyScopeEle.checked ? 1 : 0,
 			'store_id_use_default': storeIdScopeEle && storeIdScopeEle.checked ? 1 : 0
 		};
 		// Need to be able to differentiate between these values being empty and
@@ -45,7 +45,7 @@ RiskInsightApiValidation.prototype = {
 			params.hostname = hostnameEle.value;
 		}
 		if (keyEle) {
-			params.key = keyEle.value;
+			params.api_key = keyEle.value;
 		}
 		if (storeIdEle) {
 			params.store_id = storeIdEle.value;

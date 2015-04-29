@@ -19,11 +19,23 @@ class EbayEnterprise_RiskInsight_Test_Model_Send_FeedbackTest
 	extends EcomDev_PHPUnit_Test_Case
 {
 	/**
+	 * Instantiate new SDK class.
+	 *
+	 * @param  string
+	 * @param  mixed
+	 * @return mixed
+	 */
+	protected function _getNewSdkInstance($class, $argments=array())
+	{
+		return new $class($argments);
+	}
+
+	/**
 	 * @return EbayEnterprise_RiskInsight_Model_IFeedback
 	 */
 	protected function _getEmptyFeedbackRequest()
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/feedback');
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Feedback');
 	}
 
 	/**
@@ -31,23 +43,23 @@ class EbayEnterprise_RiskInsight_Test_Model_Send_FeedbackTest
 	 */
 	protected function _getEmptyFeedbackResponse()
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/feedback_response');
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Feedback_Response');
 	}
 
 	/**
-	 * @return EbayEnterprise_RiskInsight_Model_IConfig
+	 * @return EbayEnterprise_RiskInsight_Sdk_IConfig
 	 */
 	protected function _getEmptyApiConfig()
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/config');
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Config');
 	}
 
 	/**
-	 * @return EbayEnterprise_RiskInsight_Model_IApi
+	 * @return EbayEnterprise_RiskInsight_Sdk_IApi
 	 */
-	protected function _getEmptyApi(EbayEnterprise_RiskInsight_Model_IConfig $config)
+	protected function _getEmptyApi(EbayEnterprise_RiskInsight_Sdk_IConfig $config)
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/api', $config);
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Api', $config);
 	}
 
 	/**
@@ -80,9 +92,9 @@ class EbayEnterprise_RiskInsight_Test_Model_Send_FeedbackTest
 	/**
 	 * Test that when the method ebayenterprise_riskinsight/send_feedback::send()
 	 * is invoked, it will call the ebayenterprise_riskinsight/send_feedback::_sendFeedback() method.
-	 * This method will return an instance of type EbayEnterprise_RiskInsight_Model_IPayload.
+	 * This method will return an instance of type EbayEnterprise_RiskInsight_Sdk_IPayload.
 	 * the ebayenterprise_riskinsight/send_feedback::send() will return this
-	 * EbayEnterprise_RiskInsight_Model_IPayload object.
+	 * EbayEnterprise_RiskInsight_Sdk_IPayload object.
 	 */
 	public function testSendFeedbackSendMethod()
 	{
@@ -112,11 +124,11 @@ class EbayEnterprise_RiskInsight_Test_Model_Send_FeedbackTest
 	 * the return value from calling the method ebayenterprise_riskinsight/send_feedback::_getApi() passing in the return value
 	 * from calling the method ebayenterprise_riskinsight/send_feedback::_setupApiConfig().
 	 * Then, if the return value return from calling ebayenterprise_riskinsight/send_feedback::_sendFeedbackRequest() method is
-	 * a valid object of type EbayEnterprise_RiskInsight_Model_IPayload only then will the method
+	 * a valid object of type EbayEnterprise_RiskInsight_Sdk_IPayload only then will the method
 	 * ebayenterprise_riskinsight/send_feedback::_processFeedbackResponse() be invoked passing as first parameter the return value
 	 * from calling ebayenterprise_riskinsight/send_feedback::_sendFeedbackRequest() and passing as second parameter the
 	 * ebayenterprise_riskinsight/risk_insight object. The ebayenterprise_riskinsight/send_feedback::_sendFeedback() method
-	 * will return an object of type EbayEnterprise_RiskInsight_Model_IPayload.
+	 * will return an object of type EbayEnterprise_RiskInsight_Sdk_IPayload.
 	 */
 	public function testSendFeedback()
 	{
@@ -171,36 +183,42 @@ class EbayEnterprise_RiskInsight_Test_Model_Send_FeedbackTest
 
 	/**
 	 * Test that when the method ebayenterprise_riskinsight/send_feedback::_getNewEmptyFeedbackRequest()
-	 * is invoked, an instance of type ebayenterprise_riskinsight/feedback will be created and return.
+	 * is invoked, an instance of type EbayEnterprise_RiskInsight_Sdk_Feedback will be created and return.
 	 */
 	public function testGetNewEmptyFeedbackRequest()
 	{
-		$feedbackRequest = $this->getModelMock('ebayenterprise_riskinsight/feedback');
-		$this->replaceByMock('model', 'ebayenterprise_riskinsight/feedback', $feedbackRequest);
+		$feedbackRequest = $this->getMock('EbayEnterprise_RiskInsight_Sdk_Feedback');
 		$sendFeedback = $this->getModelMockBuilder('ebayenterprise_riskinsight/send_feedback')
-			->setMethods(array())
+			->setMethods(array('_getNewSdkInstance'))
 			// Disabling the constructor because array key 'order' and 'insight' are required
 			// and they are not necessary for this test.
 			->disableOriginalConstructor()
 			->getMock();
+		$sendFeedback->expects($this->once())
+			->method('_getNewSdkInstance')
+			->with($this->identicalTo('EbayEnterprise_RiskInsight_Sdk_Feedback'), $this->identicalTo(array()))
+			->will($this->returnValue($feedbackRequest));
 
 		$this->assertSame($feedbackRequest, EcomDev_Utils_Reflection::invokeRestrictedMethod($sendFeedback, '_getNewEmptyFeedbackRequest', array()));
 	}
 
 	/**
 	 * Test that when the method ebayenterprise_riskinsight/send_feedback::_getNewEmptyFeedbackResponse()
-	 * is invoked, an instance of type ebayenterprise_riskinsight/feedback_response will be created and return.
+	 * is invoked, an instance of type EbayEnterprise_RiskInsight_Sdk_Feedback_Response will be created and return.
 	 */
 	public function testGetNewEmptyFeedbackResponse()
 	{
-		$feedbackResponse = $this->getModelMock('ebayenterprise_riskinsight/feedback_response');
-		$this->replaceByMock('model', 'ebayenterprise_riskinsight/feedback_response', $feedbackResponse);
+		$feedbackResponse = $this->getMock('EbayEnterprise_RiskInsight_Sdk_Feedback_Response');
 		$sendFeedback = $this->getModelMockBuilder('ebayenterprise_riskinsight/send_feedback')
-			->setMethods(array())
+			->setMethods(array('_getNewSdkInstance'))
 			// Disabling the constructor because array key 'order' and 'insight' are required
 			// and they are not necessary for this test.
 			->disableOriginalConstructor()
 			->getMock();
+		$sendFeedback->expects($this->once())
+			->method('_getNewSdkInstance')
+			->with($this->identicalTo('EbayEnterprise_RiskInsight_Sdk_Feedback_Response'), $this->identicalTo(array()))
+			->will($this->returnValue($feedbackResponse));
 
 		$this->assertSame($feedbackResponse, EcomDev_Utils_Reflection::invokeRestrictedMethod($sendFeedback, '_getNewEmptyFeedbackResponse', array()));
 	}
@@ -221,8 +239,8 @@ class EbayEnterprise_RiskInsight_Test_Model_Send_FeedbackTest
 		$riskInsight = $this->_buildInsight();
 		$order = $this->_buildOrder();
 
-		$feedbackRequest = $this->getModelMock('ebayenterprise_riskinsight/feedback');
-		$feedbackResponse = $this->getModelMock('ebayenterprise_riskinsight/feedback_response');
+		$feedbackRequest = $this->getMock('EbayEnterprise_RiskInsight_Sdk_Feedback');
+		$feedbackResponse = $this->getMock('EbayEnterprise_RiskInsight_Sdk_Feedback_Response');
 
 		$helperConfig = $this->getHelperMock('ebayenterprise_riskinsight/config', array('getApiKey', 'getApiHostname', 'getStoreId'));
 		$helperConfig->expects($this->once())
@@ -235,7 +253,7 @@ class EbayEnterprise_RiskInsight_Test_Model_Send_FeedbackTest
 			->method('getStoreId')
 			->will($this->returnValue($storeId));
 
-		$apiConfig = $this->getModelMock('ebayenterprise_riskinsight/config', array(), false, array(array(
+		$apiConfig = $this->getMock('EbayEnterprise_RiskInsight_Sdk_Config', array(), array(array(
 			// Expecting an array with these key/value pairs to be passed to the constructor method
 			'api_key' => $apiKey,
 			'host' => $hostname,
@@ -243,7 +261,6 @@ class EbayEnterprise_RiskInsight_Test_Model_Send_FeedbackTest
 			'request' => $feedbackRequest,
 			'response' => $feedbackResponse,
 		)));
-		$this->replaceByMock('model', 'ebayenterprise_riskinsight/config', $apiConfig);
 
 		$sendFeedback = $this->getModelMockBuilder('ebayenterprise_riskinsight/send_feedback')
 			// key 'order' and 'insight' are required when instantiating the
@@ -253,7 +270,18 @@ class EbayEnterprise_RiskInsight_Test_Model_Send_FeedbackTest
 				'insight' => $riskInsight,
 				'config' => $helperConfig,
 			)))
+			->setMethods(array('_getNewSdkInstance'))
 			->getMock();
+		$sendFeedback->expects($this->once())
+			->method('_getNewSdkInstance')
+			->with($this->identicalTo('EbayEnterprise_RiskInsight_Sdk_Config'), $this->identicalTo(array(
+				'api_key' => $apiKey,
+				'host' => $hostname,
+				'store_id' => $storeId,
+				'request' => $feedbackRequest,
+				'response' => $feedbackResponse,
+			)))
+			->will($this->returnValue($apiConfig));
 
 		$this->assertSame($apiConfig, EcomDev_Utils_Reflection::invokeRestrictedMethod(
 			$sendFeedback, '_setupApiConfig', array($feedbackRequest, $feedbackResponse
@@ -262,41 +290,44 @@ class EbayEnterprise_RiskInsight_Test_Model_Send_FeedbackTest
 
 	/**
 	 * Test that when the method ebayenterprise_riskinsight/send_feedback::_getApi()
-	 * is invoked, an instance of type ebayenterprise_riskinsight/api will be created and
-	 * an object of type EbayEnterprise_RiskInsight_Model_IConfig will be passed parameter
+	 * is invoked, an instance of type EbayEnterprise_RiskInsight_Sdk_Api will be created and
+	 * an object of type EbayEnterprise_RiskInsight_Sdk_IConfig will be passed parameter
 	 * to the constructor method of this class. The method ebayenterprise_riskinsight/send_feedback::_getApi()
-	 * will return the instance of type EbayEnterprise_RiskInsight_Model_IApi.
+	 * will return the instance of type EbayEnterprise_RiskInsight_Sdk_IApi.
 	 */
 	public function testGetSendFeedbackApi()
 	{
 		$apiConfig = $this->_getEmptyApiConfig();
-		// The ebayenterprise_riskinsight/api class constructor requires an instance
-		// of type EbayEnterprise_RiskInsight_Model_IConfig parameter to be passed.
-		$api = $this->getModelMock('ebayenterprise_riskinsight/api', array(), false, array($apiConfig));
-		$this->replaceByMock('model', 'ebayenterprise_riskinsight/api', $api);
+		// The EbayEnterprise_RiskInsight_Sdk_Api class constructor requires an instance
+		// of type EbayEnterprise_RiskInsight_Sdk_IConfig parameter to be passed.
+		$api = $this->getMock('EbayEnterprise_RiskInsight_Sdk_Api', array(), array($apiConfig));
 		$sendFeedback = $this->getModelMockBuilder('ebayenterprise_riskinsight/send_feedback')
-			->setMethods(array())
+			->setMethods(array('_getNewSdkInstance'))
 			// Disabling the constructor because array key 'order' and 'insight' are required
 			// and they are not necessary for this test.
 			->disableOriginalConstructor()
 			->getMock();
+		$sendFeedback->expects($this->once())
+			->method('_getNewSdkInstance')
+			->with($this->identicalTo('EbayEnterprise_RiskInsight_Sdk_Api'), $this->identicalTo($apiConfig))
+			->will($this->returnValue($api));
 
 		$this->assertSame($api, EcomDev_Utils_Reflection::invokeRestrictedMethod($sendFeedback, '_getApi', array($apiConfig)));
 	}
 
 	/**
 	 * Test that when the method ebayenterprise_riskinsight/send_feedback::_sendFeedbackRequest()
-	 * is invoked, it will try to call ebayenterprise_riskinsight/api::send() method if no exception
-	 * is thrown it will continue to call the ebayenterprise_riskinsight/api::getResponseBody() method.
-	 * The method ebayenterprise_riskinsight/api::getResponseBody() will return an instance of
-	 * ebayenterprise_riskinsight/feedback_response class. This instance will be use as the return
+	 * is invoked, it will try to call EbayEnterprise_RiskInsight_Sdk_Api::send() method if no exception
+	 * is thrown it will continue to call the EbayEnterprise_RiskInsight_Sdk_Api::getResponseBody() method.
+	 * The method EbayEnterprise_RiskInsight_Sdk_Api::getResponseBody() will return an instance of
+	 * EbayEnterprise_RiskInsight_Sdk_Feedback_Response class. This instance will be use as the return
 	 * object for the method ebayenterprise_riskinsight/send_feedback::_sendFeedbackRequest().
 	 */
 	public function testSendFeedbackRequest()
 	{
 		$apiConfig = $this->_getEmptyApiConfig();
 		$feedbackResponse = $this->_getEmptyFeedbackResponse();
-		$api = $this->getModelMock('ebayenterprise_riskinsight/api', array('send', 'getResponseBody'), false, array($apiConfig));
+		$api = $this->getMock('EbayEnterprise_RiskInsight_Sdk_Api', array('send', 'getResponseBody'), array($apiConfig));
 		$api->expects($this->once())
 			->method('send')
 			->will($this->returnSelf());
@@ -316,8 +347,8 @@ class EbayEnterprise_RiskInsight_Test_Model_Send_FeedbackTest
 
 	/**
 	 * Test that when the method ebayenterprise_riskinsight/send_feedback::_sendFeedbackRequest()
-	 * is invoked, it will try to call ebayenterprise_riskinsight/api::send() method and an exception
-	 * will be thrown therefore the method ebayenterprise_riskinsight/api::getResponseBody() will never be called
+	 * is invoked, it will try to call EbayEnterprise_RiskInsight_Sdk_Api::send() method and an exception
+	 * will be thrown therefore the method EbayEnterprise_RiskInsight_Sdk_Api::getResponseBody() will never be called
 	 * Catch block will log the exception and the return value for the method
 	 * ebayenterprise_riskinsight/send_feedback::_sendFeedbackRequest() will null.
 	 */
@@ -325,7 +356,7 @@ class EbayEnterprise_RiskInsight_Test_Model_Send_FeedbackTest
 	{
 		$apiConfig = $this->_getEmptyApiConfig();
 		$feedbackResponse = null;
-		$api = $this->getModelMock('ebayenterprise_riskinsight/api', array('send', 'getResponseBody'), false, array($apiConfig));
+		$api = $this->getMock('EbayEnterprise_RiskInsight_Sdk_Api', array('send', 'getResponseBody'), array($apiConfig));
 		$api->expects($this->once())
 			->method('send')
 			->will($this->throwException(new Exception('Simulating Feedback API Failure')));
@@ -346,19 +377,19 @@ class EbayEnterprise_RiskInsight_Test_Model_Send_FeedbackTest
 	/**
 	 * Test that when the method ebayenterprise_riskinsight/send_feedback::_buildFeedbackRequestFromOrder()
 	 * is invoked, it will be passed as first parameter an instance of sales/order object and as second
-	 * parameter an instance of ebayenterprise_riskinsight/feedback object. Then, it will instantiates an object
+	 * parameter an instance of EbayEnterprise_RiskInsight_Sdk_Feedback object. Then, it will instantiates an object
 	 * of type ebayenterprise_riskinsight/build_feedback passing to its constructor method an array with key
 	 * 'order' mapped to a sales/order object and another key 'feedback' mapped to an
-	 * ebayenterprise_riskinsight/feedback instance. Then, the method ebayenterprise_riskinsight/build_feedback::build()
+	 * EbayEnterprise_RiskInsight_Sdk_Feedback instance. Then, the method ebayenterprise_riskinsight/build_feedback::build()
 	 * will be invoked on the ebayenterprise_riskinsight/build_feedback class. The return value from calling the method
-	 * ebayenterprise_riskinsight/build_feedback::build() will be ebayenterprise_riskinsight/feedback instance.
+	 * ebayenterprise_riskinsight/build_feedback::build() will be EbayEnterprise_RiskInsight_Sdk_Feedback instance.
 	 * Finally, the method ebayenterprise_riskinsight/send_feedback::_buildFeedbackRequestFromOrder() will return
-	 * this ebayenterprise_riskinsight/feedback instance.
+	 * this EbayEnterprise_RiskInsight_Sdk_Feedback instance.
 	 */
 	public function testBuildFeedbackRequestFromOrder()
 	{
 		$order = $this->_buildOrder();
-		$feedbackRequest = $this->getModelMock('ebayenterprise_riskinsight/feedback');
+		$feedbackRequest = $this->getMock('EbayEnterprise_RiskInsight_Sdk_Feedback');
 		$buildFeedback = $this->getModelMock('ebayenterprise_riskinsight/build_feedback', array('build'), false, array(array(
 			'order' => $order,
 			'feedback' => $feedbackRequest,
@@ -382,10 +413,10 @@ class EbayEnterprise_RiskInsight_Test_Model_Send_FeedbackTest
 
 	/**
 	 * Test that when the method ebayenterprise_riskinsight/send_feedback::_processFeedbackResponse()
-	 * is invoked, it will be passed as first parameter an instance of ebayenterprise_riskinsight/feedback_response
+	 * is invoked, it will be passed as first parameter an instance of EbayEnterprise_RiskInsight_Sdk_Feedback_Response
 	 * object and as second parameter an instance of ebayenterprise_riskinsight/risk_insight object.
 	 * Then, it will instantiates an object of type ebayenterprise_riskinsight/process_feedback_response passing to its
-	 * constructor method an array with key 'response' mapped to an ebayenterprise_riskinsight/feedback_response object
+	 * constructor method an array with key 'response' mapped to an EbayEnterprise_RiskInsight_Sdk_Feedback_Response object
 	 * and another key 'insight' mapped to an ebayenterprise_riskinsight/risk_insight instance. Then, the method
 	 * ebayenterprise_riskinsight/process_feedback_response::process() will be invoked on the
 	 * ebayenterprise_riskinsight/process_feedback_response class. Finally, the method

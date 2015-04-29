@@ -27,44 +27,6 @@ class EbayEnterprise_RiskInsight_Test_Helper_DataTest
 		$this->_helper = Mage::helper('ebayenterprise_riskinsight');
 	}
 
-	/**
-	 * @return array
-	 */
-	public function providerConvertStringToBoolean()
-	{
-		return array(
-			array(array(), null),
-			array(null, null),
-			array('true', true),
-			array('1', true),
-			array('false', false),
-			array('0', false),
-			array('anything', null),
-		);
-	}
-
-	/**
-	 * @param mixed
-	 * @param boo | null
-	 * @dataProvider providerConvertStringToBoolean
-	 */
-	public function testConvertStringToBoolean($input, $expected)
-	{
-		$this->assertSame($expected, $this->_helper->convertStringToBoolean($input));
-	}
-
-	/**
-	 * Test that an exception is thrown when an invalid xml string is passed to the
-	 * EbayEnterprise_RiskInsight_Helper_Data::getPayloadAsDoc method.
-	 *
-	 * @expectedException EbayEnterprise_RiskInsight_Model_Exception_Invalid_Xml_Exception
-	 */
-	public function testGetPayloadAsDocInvalidPayloadThrowException()
-	{
-		$invalidXml = '<root><subnode>Blah blah</subnode>';
-		$this->_helper->getPayloadAsDoc($invalidXml);
-	}
-
 	public function testGetRiskInsightCollection()
 	{
 		$riskInsightCollection = $this->getResourceModelMockBuilder('ebayenterprise_riskinsight/risk_insight_collection')

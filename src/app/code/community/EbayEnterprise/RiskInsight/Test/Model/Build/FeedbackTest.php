@@ -61,7 +61,7 @@ class EbayEnterprise_RiskInsight_Test_Model_Build_FeedbackTest
 
 	/**
 	 * Test that when the method ebayenterprise_riskinsight/build_feedback::build
-	 * is invoked it will build the 'ebayenterprise_riskinsight/feedback' object using
+	 * is invoked it will build the 'EbayEnterprise_RiskInsight_Sdk_Feedback' object using
 	 * the sales/order object.
 	 */
 	public function testBuildFeedback()

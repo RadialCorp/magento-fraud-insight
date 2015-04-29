@@ -124,17 +124,29 @@ EOF;
 	}
 
 	/**
-	 * Get new empty request payload
+	 * Instantiate new SDK class.
 	 *
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload
+	 * @param  string
+	 * @param  mixed
+	 * @return mixed
 	 */
-	protected function _getNewEmptyRequest()
+	protected function _getNewSdkInstance($class, $argments=array())
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/request');
+		return new $class($argments);
 	}
 
 	/**
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload
+	 * Get new empty request payload
+	 *
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload
+	 */
+	protected function _getNewEmptyRequest()
+	{
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Request');
+	}
+
+	/**
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload
 	 */
 	protected function _loadRequest()
 	{
@@ -146,32 +158,32 @@ EOF;
 	/**
 	 * Get new empty response payload
 	 *
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload
 	 */
 	protected function _getNewEmptyResponse()
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/response');
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Response');
 	}
 
 	/**
 	 * Get new API config object.
 	 *
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Sdk_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Sdk_IPayload
 	 * @param  string
 	 * @param  string
 	 * @param  string
-	 * @return EbayEnterprise_RiskInsight_Model_IConfig
+	 * @return EbayEnterprise_RiskInsight_Sdk_IConfig
 	 */
 	protected function _setupApiConfig(
-		EbayEnterprise_RiskInsight_Model_IPayload $request,
-		EbayEnterprise_RiskInsight_Model_IPayload $response,
+		EbayEnterprise_RiskInsight_Sdk_IPayload $request,
+		EbayEnterprise_RiskInsight_Sdk_IPayload $response,
 		$apiKey,
 		$apiHostname,
 		$storeId
 	)
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/config', array(
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Config', array(
 			'api_key' => $apiKey,
 			'host' => $apiHostname,
 			'store_id' => $storeId,
@@ -183,18 +195,18 @@ EOF;
 	/**
 	 * Get new API object.
 	 *
-	 * @return EbayEnterprise_RiskInsight_Model_IApi
+	 * @return EbayEnterprise_RiskInsight_Sdk_IApi
 	 */
-	protected function _getApi(EbayEnterprise_RiskInsight_Model_IConfig $config)
+	protected function _getApi(EbayEnterprise_RiskInsight_Sdk_IConfig $config)
 	{
-		return Mage::getModel('ebayenterprise_riskinsight/api', $config);
+		return $this->_getNewSdkInstance('EbayEnterprise_RiskInsight_Sdk_Api', $config);
 	}
 
 	/**
-	 * @param  EbayEnterprise_RiskInsight_Model_IApi
-	 * @return EbayEnterprise_RiskInsight_Model_IPayload | null
+	 * @param  EbayEnterprise_RiskInsight_Sdk_IApi
+	 * @return EbayEnterprise_RiskInsight_Sdk_IPayload | null
 	 */
-	protected function _sendRequest(EbayEnterprise_RiskInsight_Model_IApi $api)
+	protected function _sendRequest(EbayEnterprise_RiskInsight_Sdk_IApi $api)
 	{
 		$api->send();
 		$response = $api->getResponseBody();
@@ -229,7 +241,7 @@ EOF;
 	{
 		try {
 			$this->_validateApiSettings($storeId, $apiKey, $hostname);
-		} catch (EbayEnterprise_RiskInsight_Model_Exception_Api_Configuration_Exception $e) {
+		} catch (EbayEnterprise_RiskInsight_Sdk_Exception_Api_Configuration_Exception $e) {
 			return array('message' => $e->getMessage(), 'success' => false);
 		}
 		return array();
@@ -277,7 +289,7 @@ EOF;
 	 * @param  string
 	 * @param  string
 	 * @return self
-	 * @throws EbayEnterprise_RiskInsight_Model_Exception_Api_Configuration_Exception If any settings are empty
+	 * @throws EbayEnterprise_RiskInsight_Sdk_Exception_Api_Configuration_Exception If any settings are empty
 	 */
 	protected function _validateApiSettings($storeId, $apiKey, $hostname)
 	{
@@ -293,7 +305,7 @@ EOF;
 		}
 		if (!empty($invalidSettings)) {
 			throw Mage::exception(
-				'EbayEnterprise_RiskInsight_Model_Exception_Api_Configuration',
+				'EbayEnterprise_RiskInsight_Sdk_Exception_Api_Configuration',
 				$this->_helper->__(self::INVALID_API_SETTINGS_ERROR_MESSAGE, implode(', ', $invalidSettings))
 			);
 		}
@@ -317,15 +329,7 @@ EOF;
 		$useDefault = $request->getParam($useDefaultParam);
 		if (is_null($key) || preg_match('/^\*+$/', $key) || $useDefault) {
 			$configSource = $this->getConfigSource($request, $useDefault);
-			$key = $configSource->getConfig($configPath);
-			// As there is a config/default node with a backend_model set for this
-			// config value, Mage_Core_Model_Store->getConfig will auto-decrypt the
-			// value when the config source is a Mage_Core_Model_Store. When the
-			// source is a Mage_Core_Model_Website, this doesn't happen automatically
-			// so the config value needs to be manually decrypted.
-			if ($configSource instanceof Mage_Core_Model_Website) {
-				$key = Mage::helper('core')->decrypt($key);
-			}
+			$key = Mage::helper('core')->decrypt($configSource->getConfig($configPath));
 		}
 		return trim($key);
 	}
@@ -343,7 +347,6 @@ EOF;
 	{
 		$paramValue = $request->getParam($param);
 		$useFallback = $request->getParam($useDefaultParam);
-
 		if (is_null($paramValue) || $useFallback) {
 			return $this->getConfigSource($request, $useFallback)
 				->getConfig($configPath);

@@ -74,6 +74,28 @@ class EbayEnterprise_RiskInsight_Test_Model_Build_RequestTest
 	}
 
 	/**
+	 * @return Mage_Sales_Model_Order
+	 */
+	protected function _buildPaypalExpressOrder()
+	{
+		$order = Mage::getModel('sales/order', array(
+			'quote_id' => 1,
+			'increment_id' => '10000000011',
+			'created_at' => '2015-03-18 15:57:01',
+			'base_currency_code' => 'USD',
+			'coupon_code' => NULL,
+			'customer_email' => 'test@example.com',
+			'shipping_method' => 'freeshipping_freeshipping',
+		));
+
+		EcomDev_Utils_Reflection::setRestrictedPropertyValue($order, '_items', $this->_buildItems());
+		EcomDev_Utils_Reflection::setRestrictedPropertyValue($order, '_payments', $this->_buildPaypalExpressPayments());
+		EcomDev_Utils_Reflection::setRestrictedPropertyValue($order, '_addresses', $this->_buildAddresses());
+
+		return $order;
+	}
+
+	/**
 	 * @return Mage_Sales_Model_Resource_Order_Item_Collection
 	 */
 	protected function _buildItems()
@@ -120,7 +142,33 @@ class EbayEnterprise_RiskInsight_Test_Model_Build_RequestTest
 			'amount_ordered' => 396.7400,
 			'method' => 'ccsave',
 			'cc_last4' => '1111',
-			'cc_number_enc' => '0:2:e8796447aacd7c59:tHo6xuna2cxMJpcvzhPVQQ==',
+			'cc_number_enc' => Mage::helper('core')->encrypt('4111111111111111'),
+		)));
+		return $collection;
+	}
+
+	/**
+	 * @return Mage_Sales_Model_Resource_Order_Payment_Collection
+	 */
+	protected function _buildPaypalExpressPayments()
+	{
+		$collection = Mage::getResourceModel('sales/order_payment_collection');
+		$collection->addItem(Mage::getModel('sales/order_payment', array(
+			'entity_id' => 1,
+			'parent_id' => 1,
+			'base_amount_authorized' => 278.7500,
+			'base_shipping_amount' => 13.5400,
+			'shipping_amount' => 13.5400,
+			'amount_authorized' => 278.7500,
+			'base_amount_ordered' => 278.7500,
+			'amount_ordered' => 278.7500,
+			'cc_exp_month' => 0,
+			'cc_ss_start_year' => 0,
+			'method' => 'paypal_express',
+			'cc_ss_start_month' => 0,
+			'last_trans_id' => '2G669492PB5597430',
+			'cc_exp_year' => 0,
+			'additional_information' => 'a:12:{s:39:"paypal_express_checkout_shipping_method";s:0:"";s:15:"paypal_payer_id";s:13:"P9PMKWC782MJ8";s:18:"paypal_payer_email";s:33:"tan_1329493113_per@trueaction.com";s:19:"paypal_payer_status";s:8:"verified";s:21:"paypal_address_status";s:9:"Confirmed";s:21:"paypal_correlation_id";s:13:"754844fb5ad55";s:32:"paypal_express_checkout_payer_id";s:13:"P9PMKWC782MJ8";s:29:"paypal_express_checkout_token";s:20:"EC-7Y7954950L097004F";s:41:"paypal_express_checkout_redirect_required";N;s:29:"paypal_protection_eligibility";s:8:"Eligible";s:21:"paypal_payment_status";s:7:"pending";s:21:"paypal_pending_reason";s:13:"authorization";}',
 		)));
 		return $collection;
 	}
@@ -258,6 +306,22 @@ class EbayEnterprise_RiskInsight_Test_Model_Build_RequestTest
 		$request = Mage::getModel('ebayenterprise_riskinsight/build_request', array(
 			'insight' => $this->_buildRiskInsight(),
 			'order' => $this->_buildOrder(),
+			'product' => $this->_buildProduct(),
+			'quote' => $this->_buildQuote(),
+			'config' => $this->_buildConfig(),
+		));
+		$this->assertXmlStringEqualsXmlString($expectedPayload, $request->build()->serialize());
+	}
+
+	/**
+	 * Test building payload request for order using PayPal Express Payment.
+	 */
+	public function testBuildRequestForPaypalExpressPayment()
+	{
+		$expectedPayload = $this->_loadXmlTestString(__DIR__ . '/RequestTest/fixtures/RiskInsightRequestForPayPalExpress.xml');
+		$request = Mage::getModel('ebayenterprise_riskinsight/build_request', array(
+			'insight' => $this->_buildRiskInsight(),
+			'order' => $this->_buildPaypalExpressOrder(),
 			'product' => $this->_buildProduct(),
 			'quote' => $this->_buildQuote(),
 			'config' => $this->_buildConfig(),

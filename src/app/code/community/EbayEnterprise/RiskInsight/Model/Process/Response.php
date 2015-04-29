@@ -18,7 +18,7 @@
 class EbayEnterprise_RiskInsight_Model_Process_Response
 	implements EbayEnterprise_RiskInsight_Model_Process_IResponse
 {
-	/** @var EbayEnterprise_RiskInsight_Model_IPayload */
+	/** @var EbayEnterprise_RiskInsight_Sdk_IPayload */
 	protected $_response;
 	/** @var EbayEnterprise_RiskInsight_Model_Risk_Insight */
 	protected $_insight;
@@ -29,7 +29,7 @@ class EbayEnterprise_RiskInsight_Model_Process_Response
 
 	/**
 	 * @param array $initParams Must have this key:
-	 *                          - 'response' => EbayEnterprise_RiskInsight_Model_IPayload
+	 *                          - 'response' => EbayEnterprise_RiskInsight_Sdk_IPayload
 	 *                          - 'insight' => EbayEnterprise_RiskInsight_Model_Risk_Insight
 	 *                          - 'order' => Mage_Sales_Model_Order
 	 *                          - 'config' => EbayEnterprise_RiskInsight_Helper_Config
@@ -47,14 +47,14 @@ class EbayEnterprise_RiskInsight_Model_Process_Response
 	/**
 	 * Type hinting for self::__construct $initParams
 	 *
-	 * @param  EbayEnterprise_RiskInsight_Model_IPayload
+	 * @param  EbayEnterprise_RiskInsight_Sdk_IPayload
 	 * @param  EbayEnterprise_RiskInsight_Model_Risk_Insight
 	 * @param  Mage_Sales_Model_Order
 	 * @param  EbayEnterprise_RiskInsight_Helper_Config
 	 * @return array
 	 */
 	protected function _checkTypes(
-		EbayEnterprise_RiskInsight_Model_IPayload $response,
+		EbayEnterprise_RiskInsight_Sdk_IPayload $response,
 		EbayEnterprise_RiskInsight_Model_Risk_Insight $insight,
 		Mage_Sales_Model_Order $order,
 		EbayEnterprise_RiskInsight_Helper_Config $config
@@ -77,7 +77,7 @@ class EbayEnterprise_RiskInsight_Model_Process_Response
 
 	public function process()
 	{
-		if ($this->_response instanceof EbayEnterprise_RiskInsight_Model_Response) {
+		if ($this->_response instanceof EbayEnterprise_RiskInsight_Sdk_Response) {
 			switch ($this->_response->getResponseReasonCode()) {
 				case static::RESPONSE_CODE_HIGH:
 					$this->_processHighRiskOrder();
@@ -95,7 +95,7 @@ class EbayEnterprise_RiskInsight_Model_Process_Response
 
 			// Updating the Risk Insight record with response data.
 			$this->_updateRiskInsight();
-		} elseif ($this->_response instanceof EbayEnterprise_RiskInsight_Model_Error) {
+		} elseif ($this->_response instanceof EbayEnterprise_RiskInsight_Sdk_Error) {
 			$this->_processError();
 		}
 		return $this;

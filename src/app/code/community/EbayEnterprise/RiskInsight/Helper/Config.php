@@ -93,14 +93,14 @@ class EbayEnterprise_RiskInsight_Helper_Config
 	}
 
 	/**
-	 * retrieve the API encrypted key from store config
+	 * retrieve the API encrypted key from store config and decrypt it.
 	 *
 	 * @param  mixed
 	 * @return string
 	 */
 	public function getApiKey($store=null)
 	{
-		return Mage::getStoreConfig(static::API_KEY, $store);
+		return Mage::helper('core')->decrypt(Mage::getStoreConfig(static::API_KEY, $store));
 	}
 
 	/**

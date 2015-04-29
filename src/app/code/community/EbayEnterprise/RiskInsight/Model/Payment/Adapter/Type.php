@@ -15,6 +15,9 @@
  *
  */
 
+/**
+ * @codeCoverageIgnore
+ */
 class EbayEnterprise_RiskInsight_Model_Payment_Adapter_Type
 	extends EbayEnterprise_RiskInsight_Model_Payment_Adapter_Type_Abstract
 	implements EbayEnterprise_RiskInsight_Model_Payment_Adapter_IType

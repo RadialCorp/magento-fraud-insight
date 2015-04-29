@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RiskInsightRequest xmlns="http://schema.gsicommerce.com/risk/insight/1.0/">
+	<PrimaryLangId>en</PrimaryLangId>
+	<Order>
+		<OrderId>10000000011</OrderId>
+		<OrderSource>WEBSTORE</OrderSource>
+		<OrderDate>2015-03-18T15:57:01+00:00</OrderDate>
+		<StoreId>1234</StoreId>
+		<ShippingList>
+			<Shipment ShipmentId="1">
+				<PersonName>
+					<LastName>Testy</LastName>
+					<FirstName>Tester</FirstName>
+				</PersonName>
+				<Telephone>
+					<Number>555-555-5555</Number>
+				</Telephone>
+				<Address>
+					<Line1>630 Allendale Rd</Line1>
+					<City>KING OF PRUSSIA</City>
+					<PostalCode>19406-1342</PostalCode>
+					<MainDivisionCode>PA</MainDivisionCode>
+					<CountryCode>US</CountryCode>
+				</Address>
+				<ShippingMethod>freeshipping_freeshipping</ShippingMethod>
+			</Shipment>
+			<Shipment ShipmentId="2">
+				<PersonName>
+					<LastName>Testy</LastName>
+					<FirstName>Tester</FirstName>
+				</PersonName>
+				<Email>test@example.com</Email>
+				<ShippingMethod>EMAIL</ShippingMethod>
+			</Shipment>
+		</ShippingList>
+		<LineItems>
+			<LineItem LineItemId="1" ShipmentId="1">
+				<ProductId>ace000</ProductId>
+				<Description>Aviator Sunglasses</Description>
+				<UnitCost>100.00</UnitCost>
+				<UnitCurrencyCode>USD</UnitCurrencyCode>
+				<Quantity>1</Quantity>
+				<Category>Root Catalog-&gt;Default Category,Root Catalog,Root Catalog-&gt;Default Category</Category>
+			</LineItem>
+			<LineItem LineItemId="2" ShipmentId="2">
+				<ProductId>hkp38832</ProductId>
+				<Description>5 Year Warranty</Description>
+				<UnitCost>100.00</UnitCost>
+				<UnitCurrencyCode>USD</UnitCurrencyCode>
+				<Quantity>1</Quantity>
+				<Category>Root Catalog-&gt;Default Category,Root Catalog,Root Catalog-&gt;Default Category</Category>
+			</LineItem>
+		</LineItems>
+		<FormOfPayments>
+			<FormOfPayment>
+				<PaymentCard>
+					<PaymentAccountUniqueId isToken="false">P9PMKWC782MJ8</PaymentAccountUniqueId>
+					<CardType>PY</CardType>
+				</PaymentCard>
+				<PersonName>
+					<LastName>Testy</LastName>
+					<FirstName>Tester</FirstName>
+				</PersonName>
+				<Email>test@example.com</Email>
+				<Telephone>
+					<Number>555-555-5555</Number>
+				</Telephone>
+				<Address>
+					<Line1>630 Allendale Rd</Line1>
+					<City>KING OF PRUSSIA</City>
+					<PostalCode>19406-1342</PostalCode>
+					<MainDivisionCode>PA</MainDivisionCode>
+					<CountryCode>US</CountryCode>
+				</Address>
+				<PaymentTransactionDate>2015-03-18T15:57:01+00:00</PaymentTransactionDate>
+				<CurrencyCode>USD</CurrencyCode>
+				<Amount>278.75</Amount>
+				<TransactionResponses>
+					<TransactionResponse ResponseType="PayPalPayer">verified</TransactionResponse>
+					<TransactionResponse ResponseType="PayPalAddress">confirmed</TransactionResponse>
+				</TransactionResponses>
+			</FormOfPayment>
+		</FormOfPayments>
+		<DeviceInfo>
+			<HttpHeaders>
+				<HttpHeader name="Authorization"/>
+				<HttpHeader name="Host">digi-ucp.com</HttpHeader>
+				<HttpHeader name="User-Agent">Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:36.0) Gecko/20100101 Firefox/36.0</HttpHeader>
+			</HttpHeaders>
+		</DeviceInfo>
+	</Order>
+</RiskInsightRequest>
