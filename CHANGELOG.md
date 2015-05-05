@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+### Fixed
+- Frontend orders report as WEBSTORE and admin orders report as DASHBOARD
+
+### Moved
+- Payload classes out of Magento module into lib directory
+
+### Added
+- Send feedback request when an order is canceled or completed
+
 ## [1.0.0-alpha-3] - 2015-04-24
 ### Added
 - Support for non-credit card payments
