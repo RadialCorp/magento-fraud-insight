@@ -1,15 +1,15 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## Unreleased
-### Fixed
-- Frontend orders report as WEBSTORE and admin orders report as DASHBOARD
-
-### Moved
-- Payload classes out of Magento module into lib directory
-
+## [1.0.0-alpha-4] - 2015-05-07
 ### Added
 - Send feedback request when an order is canceled or completed
+
+### Changed
+- Moved payload classes out of Magento module into lib directory
+
+### Fixed
+- Orders placed from the frontend are reported to the risk service as "DASHBOARD" rather than "WEBSTORE"
 
 ## [1.0.0-alpha-3] - 2015-04-24
 ### Added
@@ -30,5 +30,6 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Initial development release
 
+[1.0.0-alpha-4]: https://github.com/eBayEnterprise/magento-risk-insight/compare/1.0.0-alpha-3...1.0.0-alpha-4
 [1.0.0-alpha-3]: https://github.com/eBayEnterprise/magento-risk-insight/compare/1.0.0-alpha-2...1.0.0-alpha-3
 [1.0.0-alpha-2]: https://github.com/eBayEnterprise/magento-risk-insight/compare/1.0.0-alpha-1...1.0.0-alpha-2
