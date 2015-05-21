@@ -130,9 +130,9 @@ EOF;
 	 * @param  mixed
 	 * @return mixed
 	 */
-	protected function _getNewSdkInstance($class, $argments=array())
+	protected function _getNewSdkInstance($class, $arguments=array())
 	{
-		return new $class($argments);
+		return new $class($arguments);
 	}
 
 	/**
