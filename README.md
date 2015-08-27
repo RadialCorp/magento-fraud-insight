@@ -19,30 +19,79 @@ The Risk Insight Extension enabled automatic high to low fraud transaction detec
 1. Under the Response Actions are 4 select box for each possible response returned by the Risk Insight API (HIGH, MEDIUM, LOW, UNKNOWN) and for each response you can choose to Process, Hold for Review or Cancel and order.
 1. Place test transaction to confirm installation.
 
+
+## How to get Risk Insight API Credentials
+
+
+- Please contact [sales@ebayenterprise.com](mailto:sales@ebayenterprise.com) to get Risk Insight API Hostname, API Key and Store Id in order to configure your extension.
+
+
 ## How to install the Risk Insight Extension on a Vanilla Magento Webstore
 
 
 Assumption: you are on a Linux system with `Apache`, `PHP`, `MySQL` and `git` installed.
 
 
-### STEP 1: Clone the `magento-risk-insight` repository from gitlab
+### Recommended option: Installing the Risk Insight Extension using composer
+
+
+#### STEP 1: Install composer in your system, [Click Here](https://getcomposer.org/doc/00-intro.md#installation-linux-unix-osx)
+
+
+#### STEP 2: Create a composer.json file in the root folder of your Vanilla Magento Store
+```json
+{
+    "name": "ebayenterprise/magento-with-risk-insight",
+    "description": "Installation of the eBay Enterprise Risk Insight Extension in Magento",
+    "license": "proprietary",
+    "type": "project",
+    "require": {
+        "ebayenterprise/magento-risk-insight": "dev-master"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://gitlab.gspt.net/Cheetah/magento-risk-insight.git"
+        },
+        {
+            "type": "composer",
+            "url": "http://packages.firegento.com"
+        }
+    ],
+    "extra": {
+        "magento-deploystrategy": "copy",
+        "magento-root-dir": "./"
+    }
+}
+```
+
+
+#### STEP 3: run the following command `composer install`, if run successfully you should be able to configure Risk Insight Setting from Admin.
+
+
+### Alternate option: Installing the Risk Insight Extension using Magento Connect Manager
+
+
+#### STEP 1: Clone the `magento-risk-insight` repository from gitlab
 - You need `git` install on your environment
 - Run command: `git clone https://gitlab.gspt.net/Cheetah/magento-risk-insight.git`
 
 
-### STEP 2: Use the `MagentoTarToConnect` tool to create Magento Connect Archive of the Risk Insight Extension
+#### STEP 2: Use the `MagentoTarToConnect` tool to create Magento Connect Archive of the Risk Insight Extension
 - Clone the `MagentoTarToConnect` repository from the public github
 - Run command: `git clone https://github.com/astorm/MagentoTarToConnect.git`
 
 
-### STEP 3: Creating Magento Compatible Tarball of the Risk Insight Extension
+#### STEP 3: Creating Magento Compatible Tarball of the Risk Insight Extension
 - `CD` to where you clone the `magento-risk-insight` repository
 - Run command: `php /path/to/MagentoTarToConnect/magento-tar-to-connect.php deploy/extension-config.php`
 - The command above will create a `build` directory under the current `magento-risk-insight` directory
 - In the `build` directory there will be an `eBay_Enterprise_Risk_Insight_Extension.tar` file
 
 
-### STEP 4: Installing the Risk Extension in your Vanilla Magento Webstore
+#### STEP 4: Installing the Risk Extension in your Vanilla Magento Webstore
 - Navigate to this URL in your webstore `http://<webstore-domain>.com/downloader/`
 - ![magento-connect-manager-login](docs/static/magento-connect-manager-login.png)
 - Enter the same user name and password you use to login into admin of your webstore
