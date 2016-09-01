@@ -224,6 +224,8 @@
 					<pbridge_payone_debit>ebayenterprise_riskinsight/payment_adapter_pbridge</pbridge_payone_debit>
 					<ogone>ebayenterprise_riskinsight/payment_adapter_default</ogone>
 					<purchaseorder>ebayenterprise_riskinsight/payment_adapter_purchase_order</purchaseorder>
+					<radial_paypal_express>radial_eb2cfraud/payment_adapter_paypal_radialexpress</radial_paypal_express>
+                                        <radial_creditcard>radial_eb2cfraud/payment_adapter_radialcreditcard</radial_creditcard>
 				</payment_adapter_map>
 			</risk_insight>
 		</ebayenterprise_riskinsight>
