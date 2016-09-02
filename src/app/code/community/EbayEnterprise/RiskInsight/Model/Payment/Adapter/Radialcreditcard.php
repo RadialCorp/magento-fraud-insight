@@ -15,8 +15,8 @@
  *
  */
 
-class Radial_Eb2cFraud_Model_Payment_Adapter_Radialcreditcard
-        extends Radial_Eb2cFraud_Model_Payment_Adapter_Type
+class EbayEnterprise_RiskInsight_Model_Payment_Adapter_Radialcreditcard
+        extends EbayEnterprise_RiskInsight_Model_Payment_Adapter_Type
 {
         protected function _initialize()
         {
