@@ -1,6 +1,6 @@
 {
-	"name": "ebayenterprise/magento-risk-insight",
-	"description": "eBay Enterprise Risk Insight Magento Extension",
+	"name": "radial/magento-fraud-insight",
+	"description": "Radial Fraud Insight Magento Extension",
 	"license": "proprietary",
 	"authors": [
 		{
@@ -18,6 +18,10 @@
 		{
 			"name": "Reginald Gabriel",
 			"email": "rgabriel@ebay.com"
+		},
+		{
+			"name": "Yugesh Ramteke",
+			"email": "yramteke@radial.com"
 		}
 	],
 	"type": "magento-module",
