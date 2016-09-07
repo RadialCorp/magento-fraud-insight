@@ -222,6 +222,8 @@ http://opensource.org/licenses/osl-3.0.php
 					<pbridge_payone_debit>radial_fraudinsight/payment_adapter_pbridge</pbridge_payone_debit>
 					<ogone>radial_fraudinsight/payment_adapter_default</ogone>
 					<purchaseorder>radial_fraudinsight/payment_adapter_purchase_order</purchaseorder>
+					<radial_creditcard>radial_fraudinsight/payment_adapter_radialcreditcard</radial_creditcard>
+					<radial_paypal_express>radial_fraudinsight/payment_adapter_paypal_radialexpress</radial_paypal_express>
 				</payment_adapter_map>
 			</fraud_insight>
 		</radial_fraudinsight>
