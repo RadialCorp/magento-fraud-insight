@@ -45,7 +45,7 @@ class Radial_FraudInsight_Helper_Data extends Mage_Core_Helper_Abstract
 				$headers[str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
 			}
 		}
-		
+
 		return $headers;
 	}
 

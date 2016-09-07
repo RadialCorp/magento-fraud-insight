@@ -67,4 +67,14 @@ class Radial_FraudInsight_Fraud_Insight_Order_CheckController
 		}
 		return $this;
 	}
+
+    /**
+     * Check access (in the ACL) for current user.
+     *
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return Mage::getSingleton('admin/session')->isAllowed('system/config/radial_fraudinsight');
+    }
 }

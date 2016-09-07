@@ -173,8 +173,6 @@ class Radial_FraudInsight_Model_Risk_Order
 			'insight' => $insight,
 			'order' => $order,
 		))->process();
-
-		return $this;
 	}
 
 	/**
