@@ -1,16 +1,18 @@
 <?php
 /**
- * Copyright (c) 2013-2016 Radial Commerce Inc.
+ * Copyright (c) 2015 eBay Enterprise, Inc.
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
+ * This source file is subject to the eBay Enterprise
+ * Magento Extensions End User License Agreement
  * that is bundled with this package in the file LICENSE.md.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf
  *
- * @copyright   Copyright (c) 2013-2016 Radial Commerce Inc. (http://www.radial.com/)
- * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright   Copyright (c) 2015 eBay Enterprise, Inc. (http://www.ebayenterprise.com/)
+ * @license     http://www.ebayenterprise.com/files/pdf/Magento_Connect_Extensions_EULA_050714.pdf  eBay Enterprise Magento Extensions End User License Agreement
+ *
  */
 
 class Radial_FraudInsight_Sdk_Feedback
@@ -28,7 +30,7 @@ class Radial_FraudInsight_Sdk_Feedback
 	/** @var string */
 	protected $_actionTakenDescription;
 	/** @var bool */
-	protected $_chargeBackFlag;
+	protected $_chargeBackCode;
 	/** @var string */
 	protected $_chargeBackFlagDescription;
 
@@ -43,7 +45,7 @@ class Radial_FraudInsight_Sdk_Feedback
 			'setPrimaryLangId' => 'x:PrimaryLangId',
 			'setActionTaken' => 'x:ActionTaken',
 			'setActionTakenDescription' => 'x:ActionTakenDescription',
-			'setChargeBackFlag' => 'x:ChargeBackFlag',
+			'setChargeBackCode' => 'x:ChargeBackCode',
 			'setChargeBackFlagDescription' => 'x:ChargeBackFlagDescription',
 		);
 	}
@@ -134,19 +136,19 @@ class Radial_FraudInsight_Sdk_Feedback
 	}
 
 	/**
-	 * @see Radial_FraudInsight_Sdk_IFeedback::getChargeBackFlag()
+	 * @see Radial_FraudInsight_Sdk_IFeedback::getChargeBackCode()
 	 */
-	public function getChargeBackFlag()
+	public function getChargeBackCode()
 	{
-		return $this->_chargeBackFlag;
+		return $this->_chargeBackCode;
 	}
 
 	/**
-	 * @see Radial_FraudInsight_Sdk_IFeedback::setChargeBackFlag()
+	 * @see Radial_FraudInsight_Sdk_IFeedback::setChargeBackCode()
 	 */
-	public function setChargeBackFlag($chargeBackFlag)
+	public function setChargeBackCode($chargeBackCode)
 	{
-		$this->_chargeBackFlag = $chargeBackFlag;
+		$this->_chargeBackCode = $chargeBackCode;
 		return $this;
 	}
 
@@ -201,7 +203,7 @@ class Radial_FraudInsight_Sdk_Feedback
 			. $this->_serializeNode('StoreId', $this->getStoreId())
 			. $this->_serializeOptionalValue('ActionTaken', $this->getActionTaken())
 			. $this->_serializeOptionalValue('ActionTakenDescription', $this->getActionTakenDescription())
-			. $this->_serializeOptionalValue('ChargeBackFlag', $this->getChargeBackFlag())
+			. $this->_serializeOptionalValue('ChargeBackCode', $this->getChargeBackCode())
 			. $this->_serializeOptionalValue('ChargeBackFlagDescription', $this->getChargeBackFlagDescription());
 	}
 }

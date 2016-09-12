@@ -15,6 +15,6 @@
 
 interface Radial_FraudInsight_Model_Build_IFeedback extends Radial_FraudInsight_Model_Build_IRequest
 {
-	const CHARGE_BACK_FLAG = 'false';
+	const CHARGE_BACK_CODE = 'false';
 	const CHARGE_BACK_FLAG_DESCRIPTION = 'No charge back';
 }

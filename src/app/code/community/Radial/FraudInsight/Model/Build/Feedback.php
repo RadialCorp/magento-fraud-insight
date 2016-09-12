@@ -92,7 +92,7 @@ class Radial_FraudInsight_Model_Build_Feedback
 			->setStoreId($this->_config->getStoreId())
 			->setActionTaken($this->_order->getState())
 			->setActionTakenDescription($this->_order->getStatus())
-			->setChargeBackFlag(static::CHARGE_BACK_FLAG)
+			->setChargeBackCode(static::CHARGE_BACK_FLAG)
 			->setChargeBackFlagDescription(static::CHARGE_BACK_FLAG_DESCRIPTION);
 		return $this;
 	}
