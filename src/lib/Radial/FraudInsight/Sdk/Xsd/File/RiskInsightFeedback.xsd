@@ -16,7 +16,7 @@
             <xsd:element type="StoreIdType" name="StoreId"/>
             <xsd:element type="xsd:string" name="ActionTaken" minOccurs="0"/>
             <xsd:element type="xsd:string" name="ActionTakenDescription" minOccurs="0"/>
-            <xsd:element type="xsd:boolean" name="ChargeBackFlag" minOccurs="0"/>
+            <xsd:element type="xsd:boolean" name="ChargeBackCode" minOccurs="0"/>
             <xsd:element type="xsd:string" name="ChargeBackFlagDescription" minOccurs="0"/>
         </xsd:sequence>
     </xsd:complexType>
