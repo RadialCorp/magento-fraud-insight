@@ -81,11 +81,11 @@ $orderStoreDate = $this->formatDate($_order->getCreatedAtStoreDate(), 'medium', 
 			<?php endif; ?>
 			<?php if($this->isRiskInsightEnabled() && (int) $_riskInsight->getIsRequestSent()): ?>
 			<tr>
-				<td class="label"><label><?php echo Mage::helper('sales')->__('Risk Insight Response Code') ?></label></td>
+				<td class="label"><label><?php echo Mage::helper('sales')->__('Fraud Insight Response Code') ?></label></td>
 				<td class="value"><strong><?php echo $_riskInsight->getResponseReasonCode(); ?></strong></td>
 			</tr>
 			<tr>
-				<td class="label"><label><?php echo Mage::helper('sales')->__('Risk Insight Response Description') ?></label></td>
+				<td class="label"><label><?php echo Mage::helper('sales')->__('Fraud Insight Response Description') ?></label></td>
 				<td class="value"><strong><?php echo $_riskInsight->getResponseReasonCodeDescription(); ?></strong></td>
 			</tr>
 			<?php endif; ?>

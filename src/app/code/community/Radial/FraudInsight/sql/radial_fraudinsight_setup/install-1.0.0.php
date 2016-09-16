@@ -72,8 +72,8 @@ $conn->createTable($table);
 
 // Add Risk Order Statuses and States
 $data = array(
-	array('status' => 'risk_review', 'label' => 'Risk Review', 'is_default' => 0, 'state' => Mage_Sales_Model_Order::STATE_HOLDED),
-	array('status' => 'risk_canceled', 'label' => 'Risk Canceled', 'is_default' => 0, 'state' => Mage_Sales_Model_Order::STATE_CANCELED),
+	array('status' => 'risk_review', 'label' => 'Fraud Review', 'is_default' => 0, 'state' => Mage_Sales_Model_Order::STATE_HOLDED),
+	array('status' => 'risk_canceled', 'label' => 'Fraud Canceled', 'is_default' => 0, 'state' => Mage_Sales_Model_Order::STATE_CANCELED),
 );
 $statusFields = array('status', 'label');
 $stateFields = array('status', 'state', 'is_default');

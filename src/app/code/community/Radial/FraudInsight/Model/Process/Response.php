@@ -76,6 +76,9 @@ class Radial_FraudInsight_Model_Process_Response
 	public function process()
 	{
 		if ($this->_response instanceof Radial_FraudInsight_Sdk_Response) {
+            // Updating the Risk Insight record with response data.
+            $this->_updateRiskInsight();
+
 			switch ($this->_response->getResponseReasonCode()) {
 				case static::RESPONSE_CODE_HIGH:
 					$this->_processHighRiskOrder();
@@ -90,9 +93,6 @@ class Radial_FraudInsight_Model_Process_Response
 					$this->_processUnknownRiskOrder();
 					break;
 			}
-
-			// Updating the Risk Insight record with response data.
-			$this->_updateRiskInsight();
 		} elseif ($this->_response instanceof Radial_FraudInsight_Sdk_Error) {
 			$this->_processError();
 		}

@@ -28,7 +28,7 @@ class Radial_FraudInsight_Block_Adminhtml_Sales_Order_View
 		parent::__construct();
 		if ($this->_canShowRiskInsightButton()) {
 			$this->_addButton('order_risk_insight', array(
-				'label' => Mage::helper('sales')->__('Risk Insight'),
+				'label' => Mage::helper('sales')->__('Fraud Insight'),
 				'onclick' => "setLocation('{$this->getRiskInsightUrl()}')",
 			));
 		}
