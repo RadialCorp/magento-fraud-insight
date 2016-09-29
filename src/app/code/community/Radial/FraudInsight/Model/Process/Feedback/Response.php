@@ -145,7 +145,6 @@ class Radial_FraudInsight_Model_Process_Feedback_Response
 			$this->_incrementFeedbackAttemptCount()
 				->setIsFeedbackSent(1)
 				->setActionTakenAcknowledgement($this->_sdkHelper->convertStringToBoolean($this->_response->getActionTakenAcknowledgement()))
-				->setChargeBackAcknowledgement($this->_sdkHelper->convertStringToBoolean($this->_response->getChargeBackAcknowledgement()))
 				->save();
 		}
 		return $this;
