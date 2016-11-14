@@ -636,6 +636,9 @@ class Radial_FraudInsight_Model_Build_Request
 	 */
 	protected function _buildHttpHeader(Radial_FraudInsight_Sdk_Http_IHeader $subPayloadHttpHeader, $name, $message)
 	{
+        if ($name == 'Referer') {
+            $message = '<![CDATA[' . $message . ']]>';
+        }
 		$subPayloadHttpHeader->setHeader($message)
 			->setName($name);
 		return $this;
