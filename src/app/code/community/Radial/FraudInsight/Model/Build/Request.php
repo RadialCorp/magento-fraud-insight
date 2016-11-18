@@ -27,10 +27,10 @@ class Radial_FraudInsight_Model_Build_Request
 	protected $_quote;
 	/** @var Radial_FraudInsight_Helper_Data */
 	protected $_helper;
-    /** @var Radial_FraudInsight_Helper_Http */
-    protected $_httpHelper;
 	/** @var Radial_FraudInsight_Helper_Config */
 	protected $_config;
+    /** @var Mage_Core_Helper_String */
+    protected $_stringHelper;
 	/** @var Mage_Catalog_Model_Product */
 	protected $_product;
 	/** @var string */
@@ -45,20 +45,20 @@ class Radial_FraudInsight_Model_Build_Request
 	 *                          - 'order' => Mage_Sales_Model_Order
 	 *                          - 'quote' => Mage_Sales_Model_Quote
 	 *                          - 'helper' => Radial_FraudInsight_Helper_Data
-     *                          - 'httpHelper' => Radial_FraudInsight_Helper_HTTP
 	 *                          - 'config' => Radial_FraudInsight_Helper_Config
+     *                          - 'stringHelper' => Mage_Core_Helper_String
 	 *                          - 'product' => Mage_Catalog_Model_Product
 	 */
 	public function __construct(array $initParams=array())
 	{
-		list($this->_request, $this->_insight, $this->_order, $this->_quote, $this->_helper, $this->_httpHelper, $this->_config, $this->_product) = $this->_checkTypes(
+		list($this->_request, $this->_insight, $this->_order, $this->_quote, $this->_helper, $this->_config, $this->_stringHelper, $this->_product) = $this->_checkTypes(
 			$this->_nullCoalesce($initParams, 'request', $this->_getNewSdkInstance('Radial_FraudInsight_Sdk_Request')),
 			$this->_nullCoalesce($initParams, 'insight', Mage::getModel('radial_fraudinsight/risk_insight')),
 			$this->_nullCoalesce($initParams, 'order', $initParams['order']),
 			$this->_nullCoalesce($initParams, 'quote', Mage::getModel('sales/quote')),
 			$this->_nullCoalesce($initParams, 'helper', Mage::helper('radial_fraudinsight')),
-            $this->_nullCoalesce($initParams, 'httpHelper', Mage::helper('radial_fraudinsight/http')),
 			$this->_nullCoalesce($initParams, 'config', Mage::helper('radial_fraudinsight/config')),
+            $this->_nullCoalesce($initParams, 'stringHelper', Mage::helper('core/string')),
 			$this->_nullCoalesce($initParams, 'product', Mage::getModel('catalog/product'))
 		);
 	}
@@ -71,8 +71,8 @@ class Radial_FraudInsight_Model_Build_Request
 	 * @param  Mage_Sales_Model_Order
 	 * @param  Mage_Sales_Model_Quote
 	 * @param  Radial_FraudInsight_Helper_Data
-     * @param  Radial_FraudInsight_Helper_Http
 	 * @param  Radial_FraudInsight_Helper_Config
+     * @param  Mage_Core_Helper_String
 	 * @param  Mage_Catalog_Model_Product
 	 * @return array
 	 */
@@ -82,11 +82,11 @@ class Radial_FraudInsight_Model_Build_Request
 		Mage_Sales_Model_Order $order,
 		Mage_Sales_Model_Quote $quote,
 		Radial_FraudInsight_Helper_Data $helper,
-        Radial_FraudInsight_Helper_Http $httpHelper,
 		Radial_FraudInsight_Helper_Config $config,
+        Mage_Core_Helper_String $stringHelper,
 		Mage_Catalog_Model_Product $product
 	) {
-		return array($request, $insight, $order, $quote, $helper, $httpHelper, $config, $product);
+		return array($request, $insight, $order, $quote, $helper, $config, $stringHelper, $product);
 	}
 
 	public function build()
@@ -626,30 +626,14 @@ class Radial_FraudInsight_Model_Build_Request
 	 */
 	protected function _buildHttpHeaders(Radial_FraudInsight_Sdk_Http_IHeaders $subPayloadHttpHeaders)
 	{
-        $httpHeaderZend = array(
-            array( 'name' => 'host', 'message' => $this->_httpHelper->getHttpHost()),
-            array( 'name' => 'origin', 'message' => $this->_httpHelper->getHttpOrigin()),
-            array( 'name' => 'x-prototype-version', 'message' => $this->_httpHelper->getHttpXPrototypeVersion()),
-            array( 'name' => 'x-requested-with', 'message' => $this->_httpHelper->getHttpXRequestedWith()),
-            array( 'name' => 'user-agent', 'message' => $this->_httpHelper->getHttpUserAgent()),
-            array( 'name' => 'accept', 'message' => $this->_httpHelper->getHttpAccept()),
-            array( 'name' => 'accept-language', 'message' => $this->_httpHelper->getHttpAcceptLanguage()),
-            array( 'name' => 'accept-encoding', 'message' => $this->_httpHelper->getHttpAcceptEncoding()),
-            array( 'name' => 'cookie', 'message' => $this->_httpHelper->getCookiesString()),
-            array( 'name' => 'x-forwarded-proto', 'message' => $this->_httpHelper->getHttpXForwardedProto()),
-            array( 'name' => 'x-forwarded-for', 'message' => $this->_httpHelper->getHttpXForwardedFor()),
-            array( 'name' => 'content-type', 'message' => $this->_httpHelper->getHttpContentType()),
-            array( 'name' => 'connection', 'message' => $this->_httpHelper->getHttpConnection()),
-            array( 'name' => 'accept-charset', 'message' => $this->_httpHelper->getHttpAcceptCharset()),
-            array( 'name' => 'referer', 'message' => $this->_httpHelper->getHttpReferrer())
-        );
-        foreach ($httpHeaderZend as $headerProperty) {
-            if (isset($headerProperty['message']) && $headerProperty['message'] != null) {
-                $subPayloadHttpHeader = $subPayloadHttpHeaders->getEmptyHttpHeader();
-                $this->_buildHttpHeader($subPayloadHttpHeader, $headerProperty['name'], $headerProperty['message']);
-                $subPayloadHttpHeaders->offsetSet($subPayloadHttpHeader);
-            }
+        foreach ($this->_getHttpHeaders() as $name => $message) {
+            // Clean message string to format the valid xml request
+            $message = htmlentities($this->_stringHelper->cleanString($message), ENT_QUOTES, 'UTF-8');
+            $subPayloadHttpHeader = $subPayloadHttpHeaders->getEmptyHttpHeader();
+            $this->_buildHttpHeader($subPayloadHttpHeader, $name, $message);
+            $subPayloadHttpHeaders->offsetSet($subPayloadHttpHeader);
         }
+
         return $this;
 	}
 
